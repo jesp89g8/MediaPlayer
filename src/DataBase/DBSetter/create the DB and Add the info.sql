@@ -1,48 +1,79 @@
 CREATE DATABASE database_MusicLibrary;
 
-GO
 use database_MusicLibrary;
 
 create table table_music
 (
-    fldMusicID int,
+    fldMusicID   int not null
+    constraint table_music_pk
+    primary key nonclustered,
     fldMusicName varchar(90),
-    fldArtist varchar(80),
-    fldType varchar(30),
-    fldOffer varchar(10),
-    fldPath varchar(200),
-    fldLanguage varchar(30)
+    fldArtist    varchar(80),
+    fldType      varchar(30),
+    fldOffer     varchar(10),
+    fldPath      varchar(200),
+    fldLanguage  varchar(30)
 )
-CREATE TABLE department(dept_no CHAR(4) NOT NULL,
-                        dept_name CHAR(25) NOT NULL,
-                        location CHAR(30) NULL)
-CREATE TABLE project   (project_no CHAR(4) NOT NULL,
-                        project_name CHAR(15) NOT NULL,
-                        budget FLOAT NULL)
-CREATE TABLE works_on	(emp_no INTEGER NOT NULL,
-                        project_no CHAR(4) NOT NULL,
-                        job CHAR (15) NULL,
-                        enter_date DATE NULL)
 
-insert into department values ('d1', 'research','Dallas')
-insert into department values ('d2', 'accounting', 'Seattle')
-insert into department values ('d3', 'marketing', 'Dallas')
-insert into project values ('p1', 'Apollo', 120000.00)
-insert into project values ('p2', 'Gemini', 95000.00)
-insert into project values ('p3', 'Mercury', 186500.00)
-insert into works_on values (10102,'p1', 'analyst', '2006.10.1')
-insert into works_on values (10102, 'p3', 'manager', '2008.1.1')
-insert into works_on values (25348, 'p2', 'clerk', '2007.2.15')
-insert into works_on values (18316, 'p2', NULL, '2007.6.1')
-insert into works_on values (29346, 'p2', NULL, '2006.12.15')
-insert into works_on values (2581, 'p3', 'analyst', '2007.10.15')
-insert into works_on values (9031, 'p1', 'manager', '2007.4.15')
-insert into works_on values (28559, 'p1', NULL, '2007.8.1')
-insert into works_on values (28559, 'p2', 'clerk', '2008.2.1')
-insert into works_on values (9031, 'p3', 'clerk', '2006.11.15')  
-insert into works_on values (29346, 'p1','clerk', '2007.1.4')
+create table table_Playlist
+(
+    fldPlaylistID   int not null
+        constraint table_Playlist_pk
+            primary key nonclustered,
+    fldPlaylistName varchar(50)
+)
+
+create table table_Songlist
+(
+    fldSongListID int not null
+        constraint table_Songlist_pk
+            primary key nonclustered,
+    fldMusicID    int
+        constraint table_Songlist_table_music_fldMusicID_fk
+            references table_music,
+    fldPlaylistID int
+        constraint table_Songlist_table_Playlist_fldPlaylistID_fk
+            references table_Playlist
+)
+go
 
 
 
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (1, N'Here,After,Us', N'Mayday', N'Rock', N'Fei', N'src/DataBase/MusicSample/FromFei/Here, After, Us - Mayday.mp3', N'Chinese');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (2, N'Mojito', N'JayChou', N'Pop', N'Fei', N'src/DataBase/MusicSample/FromFei/Mojito - JayChou.mp3', N'Chinese');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (3, N'Should''ve let Go', N'JJ&Jacksen', N'R&B', N'Fei', N'src/DataBase/MusicSample/FromFei/Should''ve Let Go - JJ & JacksenWang.mp3', N'Chinese');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (4, N'The wind rises', N'QingFeng Wu', N'Pop', N'Fei', N'src/DataBase/MusicSample/FromFei/THE WIND RISES QingFengWu.mp3', N'Chinese');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (5, N'You better not think about me', N'Hebe Tien', N'Pop', N'Fei', N'src/DataBase/MusicSample/FromFei/You Better Not Think About Me - Hebe Tien.mp3', N'Chinese');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (6, N'One call away', N'Charlie Puth', null, N'Jesper', N'src/DataBase/MusicSample/FromJesper/Charlie Puth - One Call Away [Official Video].mp3', N'English');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (7, N'Supermarket Flowers', N'Ed Sheeran', null, N'Jesper', N'src/DataBase/MusicSample/FromJesper/Ed Sheeran - Supermarket Flowers [Official Audio].mp3', N'English');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (8, N'I hate U , I love U', N'Gnash ft., Olivia O''Brien', null, N'Jesper', N'src/DataBase/MusicSample/FromJesper/gnash - i hate u, i love u ft. olivia o''brien (music video).mp3', N'English');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (9, N'Mercy', N'Shawn Mendes', null, N'Jesper', N'src/DataBase/MusicSample/FromJesper/Shawn Mendes - Mercy.mp3', N'English');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (10, N'Youth', N'Troye Sivan', null, N'Jesper', N'src/DataBase/MusicSample/FromJesper/Troye Sivan - YOUTH (Official Video).mp3', N'English');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (11, N'Baazigar O Baazigar', N'Shahrukh Khan', null, N'Zia', N'src/DataBase/MusicSample/FromZia/Baazigar O Baazigar-HD VIDEO SONG Shahrukh Khan & Kajol Baazigar 90''s Superhit Hindi Love.mp3', N'India');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (12, N'Chaiyya Chaiyya', N'Shahrukh Khan', null, N'Zia', N'src/DataBase/MusicSample/FromZia/Chaiyya Chaiyya Full Video Song Dil Se Shahrukh Khan, Malaika Arora Khan Sukhwinder Singh.mp3', N'India');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (13, N'Challa', N'Shahrukh Khan', null, N'Zia', N'src/DataBase/MusicSample/FromZia/Challa Full Song Jab Tak Hai Jaan Shah Rukh Khan, Katrina Kaif Rabbi A. R. Rahman Gu.mp3', N'India');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (14, N'Humko Humise Chura Lo', N'Shahrukh Khan', null, N'Zia', N'src/DataBase/MusicSample/FromZia/Humko Humise Chura Lo Full Song Mohabbatein Shah Rukh Khan, Aishwarya Lata Mangeshkar, U.mp3', N'India');
+INSERT INTO database_MusicLibrary.dbo.table_music (fldMusicID, fldMusicName, fldArtist, fldType, fldOffer, fldPath, fldLanguage) VALUES (15, N'Main Yahaan Hoon', N'Shahrukh Khan', null, N'Zia', N'src/DataBase/MusicSample/FromZia/Main Yahaan Hoon Full Song Veer-Zaara Shah Rukh Khan, Preity Zinta Madan Mohan, Udit Nar.mp3', N'India');
 
 
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (1, 1, 1);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (2, 2, 1);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (3, 3, 1);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (4, 4, 1);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (5, 5, 1);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (6, 6, 2);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (7, 7, 2);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (8, 8, 2);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (9, 9, 2);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (10, 10, 2);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (11, 11, 3);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (12, 12, 3);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (13, 13, 3);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (14, 14, 3);
+INSERT INTO database_MusicLibrary.dbo.table_Songlist (fldSongListID, fldMusicID, fldPlaylistID) VALUES (15, 15, 3);
+
+
+
+INSERT INTO database_MusicLibrary.dbo.table_Playlist (fldPlaylistID, fldPlaylistName) VALUES (1, N'chinese song');
+INSERT INTO database_MusicLibrary.dbo.table_Playlist (fldPlaylistID, fldPlaylistName) VALUES (2, N'english song');
+INSERT INTO database_MusicLibrary.dbo.table_Playlist (fldPlaylistID, fldPlaylistName) VALUES (3, N'india song');
