@@ -1,7 +1,18 @@
-CREATE TABLE employee  (emp_no INTEGER NOT NULL,
-                        emp_fname CHAR(20) NOT NULL,
-                        emp_lname CHAR(20) NOT NULL,
-                        dept_no CHAR(4) NULL)
+CREATE DATABASE database_MusicLibrary;
+
+GO
+use database_MusicLibrary;
+
+create table table_music
+(
+    fldMusicID int,
+    fldMusicName varchar(90),
+    fldArtist varchar(80),
+    fldType varchar(30),
+    fldOffer varchar(10),
+    fldPath varchar(200),
+    fldLanguage varchar(30)
+)
 CREATE TABLE department(dept_no CHAR(4) NOT NULL,
                         dept_name CHAR(25) NOT NULL,
                         location CHAR(30) NULL)
@@ -12,13 +23,7 @@ CREATE TABLE works_on	(emp_no INTEGER NOT NULL,
                         project_no CHAR(4) NOT NULL,
                         job CHAR (15) NULL,
                         enter_date DATE NULL)
-insert into employee values(25348, 'Matthew', 'Smith','d3')
-insert into employee values(10102, 'Ann', 'Jones','d3')
-insert into employee values(18316, 'John', 'Barrimore', 'd1')
-insert into employee values(29346, 'James', 'James', 'd2')
-insert into employee values(9031, 'Elsa', 'Bertoni', 'd2')
-insert into employee values(2581, 'Elke', 'Hansel', 'd2')
-insert into employee values(28559, 'Sybill', 'Moser', 'd1')
+
 insert into department values ('d1', 'research','Dallas')
 insert into department values ('d2', 'accounting', 'Seattle')
 insert into department values ('d3', 'marketing', 'Dallas')
