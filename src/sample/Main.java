@@ -15,8 +15,13 @@ public class Main extends Application {
     final String GUI = "MediaPlayer.fxml";
     final String TITLE = "MediaPlayer";
     final String LISTVIEWSONG_FXID = "#listviewSong";
+    final String LISTVIEWPLAYLIST_FXID = "#listviewPlaylist";
     final int RES_WIDTH = 1200;
     final int RES_HEIGHT = 800;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -25,25 +30,32 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, RES_WIDTH, RES_HEIGHT));
         primaryStage.show();
 
-        getSongs(primaryStage);
+        initListviews(primaryStage);
     }
 
     /**
-     * Searches for the song listview, which should contain the available
-     * songs from the database. Queries the database for the songs and
-     * inserts them into the listview.
-     * @param primaryStage stage of the app, used to locate the song listview
+     * Initializes the Song and Playlist Listview
+     * @param primaryStage
      */
-    private void getSongs(Stage primaryStage) {
+    private void initListviews(Stage primaryStage) {
         ListView<String> listviewSong = (ListView<String>) primaryStage.getScene().lookup(LISTVIEWSONG_FXID);
-        ArrayList<String> song = SQL.selectSQL("select fldMusicName from table_music");
+        ListView<String> listviewPlaylist = (ListView<String>) primaryStage.getScene().lookup(LISTVIEWPLAYLIST_FXID);
 
-        for (String songName : song) {
-            listviewSong.getItems().add(songName);
-        }
+        insertIntoListview("select fldMusicName from table_music",listviewSong);
+        insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    /**
+     * Queries the database with a select statement and inserts the output
+     * into the specified listview
+     * @param query select query
+     * @param listview listview to insert into
+     */
+    private void insertIntoListview(String query,ListView<String> listview){
+        ArrayList<String> queryData = SQL.selectSQL(query);
+
+        for (String data : queryData) {
+            listview.getItems().add(data);
+        }
     }
 }
