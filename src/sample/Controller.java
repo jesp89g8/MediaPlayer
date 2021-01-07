@@ -13,7 +13,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Controller {
 
     @FXML
     private Button btnPlay,btnPause,btnStop,btnNewPlaylist,btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist;
@@ -25,7 +25,7 @@ public class Controller implements Initializable {
     private MediaView mediaView;
 
 
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(){
         // Build the path to the location of the media file
         String path = new File("src/DataBase/MusicSample/FromFei/Here, After, Us - Mayday.mp3").getAbsolutePath();
         // Create new Media object (the actual media content)
