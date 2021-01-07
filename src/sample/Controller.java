@@ -22,9 +22,10 @@ public class Controller {
 
     private Media media;
     private MediaPlayer mediaPlayer;
+    int getMusicID = 2;
 
     public String getPath(){
-        DB.selectSQL("select fldPath from table_music where fldMusicID = 1");
+        DB.selectSQL("select fldPath from table_music where fldMusicID = " + getMusicID);
         return DB.getData();
     }
 
