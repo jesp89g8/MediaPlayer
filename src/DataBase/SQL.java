@@ -27,4 +27,12 @@ public class SQL {
 
         return output;
     }
+
+
+    public static String getPath(){
+        int getMusicID = 2;
+
+        DB.selectSQL("select fldPath from table_music where fldMusicID = " + getMusicID);
+        return DB.getData();
+    }
 }

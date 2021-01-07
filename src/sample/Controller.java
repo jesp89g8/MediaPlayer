@@ -1,6 +1,7 @@
 package sample;
 
 import DataBase.DBSetter.DB;
+import DataBase.SQL;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,17 +23,12 @@ public class Controller {
 
     private Media media;
     private MediaPlayer mediaPlayer;
-    int getMusicID = 2;
 
-    public String getPath(){
-        DB.selectSQL("select fldPath from table_music where fldMusicID = " + getMusicID);
-        return DB.getData();
-    }
 
 
     public void initialize(){
         // Build the path to the location of the media file
-        String path = new File(getPath()).getAbsolutePath();
+        String path = new File(SQL.getPath()).getAbsolutePath();
         // Create new Media object (the actual media content)
         media = new Media(new File(path).toURI().toString());
         // Create new MediaPlayer and attach the media to be played
