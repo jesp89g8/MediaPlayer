@@ -22,21 +22,23 @@ public class Controller {
 
     private Media media;
     private MediaPlayer mediaPlayer;
-    private MediaView mediaView;
+
+    public String getPath(){
+        DB.selectSQL("select fldPath from table_music where fldMusicID = 1");
+        return DB.getData();
+    }
 
 
     public void initialize(){
         // Build the path to the location of the media file
-        String path = new File("src/DataBase/MusicSample/FromFei/Here, After, Us - Mayday.mp3").getAbsolutePath();
+        String path = new File(getPath()).getAbsolutePath();
         // Create new Media object (the actual media content)
         media = new Media(new File(path).toURI().toString());
         // Create new MediaPlayer and attach the media to be played
         mediaPlayer = new MediaPlayer(media);
         //
-        mediaView = new MediaView();
-        mediaView.setMediaPlayer(mediaPlayer);
         // mp.setAutoPlay(true);
-        // If autoplay is turned of the method play(), stop(), pause() etc controls how/when medias are played
+        // If autoplay is turned off the method play(), stop(), pause() etc controls how/when medias are played
         mediaPlayer.setAutoPlay(false);
 
     }
@@ -49,15 +51,14 @@ public class Controller {
     }
 
     public void handlePause(){
-
+        mediaPlayer.pause();
     }
 
     public void handleStop(){
-
+        mediaPlayer.stop();
     }
 
     public void handleNewPlayList(){
-
     }
 
     public void handleDeletePlaylist(){
