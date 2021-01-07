@@ -2,6 +2,7 @@ package sample;
 
 import DataBase.DBSetter.DB;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.media.Media;
@@ -12,7 +13,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
 
     @FXML
     private Button btnPlay,btnPause,btnStop,btnNewPlaylist,btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist;
