@@ -29,6 +29,10 @@ public class SQL {
     }
 
 
+    /**
+     * This is working for get the music file path from DB
+     * @return Path : the music file path as String
+     */
     public static String getPath(){
         int getMusicID = 2;
 

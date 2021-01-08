@@ -12,6 +12,7 @@ import javafx.scene.media.MediaView;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 public class Controller {
@@ -26,10 +27,11 @@ public class Controller {
 
 
 
-    public void initialize(){
+    public void initialize() {
         // Build the path to the location of the media file
         String path = new File(SQL.getPath()).getAbsolutePath();
         // Create new Media object (the actual media content)
+
         media = new Media(new File(path).toURI().toString());
         // Create new MediaPlayer and attach the media to be played
         mediaPlayer = new MediaPlayer(media);
