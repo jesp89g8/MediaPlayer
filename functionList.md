@@ -11,7 +11,7 @@
 * Go 5 sec
 * back 5 sec
 
-## playlist modify
+## playlist opration (class)
 
 * add playlist
 * cancel playlist
@@ -23,7 +23,7 @@
     * Double click will play the list
     * when play the list will highlight the song
 
-## playlist control
+## playlist control (class)
 
 * add music 
 * Delete music
@@ -34,7 +34,7 @@
   * one click will choose the song
   * Double click will play the music
 
-# Database
+# Database opration (class)
 
 ***
 
