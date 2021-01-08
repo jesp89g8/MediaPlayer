@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  */
 
 
-public class Controller {
+public class Controller implements Initializable{
 
     @FXML
     private Button btnPlay,btnPause,btnStop,btnNewPlaylist,btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist;
@@ -43,7 +43,7 @@ public class Controller {
 
 
 
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         // Build the path to the location of the media file
         Music musicPath = new Music();
         String path = new File(musicPath.getPath()).getAbsolutePath();

@@ -62,25 +62,23 @@ public class Music {
     }
 
 
-    @Override
-    public String toString() {
-        return "Music{" +
-                "musicID=" + musicID +
-                ", musicName='" + musicName + '\'' +
-                ", Artist='" + Artist + '\'' +
-                ", Path='" + Path + '\'' +
-                '}';
-    }
-
     /**
      * This is working for get the music file path from DB
      * @return Path : the music file path as String
      */
     public String getPath(){
-        Controller musicName = new Controller();
-        String musicPath = musicName.handleTest();
-        ArrayList<String> getMusicPath = SQL.selectSQL("select fldPath from table_music where fldMusicName =" + getMusicName());
 
-        return getMusicPath.get(0);
+        if(new Controller().handleTest() == null){
+           return " ";
+        }else{
+            setMusicName(new Controller().handleTest());
+            ArrayList<String> getMusicPath = SQL.selectSQL("select fldPath from table_music where fldMusicName =" + getMusicName());
+
+            return getMusicPath.get(0);
+        }
+
+
+
+
     }
 }
