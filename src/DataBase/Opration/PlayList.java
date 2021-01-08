@@ -8,4 +8,6 @@ package DataBase.Opration;
  * @ Version
  */
 public class PlayList {
+    private int playListID;
+
 }

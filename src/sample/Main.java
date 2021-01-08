@@ -11,23 +11,14 @@ import java.util.ArrayList;
 
 import DataBase.SQL;
 
-/**
- * @ Group Jesper Raheela Zia and Fei
- * @ create 2021-01-05-08.39
- * @ grade CS20_EASV_SØNDERBORG
- * @ Description This is the DB-Connecter which connect the Database and get result.
- * @ Version 0.1
- *
- */
-
 public class Main extends Application {
 
     final String GUI = "MediaPlayer.fxml";
     final String TITLE = "MediaPlayer";
     final String LISTVIEWSONG_FXID = "#listviewSong";
     final String LISTVIEWPLAYLIST_FXID = "#listviewPlaylist";
-    final int RES_WIDTH = 1200;
-    final int RES_HEIGHT = 800;
+    final int RES_WIDTH = 1000;
+    final int RES_HEIGHT = 600;
 
     public static void main(String[] args) {
         launch(args);
