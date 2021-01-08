@@ -12,6 +12,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
 import java.io.File;
+import DataBase.Opration.*;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ResourceBundle;
@@ -44,7 +45,8 @@ public class Controller {
 
     public void initialize() {
         // Build the path to the location of the media file
-        String path = new File(SQL.getPath()).getAbsolutePath();
+        Music musicPath = new Music();
+        String path = new File(musicPath.getPath()).getAbsolutePath();
         // Create new Media object (the actual media content)
 
         media = new Media(new File(path).toURI().toString());

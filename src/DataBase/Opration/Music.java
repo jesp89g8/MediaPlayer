@@ -1,7 +1,10 @@
 package DataBase.Opration;
 
 import DataBase.DBSetter.DB;
+import DataBase.SQL;
 import sample.Controller;
+
+import java.util.ArrayList;
 
 /**
  * @ author Fei Gu
@@ -35,8 +38,8 @@ public class Music {
     }
 
     public String getMusicName() {
-        Controller musicName = new Controller();
-        return musicName.handleTest();
+
+        return this.musicName;
     }
 
     public void setMusicName(String musicName) {
@@ -51,10 +54,8 @@ public class Music {
         Artist = artist;
     }
 
-    public String getPath() {
-        DB.selectSQL("select fldPath from table_music where fldMusicName =" + getMusicName());
-        return Path;
-    }
+
+
 
     public void setPath(String path) {
         Path = path;
@@ -69,5 +70,17 @@ public class Music {
                 ", Artist='" + Artist + '\'' +
                 ", Path='" + Path + '\'' +
                 '}';
+    }
+
+    /**
+     * This is working for get the music file path from DB
+     * @return Path : the music file path as String
+     */
+    public String getPath(){
+        Controller musicName = new Controller();
+        String musicPath = musicName.handleTest();
+        ArrayList<String> getMusicPath = SQL.selectSQL("select fldPath from table_music where fldMusicName =" + getMusicName());
+
+        return getMusicPath.get(0);
     }
 }
