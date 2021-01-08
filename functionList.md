@@ -15,15 +15,24 @@
 
 * add playlist
 * cancel playlist
-* choose one playlist then play the list
+* Move up the list
+* Move down the list
+* Drag the list at the specific position
+* choose one playlist 
+    * One click will choose the list
+    * Double click will play the list
     * when play the list will highlight the song
 
 ## playlist control
 
 * add music 
 * Delete music
+* Move up the music in the list
+* Move down the music in the list
+* Drag the music to specific position
 * choose one song 
-* 
+  * one click will choose the song
+  * Double click will play the music
 
 # Database
 
