@@ -1,8 +1,16 @@
 package DataBase;
 
 import DataBase.DBSetter.DB;
-
 import java.util.ArrayList;
+
+/**
+ * @ Group Jesper Raheela Zia and Fei
+ * @ create 2021-01-05-08.39
+ * @ grade CS20_EASV_SØNDERBORG
+ * @ Description This is the DB-Connecter which connect the Database and get result.
+ * @ Version 0.1
+ *
+ */
 
 public class SQL {
     /**

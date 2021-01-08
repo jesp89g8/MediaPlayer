@@ -1,7 +1,6 @@
-# controller
+# controller(package)
 ***
-
-## Play control
+## Play control(class)
 
 * Play 
 * Pouse
@@ -34,18 +33,16 @@
   * one click will choose the song
   * Double click will play the music
 
-# Database opration (class)
-
+# Database(package)
 ***
 
-## SQL
+## SQL(class)
 
  
 
 
 
-# GUI
-
+# GUI(package)
 ***
 
  

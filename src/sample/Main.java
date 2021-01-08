@@ -11,7 +11,17 @@ import java.util.ArrayList;
 
 import DataBase.SQL;
 
+/**
+ * @ Group Jesper Raheela Zia and Fei
+ * @ create 2021-01-05-08.39
+ * @ grade CS20_EASV_SØNDERBORG
+ * @ Description This is the DB-Connecter which connect the Database and get result.
+ * @ Version 0.1
+ *
+ */
+
 public class Main extends Application {
+
     final String GUI = "MediaPlayer.fxml";
     final String TITLE = "MediaPlayer";
     final String LISTVIEWSONG_FXID = "#listviewSong";
@@ -23,6 +33,11 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * This is the basic part of showing the main window
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource(GUI));
