@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -32,6 +33,9 @@ public class Controller {
     private Button btnPlay,btnPause,btnStop,btnNewPlaylist,btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist;
     @FXML
     private ListView<String> listviewSong, listviewInfo, listviewPlaylist;
+    @FXML
+    private TextField txtfldSelected;
+
 
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -80,5 +84,9 @@ public class Controller {
 
     public void handleDeleteFromPlaylist(){
 
+    }
+
+    public void handleTest(){
+        System.out.println(listviewSong.getSelectionModel().getSelectedItem());
     }
 }
