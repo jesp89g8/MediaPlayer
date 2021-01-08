@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  */
 
 
-public class Controller implements Initializable{
+public class Controller{
 
     @FXML
     private Button btnPlay,btnPause,btnStop,btnNewPlaylist,btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist;
@@ -37,13 +37,10 @@ public class Controller implements Initializable{
     @FXML
     private TextField txtfldSelected;
 
+    private Music selectedMusic;
+    private Music playingMusic;
 
-    private Media media;
-    private MediaPlayer mediaPlayer;
-
-
-
-    public void initialize(URL location, ResourceBundle resources) {
+    /*public void initialize(URL location, ResourceBundle resources) {
         // Build the path to the location of the media file
         Music musicPath = new Music();
         String path = new File(musicPath.getPath()).getAbsolutePath();
@@ -56,21 +53,21 @@ public class Controller implements Initializable{
         // mp.setAutoPlay(true);
         // If autoplay is turned off the method play(), stop(), pause() etc controls how/when medias are played
         mediaPlayer.setAutoPlay(false);
-    }
+    }*/
 
 
 
     public void handlePlay(){
-        mediaPlayer.play();
-
+        selectedMusic.getMediaPlayer().play();
+        playingMusic = selectedMusic;
     }
 
     public void handlePause(){
-        mediaPlayer.pause();
+        selectedMusic.getMediaPlayer().pause();
     }
 
     public void handleStop(){
-        mediaPlayer.stop();
+        selectedMusic.getMediaPlayer().stop();
     }
 
     public void handleNewPlayList(){
@@ -88,7 +85,22 @@ public class Controller implements Initializable{
 
     }
 
-    public String handleTest(){
-        return listviewSong.getSelectionModel().getSelectedItem();
+    public void handleTest(){
+        Media media;
+        MediaPlayer mediaPlayer;
+
+        String selectedSong = listviewSong.getSelectionModel().getSelectedItem();
+        txtfldSelected.setText("Selected: " + selectedSong);
+
+        String query = String.format("select fldPath from table_music where fldMusicName = '%s'",selectedSong.replace("'","''"));
+        String path = SQL.selectSQL(query).get(0);
+        path = new File(path).getAbsolutePath();
+
+        media = new Media(new File(path).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+
+        selectedMusic = new Music();
+        selectedMusic.setMedia(media);
+        selectedMusic.setMediaPlayer(mediaPlayer);
     }
 }

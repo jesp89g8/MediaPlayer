@@ -1,7 +1,8 @@
 package DataBase.Opration;
 
-import DataBase.DBSetter.DB;
 import DataBase.SQL;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import sample.Controller;
 
 import java.util.ArrayList;
@@ -18,16 +19,8 @@ public class Music {
     private String musicName;
     private String Artist;
     private String Path;
-
-    public Music() {
-    }
-
-    public Music(int musicID, String musicName, String artist, String path) {
-        this.musicID = musicID;
-        this.musicName = musicName;
-        Artist = artist;
-        Path = path;
-    }
+    private Media media;
+    private MediaPlayer mediaPlayer;
 
     public int getMusicID() {
         return musicID;
@@ -67,18 +60,22 @@ public class Music {
      * @return Path : the music file path as String
      */
     public String getPath(){
+        return "test";
+    }
 
-        if(new Controller().handleTest() == null){
-           return " ";
-        }else{
-            setMusicName(new Controller().handleTest());
-            ArrayList<String> getMusicPath = SQL.selectSQL("select fldPath from table_music where fldMusicName =" + getMusicName());
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
 
-            return getMusicPath.get(0);
-        }
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
+    }
 
+    public Media getMedia() {
+        return media;
+    }
 
-
-
+    public void setMedia(Media media) {
+        this.media = media;
     }
 }
