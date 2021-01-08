@@ -37,7 +37,13 @@
 ***
 
 ## SQL(class)
-
+* SQL insert music/song function
+* SQL insert playlist function, name of playlist
+* SQL delete music/song function
+* SQL delete playlist function
+* SQL read music information
+* SQL read music ID, artist, title, language, path
+* SQL read songlist info, music ID, playlist ID
  
 
 
