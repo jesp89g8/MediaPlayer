@@ -1,16 +1,9 @@
 package DataBase;
 
 import DataBase.DBSetter.DB;
-import java.util.ArrayList;
+import DataBase.Opration.Music;
 
-/**
- * @ Group Jesper Raheela Zia and Fei
- * @ create 2021-01-05-08.39
- * @ grade CS20_EASV_SØNDERBORG
- * @ Description This is the DB-Connecter which connect the Database and get result.
- * @ Version 0.1
- *
- */
+import java.util.ArrayList;
 
 public class SQL {
     /**
@@ -42,9 +35,9 @@ public class SQL {
      * @return Path : the music file path as String
      */
     public static String getPath(){
-        int getMusicID = 2;
+        Music pathOfMusic = new Music();
+        String getMusicPath = pathOfMusic.getPath();
 
-        DB.selectSQL("select fldPath from table_music where fldMusicID = " + getMusicID);
-        return DB.getData();
+        return getMusicPath;
     }
 }

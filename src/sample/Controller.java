@@ -86,7 +86,7 @@ public class Controller {
 
     }
 
-    public void handleTest(){
-        System.out.println(listviewSong.getSelectionModel().getSelectedItem());
+    public String handleTest(){
+        return listviewSong.getSelectionModel().getSelectedItem();
     }
 }
