@@ -15,49 +15,50 @@ import java.util.ArrayList;
  * @ Version
  */
 public class Music {
-    private int musicID;
-    private String musicName;
-    private String Artist;
-    private String Path;
+    private int id;
+    private String name;
+    private String artist;
+    private String path;
     private Media media;
     private MediaPlayer mediaPlayer;
 
-    public int getMusicID() {
-        return musicID;
+    public Music(int id,String name, String artist,String path){
+        this.id = id;
+        this.name = name;
+        this.artist = artist;
+        this.path = path;
     }
 
-    public void setMusicID(int musicID) {
-        this.musicID = musicID;
+    public int getMusicID() {
+        return id;
+    }
+
+    public void setMusicID(int id) {
+        this.id = id;
     }
 
     public String getMusicName() {
-
-        return this.musicName;
+        return this.name;
     }
 
     public void setMusicName(String musicName) {
-        this.musicName = musicName;
+        this.name = musicName;
     }
 
     public String getArtist() {
-        return Artist;
+        return artist;
     }
 
     public void setArtist(String artist) {
-        Artist = artist;
+        this.artist = artist;
     }
 
     public void setPath(String path) {
-        Path = path;
+        this.path = path;
     }
 
-
-    /**
-     * This is working for get the music file path from DB
-     * @return Path : the music file path as String
-     */
     public String getPath(){
-        return "test";
+        return this.path;
     }
 
     public MediaPlayer getMediaPlayer() {
