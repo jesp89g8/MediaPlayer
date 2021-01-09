@@ -56,18 +56,33 @@ public class Controller{
     }*/
 
 
-
+    /**
+     * Plays the selected music
+     */
     public void handlePlay(){
-        selectedMusic.getMediaPlayer().play();
-        playingMusic = selectedMusic;
+        if(selectedMusic == null) return;           // return if the no music is selected
+        if(playingMusic == null){                   // if playingMusic is null, then start play selected music
+            selectedMusic.getMediaPlayer().play();
+            playingMusic = selectedMusic;
+        }
+        else{
+            playingMusic.getMediaPlayer().play();   // else play the playing music has been paused
+        }
+
     }
 
+    /**
+     * Pauses the playing music
+     */
     public void handlePause(){
-        selectedMusic.getMediaPlayer().pause();
+        if(playingMusic.getMediaPlayer() == null) return;   // return is the media player of the playing music is null
+        playingMusic.getMediaPlayer().pause();              // pause the playing music
     }
 
     public void handleStop(){
-        selectedMusic.getMediaPlayer().stop();
+        if(playingMusic.getMediaPlayer() == null) return;   // return is the media player of the playing music is null
+        playingMusic.getMediaPlayer().stop();               // stop the playing music
+        playingMusic = null;                                // delete the playing music object
     }
 
     public void handleNewPlayList(){
@@ -85,22 +100,31 @@ public class Controller{
 
     }
 
-    public void handleTest(){
-        Media media;
-        MediaPlayer mediaPlayer;
+    /**
+     * Handles user selection in the song ListView
+     */
+    public void handleListViewSong(){
+        Media media;                // the media for the selected song
+        MediaPlayer mediaPlayer;    // the media player for the selected song
 
-        String selectedSong = listviewSong.getSelectionModel().getSelectedItem();
-        txtfldSelected.setText("Selected: " + selectedSong);
+        String selectedSong = listviewSong.getSelectionModel().getSelectedItem();   // get the name of the selected song
+        if(selectedSong == null) return;                        // if selected song name is null, return
+        txtfldSelected.setText("Selected: " + selectedSong);    // update the "selected: " text field
 
-        String query = String.format("select fldPath from table_music where fldMusicName = '%s'",selectedSong.replace("'","''"));
-        String path = SQL.selectSQL(query).get(0);
-        path = new File(path).getAbsolutePath();
+        // sql query setup
+        String query = String.format(
+                "select fldPath from table_music where fldMusicName = '%s'",    // the query statement, get path from DB
+                selectedSong.replace("'","''")  // replace apostrophes with double apostrophes to avoid errors in sql
+        );
 
-        media = new Media(new File(path).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
+        String path = SQL.selectSQL(query).get(0);  // query the DB for the path
+        path = new File(path).getAbsolutePath();    // get the absolute path of the music
 
-        selectedMusic = new Music();
-        selectedMusic.setMedia(media);
-        selectedMusic.setMediaPlayer(mediaPlayer);
+        media = new Media(new File(path).toURI().toString());   // initialize the media with the path
+        mediaPlayer = new MediaPlayer(media);                   // attach the media to a media player
+
+        selectedMusic = new Music();                // create a music object
+        selectedMusic.setMedia(media);              // set the media of the music to the media containing the song
+        selectedMusic.setMediaPlayer(mediaPlayer);  // set the media player of the music, with the media player containing the song
     }
 }

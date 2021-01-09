@@ -47,9 +47,6 @@ public class Music {
         Artist = artist;
     }
 
-
-
-
     public void setPath(String path) {
         Path = path;
     }

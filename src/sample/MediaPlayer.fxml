@@ -44,7 +44,7 @@
           <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="listviewSong" onMouseClicked="#handleTest" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <ListView fx:id="listviewSong" onMouseClicked="#handleListViewSong" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
             <TextField editable="false" text="Song" />
          </children>
       </GridPane>
