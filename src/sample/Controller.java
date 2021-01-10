@@ -44,33 +44,27 @@ public class Controller{
 
     private Music selectedMusic;
     private Music playingMusic;
-
-    /*public void initialize(URL location, ResourceBundle resources) {
-        // Build the path to the location of the media file
-        Music musicPath = new Music();
-        String path = new File(musicPath.getPath()).getAbsolutePath();
-        // Create new Media object (the actual media content)
-
-        media = new Media(new File(path).toURI().toString());
-        // Create new MediaPlayer and attach the media to be played
-        mediaPlayer = new MediaPlayer(media);
-        //
-        // mp.setAutoPlay(true);
-        // If autoplay is turned off the method play(), stop(), pause() etc controls how/when medias are played
-        mediaPlayer.setAutoPlay(false);
-    }*/
+    
 
 
     /**
      * Plays the selected music
      */
     public void handlePlay(){
-        if(selectedMusic == null) return;           // return if the no music is selected
-        if(playingMusic == null){                   // if playingMusic is null, then start play selected music
+        if(selectedMusic == null) {
+            System.out.println("There is no music be selected.");
+            return;           // return if the no music is selected
+        }
+        if(playingMusic == null){
+            System.out.println("There is no music be playing, so play the selected music." +
+                    "The music " + selectedMusic.getMusicName() + " has been selected. ");
+            // if playingMusic is null, then start play selected music
             selectedMusic.getMediaPlayer().play();
             playingMusic = selectedMusic;
         }
         else{
+            System.out.println("There is a music : " + playingMusic.getMusicName() + " has been paused. " +
+                    " Now play it...");
             playingMusic.getMediaPlayer().play();   // else play the playing music has been paused
         }
 
@@ -81,13 +75,21 @@ public class Controller{
      */
     public void handlePause(){
         // return if there is no music playing or if the playing music player is null
-        if(playingMusic == null || playingMusic.getMediaPlayer() == null) return;
+        if(playingMusic == null || playingMusic.getMediaPlayer() == null) {
+            System.out.println("There is no music be playing or no music be loading...");
+            return;
+        }
+        System.out.println("Pause the playing music: " + playingMusic.getMusicName());
         playingMusic.getMediaPlayer().pause();              // pause the playing music
     }
 
     public void handleStop(){
         // return if there is no music playing or if the playing music player is null
-        if(playingMusic == null || playingMusic.getMediaPlayer() == null) return;
+        if(playingMusic == null || playingMusic.getMediaPlayer() == null) {
+            System.out.println("There is no music be playing or no music be loading...");
+            return;
+        }
+        System.out.println("Stop the playing music: " + playingMusic.getMusicName());
         playingMusic.getMediaPlayer().stop();               // stop the playing music
         playingMusic = null;                                // delete the playing music object
     }

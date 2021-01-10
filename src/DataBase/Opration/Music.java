@@ -58,6 +58,7 @@ public class Music {
     }
 
     public String getPath(){
+        System.out.println("loading the path by quary..");
         return this.path;
     }
 

@@ -40,6 +40,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
+        System.out.println("loading the scene...");
         Parent root = FXMLLoader.load(getClass().getResource(GUI));
         primaryStage.setTitle(TITLE);
         primaryStage.setScene(new Scene(root, RES_WIDTH, RES_HEIGHT));
@@ -53,10 +54,13 @@ public class Main extends Application {
      * @param primaryStage
      */
     private void initListviews(Stage primaryStage) {
+        System.out.println("loading the listview...");
         ListView<String> listviewSong = (ListView<String>) primaryStage.getScene().lookup(LISTVIEWSONG_FXID);
         ListView<String> listviewPlaylist = (ListView<String>) primaryStage.getScene().lookup(LISTVIEWPLAYLIST_FXID);
 
+        System.out.println("add all the music into the Song list view...");
         insertIntoListview("select fldMusicName from table_music",listviewSong);
+        System.out.println("add all the playlist int the Playlist view...");
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
     }
 
