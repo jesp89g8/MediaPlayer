@@ -23,7 +23,11 @@ public class Music{
     private Media media;
     private MediaPlayer mediaPlayer;
 
-    public Music(int id,String name, String artist,String path){
+
+    public Music() {
+    }
+
+    public Music(int id, String name, String artist, String path){
         this.id = id;
         this.name = name;
         this.artist = artist;
@@ -77,6 +81,12 @@ public class Music{
 
     public void setMedia(Media media) {
         this.media = media;
+    }
+
+    public String idToName(int id){
+        String query = String.format("select fldMusicName from table_music where fldMusicID = '%d'",id);
+        setMusicName(SQL.selectSQL(query).get(0));
+        return getMusicName();
     }
 
 }

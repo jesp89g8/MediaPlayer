@@ -40,7 +40,7 @@ public class SongList {
         this.playListID = playListID;
     }
 
-    public ArrayList<Integer> trans(int playListID){
+    public ArrayList<Integer> playIdToSongId(int playListID){
         String query = String.format("select fldMusicID from table_Songlist where fldPlaylistID = %d",playListID);
         ArrayList<String> ids = SQL.selectSQL(query);
 

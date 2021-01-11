@@ -45,7 +45,7 @@ public class Controller{
 
     public void initialize(){
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
-        test();
+        handleListViewSong();
     }
 
     /**
@@ -202,17 +202,20 @@ public class Controller{
         }
     }
 
-    public void test(){
+    public ArrayList<String> handleSongListView(String playListName){
+
         PlayList pl = new PlayList();
-        int id = pl.nameToId("chinese song");
+        int id = pl.nameToId(playListName);
         //System.out.println(id);
 
         SongList sl = new SongList();
-        ArrayList<Integer> al = sl.trans(1);
+        ArrayList<Integer> al = sl.playIdToSongId(id);
 
+
+        ArrayList<String> musicName = new ArrayList<>();
         for (Integer i: al) {
-            System.out.println(i);
+             musicName.add(new Music().idToName(i));
         }
-
+        return musicName;
     }
 }

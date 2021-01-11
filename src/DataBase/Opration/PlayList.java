@@ -27,6 +27,8 @@ public class PlayList {
         this.playListName = playListName;
     }
 
+
+
     public int nameToId(String playListName){
         String query = String.format("select fldPlaylistID from table_Playlist where fldPlaylistName = '%s'",playListName);
         String playlistID = SQL.selectSQL(query).get(0);

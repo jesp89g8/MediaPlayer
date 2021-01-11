@@ -1,6 +1,7 @@
 package sample;
 
 import DataBase.DBSetter.DBTester;
+import DataBase.Opration.SongList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +28,7 @@ public class Main extends Application {
     final String TITLE = "MediaPlayer";
     final String LISTVIEWSONG_FXID = "#listviewSong";
     final String LISTVIEWPLAYLIST_FXID = "#listviewPlaylist";
+    final String LISTVIEWINFO_FXID = "#listviewInfo";
     final int RES_WIDTH = 1000;
     final int RES_HEIGHT = 600;
 
@@ -58,16 +60,22 @@ public class Main extends Application {
         System.out.println("loading the listview...");
         ListView<String> listviewSong = (ListView<String>) primaryStage.getScene().lookup(LISTVIEWSONG_FXID);
         ListView<String> listviewPlaylist = (ListView<String>) primaryStage.getScene().lookup(LISTVIEWPLAYLIST_FXID);
-
-
+        ListView<String> ListViewInfo = (ListView<String>) primaryStage.getScene().lookup(LISTVIEWINFO_FXID);
 
 
         System.out.println("add all the music into the Song list view...");
         insertIntoListview("select fldMusicName from table_music",listviewSong);
 
-        System.out.println("add all the playlist int the Playlist view...");
+        System.out.println("add all the playlist into the Playlist view...");
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
 
+        System.out.println("add 1st playlist into the Infolist...");
+
+        Controller hsl= new Controller();
+        ArrayList<String> getitems = hsl.handleSongListView("chinese song");
+        for(String a : getitems){
+            ListViewInfo.getItems().add(a);
+        }
     }
 
     /**
