@@ -62,6 +62,14 @@ public class Controller{
             selectedMusic.getMediaPlayer().play();
             playingMusic = selectedMusic;
         }
+        else if(playingMusic != selectedMusic){ // if there is some music playing, and the user select another
+            System.out.println("playing music is : " + playingMusic.getMusicName());
+            System.out.println("selected music is : " + selectedMusic.getMusicName());
+
+            playingMusic.getMediaPlayer().stop();//stop the recently music
+            playingMusic = selectedMusic; // load the new select
+            playingMusic.getMediaPlayer().play(); // play the selected music
+        }
         else{
             System.out.println("There is a music : " + playingMusic.getMusicName() + " has been paused. " +
                     " Now play it...");
@@ -74,6 +82,7 @@ public class Controller{
      * Pauses the playing music
      */
     public void handlePause(){
+
         // return if there is no music playing or if the playing music player is null
         if(playingMusic == null || playingMusic.getMediaPlayer() == null) {
             System.out.println("There is no music be playing or no music be loading...");
@@ -128,6 +137,8 @@ public class Controller{
         );
 
         ArrayList<String> musicData = SQL.selectSQL(query); // query the DB for the music data
+
+
         // initialize the selected music object
         selectedMusic = new Music(
                 Integer.parseInt(musicData.get(0)), // music id
