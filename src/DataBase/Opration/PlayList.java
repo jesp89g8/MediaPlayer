@@ -27,8 +27,12 @@ public class PlayList {
         this.playListName = playListName;
     }
 
-    public int trans(String playListName){
-        setPlayListID(SQL.selectSQL("select fldPlaylistID from table_Playlist where fldPlaylistName = %s" + playListName).get(0);
+    public int nameToId(String playListName){
+        String query = String.format("select fldPlaylistID from table_Playlist where fldPlaylistName = '%s'",playListName);
+        String playlistID = SQL.selectSQL(query).get(0);
+
+        setPlayListID(Integer.parseInt(playlistID));
+
         return getPlayListID();
     }
 }

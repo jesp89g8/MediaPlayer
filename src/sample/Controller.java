@@ -45,6 +45,7 @@ public class Controller{
 
     public void initialize(){
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
+        test();
     }
 
     /**
@@ -196,8 +197,22 @@ public class Controller{
 
             // for each matched song
             for (String s: result) {
-                listviewSong.getItems().add(s); // add the song to the song lsitview
+                listviewSong.getItems().add(s); // add the song to the song listview
             }
         }
+    }
+
+    public void test(){
+        PlayList pl = new PlayList();
+        int id = pl.nameToId("chinese song");
+        //System.out.println(id);
+
+        SongList sl = new SongList();
+        ArrayList<Integer> al = sl.trans(1);
+
+        for (Integer i: al) {
+            System.out.println(i);
+        }
+
     }
 }

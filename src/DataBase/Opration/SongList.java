@@ -1,5 +1,9 @@
 package DataBase.Opration;
 
+import DataBase.SQL;
+
+import java.util.ArrayList;
+
 /**
  * @ author Fei Gu
  * @ create 2021-01-08-12.32
@@ -9,8 +13,8 @@ package DataBase.Opration;
  */
 public class SongList {
     private int songList;
-    private int musicID;
     private int playListID;
+    private ArrayList<Integer> musicID = new ArrayList<>();
 
     public int getSongList() {
         return songList;
@@ -20,11 +24,11 @@ public class SongList {
         this.songList = songList;
     }
 
-    public int getMusicID() {
+    public ArrayList<Integer> getMusicID() {
         return musicID;
     }
 
-    public void setMusicID(int musicID) {
+    public void setMusicID(ArrayList<Integer> musicID) {
         this.musicID = musicID;
     }
 
@@ -34,5 +38,16 @@ public class SongList {
 
     public void setPlayListID(int playListID) {
         this.playListID = playListID;
+    }
+
+    public ArrayList<Integer> trans(int playListID){
+        String query = String.format("select fldMusicID from table_Songlist where fldPlaylistID = %d",playListID);
+        ArrayList<String> ids = SQL.selectSQL(query);
+
+        for (String s: ids) {
+            musicID.add(Integer.parseInt(s));
+        }
+
+        return getMusicID();
     }
 }
