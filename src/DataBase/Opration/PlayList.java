@@ -32,9 +32,9 @@ public class PlayList {
     public int nameToId(String playListName){
         String query = String.format("select fldPlaylistID from table_Playlist where fldPlaylistName = '%s'",playListName);
         String playlistID = SQL.selectSQL(query).get(0);
-
         setPlayListID(Integer.parseInt(playlistID));
 
         return getPlayListID();
     }
+
 }

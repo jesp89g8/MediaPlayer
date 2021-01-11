@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @ Description
  * @ Version
  */
-public class SongList {
+public class SongList extends PlayList{
     private int songList;
     private int playListID;
     private ArrayList<Integer> musicID = new ArrayList<>();
@@ -40,13 +40,11 @@ public class SongList {
         this.playListID = playListID;
     }
 
-    public ArrayList<Integer> playIdToSongId(int playListID){
+    public ArrayList<Integer> playListIdToSongId(int playListID){
         String query = String.format("select fldMusicID from table_Songlist where fldPlaylistID = %d",playListID);
         ArrayList<String> ids = SQL.selectSQL(query);
 
-        for (String s: ids) {
-            musicID.add(Integer.parseInt(s));
-        }
+        for (String s: ids) { musicID.add(Integer.parseInt(s)); }
 
         return getMusicID();
     }

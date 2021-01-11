@@ -209,7 +209,7 @@ public class Controller{
         int plID = pl.nameToId(selectedPlaylist);
 
         SongList sl = new SongList();
-        ArrayList<Integer> songID = sl.playIdToSongId(plID);
+        ArrayList<Integer> songID = sl.playListIdToSongId(plID);
 
         Music music = new Music();
         ArrayList<String> musicName = new ArrayList<>();
@@ -223,23 +223,27 @@ public class Controller{
         for (String name: musicName) {
             listviewInfo.getItems().add(name);
         }
-
     }
 
+
+    /**
+     * this is the "try to make" by fei and we can just delect it :P
+     * @param playListName
+     * @return
+     */
     public ArrayList<String> handleSongListView(String playListName){
 
-        PlayList pl = new PlayList();
+        String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
+        Music pl = new Music();
         int id = pl.nameToId(playListName);
         //System.out.println(id);
 
-        SongList sl = new SongList();
-        ArrayList<Integer> al = sl.playIdToSongId(id);
-
-
+        ArrayList<Integer> al = pl.playListIdToSongId(id);
         ArrayList<String> musicName = new ArrayList<>();
         for (Integer i: al) {
-             musicName.add(new Music().idToName(i));
+             musicName.add(pl.idToName(i));
         }
         return musicName;
     }
+
 }

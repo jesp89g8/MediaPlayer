@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @ Description
  * @ Version
  */
-public class Music{
+public class Music extends SongList{
     private int id;
     private String name;
     private String artist;
@@ -34,11 +34,11 @@ public class Music{
         this.path = path;
     }
 
-    public int getMusicID() {
+    public int getId() {
         return id;
     }
 
-    public void setMusicID(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -83,10 +83,34 @@ public class Music{
         this.media = media;
     }
 
+
+
+
+    /**
+     * this is "try to make it easier" by fei
+     * and i think we can talk to use these function to instead some part make the code clearly.
+     * @param id
+     * @return
+     */
     public String idToName(int id){
         String query = String.format("select fldMusicName from table_music where fldMusicID = '%d'",id);
         setMusicName(SQL.selectSQL(query).get(0));
         return getMusicName();
     }
 
+    @Override
+    public int nameToId(String musicName) {
+        String query = String.format("select fldMusicID from table_music where fldMusicName = '%s'",musicName);
+        String musicID = SQL.selectSQL(query).get(0);
+
+        setId(Integer.parseInt(musicID));
+
+        return getId();
+    }
+
+    public String idToPath(int id){
+        String query = String.format("select fldPath from table_music where fldMusicID = '%d'",id);
+        setPath(SQL.selectSQL(query).get(0));
+        return getPath();
+    }
 }

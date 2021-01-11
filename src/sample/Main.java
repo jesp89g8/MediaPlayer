@@ -69,13 +69,15 @@ public class Main extends Application {
         System.out.println("add all the playlist into the Playlist view...");
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
 
-        System.out.println("add 1st playlist into the Infolist...");
         /*
+        System.out.println("add 1st playlist into the Infolist...");
         Controller hsl= new Controller();
         ArrayList<String> getitems = hsl.handleSongListView("chinese song");
         for(String a : getitems){
             ListViewInfo.getItems().add(a);
-        }*/
+        }
+
+         */
     }
 
     /**
