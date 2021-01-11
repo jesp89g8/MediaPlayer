@@ -70,12 +70,12 @@ public class Main extends Application {
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
 
         System.out.println("add 1st playlist into the Infolist...");
-
+        /*
         Controller hsl= new Controller();
         ArrayList<String> getitems = hsl.handleSongListView("chinese song");
         for(String a : getitems){
             ListViewInfo.getItems().add(a);
-        }
+        }*/
     }
 
     /**

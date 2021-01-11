@@ -202,6 +202,30 @@ public class Controller{
         }
     }
 
+    public void handleListViewPlaylist(){
+        String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
+
+        PlayList pl = new PlayList();
+        int plID = pl.nameToId(selectedPlaylist);
+
+        SongList sl = new SongList();
+        ArrayList<Integer> songID = sl.playIdToSongId(plID);
+
+        Music music = new Music();
+        ArrayList<String> musicName = new ArrayList<>();
+
+        for (Integer id: songID) {
+            musicName.add(music.idToName(id));
+        }
+
+        listviewInfo.getItems().clear();
+
+        for (String name: musicName) {
+            listviewInfo.getItems().add(name);
+        }
+
+    }
+
     public ArrayList<String> handleSongListView(String playListName){
 
         PlayList pl = new PlayList();

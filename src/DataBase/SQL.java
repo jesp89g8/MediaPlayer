@@ -48,7 +48,6 @@ public class SQL {
     public static ArrayList<ArrayList<String>> selectSQLMulti(String query){
         ArrayList<ArrayList<String>> out = new ArrayList<>();
         out.add(new ArrayList<>());
-        int row = 0;
 
         DB.selectSQL(query);
 
@@ -59,16 +58,17 @@ public class SQL {
             }else{
                 if(data.contains("\n")){
                     data = data.trim();
-                    out.get(row).add(data);
-                    row++;
+                    out.get(out.size() - 1).add(data);
                     out.add(new ArrayList<>());
                 }
                 else{
                     data = data.trim();
-                    out.get(row).add(data);
+                    out.get(out.size() - 1).add(data);
                 }
             }
         } while(true);
+
+        out.remove(out.size() - 1);
 
         return out;
     }
