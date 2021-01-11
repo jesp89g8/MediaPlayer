@@ -67,6 +67,7 @@ public class Main extends Application {
 
         System.out.println("add all the playlist int the Playlist view...");
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
+
     }
 
     /**

@@ -1,6 +1,7 @@
 package DataBase.Opration;
 
 import DataBase.SQL;
+import javafx.scene.control.ListView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import sample.Controller;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * @ Description
  * @ Version
  */
-public class Music {
+public class Music{
     private int id;
     private String name;
     private String artist;
@@ -77,4 +78,5 @@ public class Music {
     public void setMedia(Media media) {
         this.media = media;
     }
+
 }

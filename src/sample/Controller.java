@@ -1,11 +1,8 @@
 package sample;
 
-import DataBase.DBSetter.DB;
 import DataBase.SQL;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -13,14 +10,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 
 import java.io.File;
 import DataBase.Opration.*;
-import java.net.URL;
-import java.nio.file.Path;
+
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 
 /**
@@ -95,6 +89,7 @@ public class Controller{
     }
 
     public void handleNewPlayList(){
+
     }
 
     public void handleDeletePlaylist(){
@@ -140,8 +135,9 @@ public class Controller{
         mediaPlayer = new MediaPlayer(media);                   // attach the media to a media player
 
         selectedMusic.setMedia(media);              // set the media of the music to the media containing the song
-        selectedMusic.setMediaPlayer(mediaPlayer);  // set the media player of the music, with the media player containing the song
+        selectedMusic.setMediaPlayer(mediaPlayer);  // set the media player of the music, with the media player containing the media
     }
+
 
     public void handleSearch(Event e){
         KeyEvent kEvent = (KeyEvent) e;
