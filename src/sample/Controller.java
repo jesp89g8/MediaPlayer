@@ -144,36 +144,49 @@ public class Controller{
         selectedMusic.setMediaPlayer(mediaPlayer);  // set the media player of the music, with the media player containing the media
     }
 
-
+    /**
+     * Handles the search text field. The type of search is determined by
+     * a combobox showing a specific criteria.
+     * @param e the event passed to the search
+     */
     public void handleSearch(Event e){
-        String selectedCriteria = comboBoxSearchCriteria.getSelectionModel().getSelectedItem();
+        String selectedCriteria = comboBoxSearchCriteria.getSelectionModel().getSelectedItem(); // get the criteria from the combo box
 
-        if(selectedCriteria == null || selectedCriteria.equals("Title")){
-            handleSearchT(e,"fldMusicName");
+        if(selectedCriteria == null || selectedCriteria.equals("Title")){   // if selected criteria is null or is "Title"
+            startSearch(e,"fldMusicName");  // search the database using the title as criteria
         }
-        else if(selectedCriteria.equals("Artist")){
-            handleSearchT(e,"fldArtist");
+        else if(selectedCriteria.equals("Artist")){ // if selected criteria is "Artist"
+            startSearch(e,"fldArtist"); // search the database using the artist as criteria
         }
     }
 
-    public void handleSearchT(Event e, String criteria){
-        KeyEvent kEvent = (KeyEvent) e;
-        ArrayList<String> result;
+    /**
+     * Handles the event from the search textfield and queries the database
+     * with a specified criteria. Updates the listviewSong with the songs
+     * matching the search criteria.
+     * @param e the event passed to the search
+     * @param criteria criteria for the search
+     */
+    public void startSearch(Event e, String criteria){
+        KeyEvent kEvent = (KeyEvent) e; // cast the event into a KeyEvent object reference
+        ArrayList<String> result;       // arraylist containing the result of songs from the search
 
-        if(kEvent.getCode() == KeyCode.ENTER){
-            String searchString = txtfldSearch.getText();
-            String query = String.format("select fldMusicName from table_music where %s like '%%%s%%'",criteria,searchString);
-            result = SQL.selectSQL(query);
+        if(kEvent.getCode() == KeyCode.ENTER){              // if the user pressed enter
+            String searchString = txtfldSearch.getText();   // get the user search string from the search textfield
 
-            listviewSong.getItems().clear();
+            // query setup
+            String query = String.format(
+                    "select fldMusicName from table_music where %s like '%%%s%%'",  // select the music name, that matches the criteria and search string
+                    criteria,searchString   // criteria and user search string passed into the format string
+            );
+            result = SQL.selectSQL(query);  // get the output from the database
 
+            listviewSong.getItems().clear();    // clear the song listview, as we new records will be added
+
+            // for each matched song
             for (String s: result) {
-                listviewSong.getItems().add(s);
+                listviewSong.getItems().add(s); // add the song to the song lsitview
             }
         }
-    }
-
-    public void handleChoiceBoxCriteria(){
-
     }
 }
