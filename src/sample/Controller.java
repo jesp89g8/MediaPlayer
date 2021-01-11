@@ -148,7 +148,7 @@ public class Controller{
     public void handleSearch(Event e){
         String selectedCriteria = comboBoxSearchCriteria.getSelectionModel().getSelectedItem();
 
-        if(selectedCriteria.equals("Title")){
+        if(selectedCriteria == null || selectedCriteria.equals("Title")){
             handleSearchT(e,"fldMusicName");
         }
         else if(selectedCriteria.equals("Artist")){
