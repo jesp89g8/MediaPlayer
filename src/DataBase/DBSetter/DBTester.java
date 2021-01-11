@@ -14,7 +14,6 @@ public class DBTester {
     
     public static void main (String [] args){
 
-        DB.insertSQL("Insert into table_music values('16','name','artist','type','offer','path','language');");
         DB.selectSQL("Select * from table_music");
         
         do{
@@ -27,8 +26,7 @@ public class DBTester {
         } while(true);
         
         
-        DB.deleteSQL("Delete from table_music where fldMusicID like '16';");
-        
+
         DB.selectSQL("Select fldMusicID from table_music");
         
         System.out.println("numberOfColumns="+DB.getNumberOfColumns());

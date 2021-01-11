@@ -1,5 +1,6 @@
 package sample;
 
+import DataBase.DBSetter.DBTester;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -58,8 +59,12 @@ public class Main extends Application {
         ListView<String> listviewSong = (ListView<String>) primaryStage.getScene().lookup(LISTVIEWSONG_FXID);
         ListView<String> listviewPlaylist = (ListView<String>) primaryStage.getScene().lookup(LISTVIEWPLAYLIST_FXID);
 
+
+
+
         System.out.println("add all the music into the Song list view...");
         insertIntoListview("select fldMusicName from table_music",listviewSong);
+
         System.out.println("add all the playlist int the Playlist view...");
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
     }
