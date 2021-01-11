@@ -13,11 +13,7 @@ public class PlayList {
     private int playListID;
     private String playListName;
 
-    public int getPlayListID() {
-
-        Integer.parseInt(playListTest);
-        return playListID;
-    }
+    public int getPlayListID() { return playListID; }
 
     public void setPlayListID(int playListID) {
         this.playListID = playListID;
@@ -28,8 +24,11 @@ public class PlayList {
     }
 
     public void setPlayListName(String playListName) {
-
-        String playlistTest =  SQL.selectSQL("select fldPlaylistID from table_Playlist where fldPlaylistName = %s" + playListName).get(0);
         this.playListName = playListName;
+    }
+
+    public int trans(String playListName){
+        setPlayListID(SQL.selectSQL("select fldPlaylistID from table_Playlist where fldPlaylistName = %s" + playListName).get(0);
+        return getPlayListID();
     }
 }
