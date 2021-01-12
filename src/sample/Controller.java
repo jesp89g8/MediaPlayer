@@ -40,12 +40,48 @@ public class Controller{
 
     private Music selectedMusic;
     private Music playingMusic;
-    
-
 
     public void initialize(){
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
+        initListviews();
         handleListViewSong();
+    }
+
+    /**
+     * Initializes the Song and Playlist Listview
+     */
+    private void initListviews() {
+        System.out.println("loading the listview...");
+
+        System.out.println("add all the music into the Song list view...");
+        insertIntoListview("select fldMusicName from table_music",listviewSong);
+
+        System.out.println("add all the playlist into the Playlist view...");
+        insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
+
+        /*
+        System.out.println("add 1st playlist into the Infolist...");
+        Controller hsl= new Controller();
+        ArrayList<String> getitems = hsl.handleSongListView("chinese song");
+        for(String a : getitems){
+            ListViewInfo.getItems().add(a);
+        }
+
+         */
+    }
+
+    /**
+     * Queries the database with a select statement and inserts the output
+     * into the specified listview
+     * @param query select query
+     * @param listview listview to insert into
+     */
+    private void insertIntoListview(String query,ListView<String> listview){
+        ArrayList<String> queryData = SQL.selectSQL(query);
+
+        for (String data : queryData) {
+            listview.getItems().add(data);
+        }
     }
 
     /**
@@ -207,7 +243,7 @@ public class Controller{
 
         ArrayList<String> getitems = handleSongListView(selectedPlaylist);
         listviewInfo.getItems().clear();
-        
+
         for(String a : getitems){
             listviewInfo.getItems().add(a);
         }
