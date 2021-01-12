@@ -113,6 +113,7 @@ public class Controller{
     }
 
     public void handleNextSong(){
+        musicOpration.stop();
         String path = musicOpration.next(selectedMusic);
         selectedMusic.setPath(path);
         selectedMusic.setId(selectedMusic.getId()+1);
@@ -128,6 +129,7 @@ public class Controller{
         selectedMusic.setMediaPlayer(mp);  // set the media player of the music, with the media player containing the media
 
         musicOpration.play(selectedMusic);
+
     }
 
     /**
