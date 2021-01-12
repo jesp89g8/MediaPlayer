@@ -1,6 +1,7 @@
 package sample;
 
 import DataBase.SQL;
+import Model.PlayFunction;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -39,7 +40,8 @@ public class Controller{
     private TextField txtfldSelected,txtfldSearch;
 
     private Music selectedMusic;
-    private Music playingMusic;
+
+    private PlayFunction musicOpration = new PlayFunction();
 
     public void initialize(){
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
@@ -88,30 +90,7 @@ public class Controller{
      * Plays the selected music
      */
     public void handlePlay(){
-        if(selectedMusic == null) {
-            System.out.println("There is no music be selected.");
-            return;           // return if the no music is selected
-        }
-        if(playingMusic == null){
-            System.out.println("There is no music be playing, so play the selected music." +
-                    "The music " + selectedMusic.getMusicName() + " has been selected. ");
-            // if playingMusic is null, then start play selected music
-            selectedMusic.getMediaPlayer().play();
-            playingMusic = selectedMusic;
-        }
-        else if(playingMusic != selectedMusic){ // if there is some music playing, and the user select another
-            System.out.println("playing music is : " + playingMusic.getMusicName());
-            System.out.println("selected music is : " + selectedMusic.getMusicName());
-
-            playingMusic.getMediaPlayer().stop();//stop the recently music
-            playingMusic = selectedMusic; // load the new select
-            playingMusic.getMediaPlayer().play(); // play the selected music
-        }
-        else{
-            System.out.println("There is a music : " + playingMusic.getMusicName() + " has been paused. " +
-                    " Now play it...");
-            playingMusic.getMediaPlayer().play();   // else play the playing music has been paused
-        }
+        musicOpration.Play(selectedMusic);
 
     }
 
@@ -119,25 +98,12 @@ public class Controller{
      * Pauses the playing music
      */
     public void handlePause(){
+        musicOpration.pause();
 
-        // return if there is no music playing or if the playing music player is null
-        if(playingMusic == null || playingMusic.getMediaPlayer() == null) {
-            System.out.println("There is no music be playing or no music be loading...");
-            return;
-        }
-        System.out.println("Pause the playing music: " + playingMusic.getMusicName());
-        playingMusic.getMediaPlayer().pause();              // pause the playing music
     }
 
-    public void handleStop(){
-        // return if there is no music playing or if the playing music player is null
-        if(playingMusic == null || playingMusic.getMediaPlayer() == null) {
-            System.out.println("There is no music be playing or no music be loading...");
-            return;
-        }
-        System.out.println("Stop the playing music: " + playingMusic.getMusicName());
-        playingMusic.getMediaPlayer().stop();               // stop the playing music
-        playingMusic = null;                                // delete the playing music object
+    public void handleStop() {
+        musicOpration.stop();
     }
 
     public void handleNewPlayList(){
