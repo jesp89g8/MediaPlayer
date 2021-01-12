@@ -9,12 +9,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <bottom>
       <GridPane fx:id="gridMenu" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,10 +29,11 @@
             <Button fx:id="btnPlay" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePlay" text="Play" />
             <Button fx:id="btnPause" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePause" text="Pause" GridPane.columnIndex="1" />
             <Button fx:id="btnStop" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleStop" text="Stop" GridPane.columnIndex="2" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewPlayList" text="New Playlist" GridPane.columnIndex="3" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeletePlaylist" text="Delete Playlist" GridPane.columnIndex="4" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddToPlaylist" text="Add to Playlist" GridPane.columnIndex="5" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeleteFromPlaylist" text="Delete from Playlist" GridPane.columnIndex="6" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewPlayList" text="New Playlist" GridPane.columnIndex="4" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeletePlaylist" text="Delete Playlist" GridPane.columnIndex="5" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddToPlaylist" text="Add to Playlist" GridPane.columnIndex="6" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeleteFromPlaylist" text="Delete from Playlist" GridPane.columnIndex="7" />
+            <Button fx:id="btnNextSong" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNextSong" text="Next Song" GridPane.columnIndex="3" />
          </children>
       </GridPane>
    </bottom>
@@ -75,7 +77,7 @@
           <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="listviewInfo" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <ListView fx:id="listviewInfo" onMouseClicked="#handleListViewInfo" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
             <TextField editable="false" text="Info" />
          </children>
       </GridPane>

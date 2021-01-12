@@ -30,7 +30,7 @@ public class Controller{
 
     @FXML
     private Button  btnPlay,btnPause,btnStop,btnNewPlaylist,
-                    btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist;
+                    btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist,btnNextSong;
     @FXML
     private ComboBox<String> comboBoxSearchCriteria;
 
@@ -61,15 +61,6 @@ public class Controller{
         System.out.println("add all the playlist into the Playlist view...");
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
 
-        /*
-        System.out.println("add 1st playlist into the Infolist...");
-        Controller hsl= new Controller();
-        ArrayList<String> getitems = hsl.handleSongListView("chinese song");
-        for(String a : getitems){
-            ListViewInfo.getItems().add(a);
-        }
-
-         */
     }
 
     /**
@@ -90,8 +81,7 @@ public class Controller{
      * Plays the selected music
      */
     public void handlePlay(){
-        musicOpration.Play(selectedMusic);
-
+        musicOpration.play(selectedMusic);
     }
 
     /**
@@ -122,14 +112,28 @@ public class Controller{
 
     }
 
+    public void handleNextSong(){
+        String path = musicOpration.next(selectedMusic);
+        selectedMusic.setPath(path);
+        musicOpration.play(selectedMusic);
+    }
+
     /**
      * Handles user selection in the song ListView
      */
     public void handleListViewSong(){
+        selectMusic(listviewSong);
+    }
+
+    public void handleListViewInfo(){
+        selectMusic(listviewInfo);
+    }
+
+    public void selectMusic(ListView<String> lv){
         Media media;                // the media for the selected song
         MediaPlayer mediaPlayer;    // the media player for the selected song
 
-        String selectedSong = listviewSong.getSelectionModel().getSelectedItem();   // get the name of the selected song
+        String selectedSong = lv.getSelectionModel().getSelectedItem();   // get the name of the selected song
         if(selectedSong == null) return;                        // if selected song name is null, return
         txtfldSelected.setText("Selected: " + selectedSong);    // update the "selected: " text field
 

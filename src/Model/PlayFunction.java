@@ -14,7 +14,7 @@ public class PlayFunction {
     public Music playingMusic;
 
 
-    public void Play(Music selectedMusic){
+    public void play(Music selectedMusic){
         if(selectedMusic == null) {
             System.out.println("There is no music be selected.");
             return;           // return if the no music is selected
@@ -62,6 +62,10 @@ public class PlayFunction {
         playingMusic = null;                                // delete the playing music object
     }
 
+    public String next(Music selectedMusic){
+        int id = selectedMusic.getId();
+        String path = selectedMusic.idToPath(id+1);
 
-
+        return path;
+    }
 }
