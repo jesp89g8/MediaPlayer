@@ -205,23 +205,11 @@ public class Controller{
     public void handleListViewPlaylist(){
         String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
 
-        PlayList pl = new PlayList();
-        int plID = pl.nameToId(selectedPlaylist);
-
-        SongList sl = new SongList();
-        ArrayList<Integer> songID = sl.playListIdToSongId(plID);
-
-        Music music = new Music();
-        ArrayList<String> musicName = new ArrayList<>();
-
-        for (Integer id: songID) {
-            musicName.add(music.idToName(id));
-        }
-
+        ArrayList<String> getitems = handleSongListView(selectedPlaylist);
         listviewInfo.getItems().clear();
-
-        for (String name: musicName) {
-            listviewInfo.getItems().add(name);
+        
+        for(String a : getitems){
+            listviewInfo.getItems().add(a);
         }
     }
 
@@ -232,16 +220,18 @@ public class Controller{
      * @return
      */
     public ArrayList<String> handleSongListView(String playListName){
-
-        String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
-        Music pl = new Music();
+        PlayList pl = new PlayList();
         int id = pl.nameToId(playListName);
         //System.out.println(id);
 
-        ArrayList<Integer> al = pl.playListIdToSongId(id);
+        SongList sl = new SongList();
+        Music music = new Music();
+
+        ArrayList<Integer> al = sl.playListIdToSongId(id);
         ArrayList<String> musicName = new ArrayList<>();
+
         for (Integer i: al) {
-             musicName.add(pl.idToName(i));
+             musicName.add(music.idToName(i));
         }
         return musicName;
     }
