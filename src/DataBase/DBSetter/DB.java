@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -79,10 +80,11 @@ public class DB {
     }
     
     /**
-     * 
+     *
      * @param sql the sql string to be executed in SQLServer
+     * @return
      */
-    public static void selectSQL(String sql){ 
+    public static void selectSQL(String sql){
         if (terminated){
             System.exit(0);
         }

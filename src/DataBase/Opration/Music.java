@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @ Description
  * @ Version
  */
-public class Music extends SongList{
+public class Music {
     private int id;
     private String name;
     private String artist;
@@ -63,7 +63,6 @@ public class Music extends SongList{
     }
 
     public String getPath(){
-        System.out.println("loading the path by quary..");
         return this.path;
     }
 
@@ -98,7 +97,6 @@ public class Music extends SongList{
         return getMusicName();
     }
 
-    @Override
     public int nameToId(String musicName) {
         String query = String.format("select fldMusicID from table_music where fldMusicName = '%s'",musicName);
         String musicID = SQL.selectSQL(query).get(0);

@@ -1,6 +1,7 @@
 package sample;
 
 import DataBase.DBSetter.DBTester;
+import DataBase.Opration.PlayList;
 import DataBase.Opration.SongList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,19 @@ public class Main extends Application {
     final int RES_HEIGHT = 600;
 
     public static void main(String[] args) {
+
+        /*
+        //this is for test the add/delete playlist method
+        PlayList test = new PlayList();
+        test.addPlaylist("music");
+        test.addPlaylist("all music");
+
+        test.deletePlayList(4);
+        test.deletePlayList("all music");
+
+         */
+
+
         launch(args);
     }
 
