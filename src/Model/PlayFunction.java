@@ -70,9 +70,6 @@ public class PlayFunction {
     }
 
     public void next(Music selectedMusic){
-
-        int id = selectedMusic.getId();
-
         int nextId = selectedMusic.getId() + 1;
        // String path = selectedMusic.idToPath(nextId);
         Music nextMusic = new Music(nextId);

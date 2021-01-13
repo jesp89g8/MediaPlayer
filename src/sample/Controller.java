@@ -117,6 +117,9 @@ public class Controller{
         musicOpration.stop();
         String path = musicOpration.next(selectedMusic);
         selectedMusic.setPath(path);
+
+
+
         selectedMusic.setId(selectedMusic.getId()+1);
 
 
@@ -126,16 +129,16 @@ public class Controller{
         MediaPlayer mp;
 
         path = new File(selectedMusic.getPath()).getAbsolutePath();    // get the absolute path of the music
-        m = new Media(new File(path).toURI().toString());   // initialize the media with the path
-        mp = new MediaPlayer(m);                   // attach the media to a media player
+        Media m = new Media(new File(path).toURI().toString());   // initialize the media with the path
+        MediaPlayer mp = new MediaPlayer(m);                   // attach the media to a media player
 
         selectedMusic.setMedia(m);              // set the media of the music to the media containing the song
         selectedMusic.setMediaPlayer(mp);  // set the media player of the music, with the media player containing the media
 
         musicOpration.play(selectedMusic);
          */
-       musicOpration.next(selectedMusic);
-
+        musicOpration.next(selectedMusic);
+        selectedMusic.setId(selectedMusic.getId() + 1);
     }
 
     /**
