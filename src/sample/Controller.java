@@ -121,18 +121,24 @@ public class Controller{
 
     public void handleListViewPlaylistEdit(Event e){
         ListView.EditEvent<String> editEvent = (ListView.EditEvent) e;
-        int index = editEvent.getIndex();
+        int itemIndex = editEvent.getIndex();
 
         String newName = editEvent.getNewValue();
-        String oldName = listviewPlaylist.getItems().get(index);
-        listviewPlaylist.getItems().set(index,newName);
+        String oldName = listviewPlaylist.getItems().get(itemIndex);
+        listviewPlaylist.getItems().set(itemIndex,newName);
 
         PlayList playList = new PlayList();
         playList.editPlayListName(oldName,newName);
     }
 
     public void handleDeletePlaylist(){
-        
+        PlayList playList = new PlayList();
+
+        String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
+        int index = listviewPlaylist.getSelectionModel().getSelectedIndex();
+        listviewPlaylist.getItems().remove(index);
+
+        playList.deletePlayList(selectedPlaylist);
     }
 
     public void handleAddToPlaylist(){
