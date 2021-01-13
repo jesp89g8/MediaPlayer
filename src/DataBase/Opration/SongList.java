@@ -6,11 +6,12 @@ import DataBase.SQL;
 import java.util.ArrayList;
 
 /**
- * @ author Fei Gu
- * @ create 2021-01-08-12.32
+ * @ Group Jesper Raheela Zia and Fei
+ * @ create 2021-01-05-08.39
  * @ grade CS20_EASV_SØNDERBORG
- * @ Description
- * @ Version
+ * @ Description This is the DB-Connecter which connect the Database and get result.
+ * @ Version 0.1
+ *
  */
 public class SongList extends PlayList{
     private int songList;
@@ -41,6 +42,12 @@ public class SongList extends PlayList{
         this.playListID = playListID;
     }
 
+
+    /**
+     * get all of the music id from the playlist
+     * @param playListID the id of the playlist
+     * @return an ArrayList of the music id
+     */
     public ArrayList<Integer> playListIdToSongId(int playListID){
         String query = String.format("select fldMusicID from table_Songlist " +
                 "where fldPlaylistID = %d",playListID);
@@ -51,6 +58,12 @@ public class SongList extends PlayList{
         return getMusicID();
     }
 
+    /**
+     * this is working for base the music id and the playlist to get the songlist id
+     * @param id music id
+     * @param playlistName playlist name
+     * @return songlist id
+     */
     public int findID(int id, String playlistName ){
         int playlistID = nameToId(playlistName);
         String query = String.format("select fldSongListID from table_Songlist " +

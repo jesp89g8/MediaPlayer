@@ -9,11 +9,12 @@ import sample.Controller;
 import java.util.ArrayList;
 
 /**
- * @ author Fei Gu
- * @ create 2021-01-08-12.31
+ * @ Group Jesper Raheela Zia and Fei
+ * @ create 2021-01-05-08.39
  * @ grade CS20_EASV_SØNDERBORG
- * @ Description
- * @ Version
+ * @ Description This is the DB-Connecter which connect the Database and get result.
+ * @ Version 0.1
+ *
  */
 public class Music {
     private int id;
@@ -86,10 +87,10 @@ public class Music {
 
 
     /**
-     * this is "try to make it easier" by fei
+     * trans the music id to music name
      * and i think we can talk to use these function to instead some part make the code clearly.
-     * @param id
-     * @return
+     * @param id music id int
+     * @return the music name String
      */
     public String idToName(int id){
         String query = String.format("select fldMusicName from table_music where fldMusicID = '%d'",id);
@@ -97,6 +98,11 @@ public class Music {
         return getMusicName();
     }
 
+    /**
+     * trans the music name to music id
+     * @param musicName the name of music
+     * @return the id of music
+     */
     public int nameToId(String musicName) {
         String query = String.format("select fldMusicID from table_music where fldMusicName = '%s'",musicName);
         String musicID = SQL.selectSQL(query).get(0);
@@ -106,6 +112,12 @@ public class Music {
         return getId();
     }
 
+
+    /**
+     * trans the music id to music path
+     * @param id the id of the music
+     * @return the path of the music
+     */
     public String idToPath(int id){
         String query = String.format("select fldPath from table_music where fldMusicID = '%d'",id);
         setPath(SQL.selectSQL(query).get(0));
