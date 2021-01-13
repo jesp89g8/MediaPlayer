@@ -51,14 +51,16 @@ public class PlayList {
      * @param playListName String
      */
     public void addPlaylist(String playListName){
+
         String maxPlaylistIDQuery = String.format("select max(fldPlaylistID) from table_Playlist");
         String maxPlaylistID = SQL.selectSQL(maxPlaylistIDQuery).get(0);
         int id = Integer.parseInt(maxPlaylistID) + 1;
         String query = String.format("insert into table_Playlist values (%s,'%s')",id,playListName);
         DB.insertSQL(query);
-        System.out.println("add the playlist : " + playListName + " ; the id is : " + id);
-    }
 
+        System.out.println("add the playlist : " + playListName + " ; the id is : " + id);
+        System.out.println();
+    }
 
     /**
      * This is the method for delete the play list by playlistID
@@ -67,7 +69,10 @@ public class PlayList {
     public void deletePlayList(int playListID){
         String query = String.format("delete from table_Playlist where fldPlaylistID = %s",playListID);
         DB.deleteSQL(query);
+
+
         System.out.println("delete the playlist, the id is : " + playListID);
+        System.out.println();
     }
 
     /**
@@ -77,6 +82,29 @@ public class PlayList {
     public void deletePlayList(String playListName){
         String query = String.format("delete from table_Playlist where fldPlaylistName = '%s'",playListName);
         DB.deleteSQL(query);
+
         System.out.println("delete the playlist, the name is : " + playListName);
+        System.out.println();
+    }
+
+    public int getMaxPlaylistID() {
+        String maxMusicIDQuery = "select max(fldPlaylistID) from table_Playlist";
+        String maxMusicID = SQL.selectSQL(maxMusicIDQuery).get(0);
+
+        return Integer.parseInt(maxMusicID);
+    }
+
+    public void editPlayListName(String oldName,String newName){
+        String query = String.format("select fldPlaylistName from table_Playlist where fldPlaylistName = '%s'",newName);
+
+        ArrayList<String> existingName = SQL.selectSQL(query);
+
+        if(existingName.isEmpty()){
+            query = String.format(
+                    "update table_Playlist set fldPlaylistName = '%s' where fldPlaylistName = '%s'",
+                    newName,oldName
+            );
+            DB.updateSQL(query);
+        }
     }
 }

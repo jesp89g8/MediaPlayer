@@ -5,6 +5,7 @@ import Model.PlayFunction;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
@@ -29,42 +30,50 @@ import java.util.ArrayList;
 public class Controller{
 
     @FXML
-    private Button  btnPlay,btnPause,btnStop,
-            btnNewPlaylist, btnDeletePlaylist,
-            btnAddToPlaylist,btnDeleteFromPlaylist,
-            btnNextSong;
+    private Button  btnPlay,btnPause,btnStop,btnNewPlaylist,
+                    btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist,btnNextSong;
     @FXML
     private ComboBox<String> comboBoxSearchCriteria;
+
     @FXML
     private ListView<String> listviewSong, listviewInfo, listviewPlaylist;
     @FXML
     private TextField txtfldSelected,txtfldSearch;
 
     private Music selectedMusic;
-    private PlayFunction musicOpration = new PlayFunction();
-    //private PlayList newPlaylist;
+
+    private PlayFunction musicOperation = new PlayFunction();
 
     public void initialize(){
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
         initListviews();
         initPlaylistview();
         handleListViewSong();
-    }
 
+        listviewPlaylist.setEditable(true);
+        listviewPlaylist.setCellFactory(TextFieldListCell.forListView());
+    }
 
     /**
      * Initializes the Song and Playlist Listview
      */
     private void initListviews() {
+        System.out.println("loading the listview...");
+
+        System.out.println("add all the music into the Song list view...");
         insertIntoListview("select fldMusicName from table_music",listviewSong);
-        System.out.println("Load all the music into the Song list view...");
+
+        /*
+        System.out.println("add all the playlist into the Playlist view...");
+        insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
+
+         */
+
     }
     private void initPlaylistview(){
-        listviewPlaylist.getItems().clear();
+        System.out.println("add all the playlist into the Playlist view...");
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
-        System.out.println("Load all the playlist into the Playlist view...");
     }
-
 
     /**
      * Queries the database with a select statement and inserts the output
@@ -74,38 +83,56 @@ public class Controller{
      */
     private void insertIntoListview(String query,ListView<String> listview){
         ArrayList<String> queryData = SQL.selectSQL(query);
-        for (String data : queryData) { listview.getItems().add(data); }
-    }
 
+        for (String data : queryData) {
+            listview.getItems().add(data);
+        }
+    }
 
     /**
      * Plays the selected music
      */
     public void handlePlay(){
-        musicOpration.play(selectedMusic);
+        musicOperation.play(selectedMusic);
     }
 
     /**
      * Pauses the playing music
      */
     public void handlePause(){
-        musicOpration.pause();
+        musicOperation.pause();
+
     }
 
-    /**
-     * Stop the playing music
-     */
     public void handleStop() {
-        musicOpration.stop();
+        musicOperation.stop();
     }
 
     public void handleNewPlayList(){
-        new PlayList().addPlaylist("tet");
+        ArrayList<String> s = SQL.selectSQL("select fldPlaylistName from table_Playlist where fldPlaylistName = 'New Playlist'");
+        PlayList newPlaylist = new PlayList();
+
+        int playListMaxID = newPlaylist.getMaxPlaylistID();
+        newPlaylist.addPlaylist("New Playlist " + (playListMaxID + 1));
+
+        listviewPlaylist.getItems().clear();
         initPlaylistview();
     }
 
-    public void handleDeletePlaylist(){
+    public void handleListViewPlaylistEdit(Event e){
+        ListView.EditEvent<String> editEvent = (ListView.EditEvent) e;
+        int index = editEvent.getIndex();
 
+        String newName = editEvent.getNewValue();
+        String oldName = listviewPlaylist.getItems().get(index);
+        listviewPlaylist.getItems().set(index,newName);
+
+        PlayList playList = new PlayList();
+        playList.editPlayListName(oldName,newName);
+    }
+
+    public void handleDeletePlaylist(){
+        
     }
 
     public void handleAddToPlaylist(){
@@ -121,7 +148,7 @@ public class Controller{
             selectedMusic.setId(0);
         }
 
-        musicOpration.next(selectedMusic);
+        musicOperation.next(selectedMusic);
         selectedMusic.setId(selectedMusic.getId() + 1);
     }
 
