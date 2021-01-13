@@ -6,6 +6,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import sample.Controller;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -26,6 +27,13 @@ public class Music {
 
 
     public Music() {
+    }
+
+    public Music(int id) {
+        this.id = id;
+        this.name = idToName(this.id);
+        this.path = idToPath(this.id);
+
     }
 
     public Music(int id, String name, String artist, String path){
@@ -122,5 +130,17 @@ public class Music {
         String query = String.format("select fldPath from table_music where fldMusicID = '%d'",id);
         setPath(SQL.selectSQL(query).get(0));
         return getPath();
+    }
+
+    @Override
+    public String toString() {
+        return "Music{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", artist='" + artist + '\'' +
+                ", path='" + path + '\'' +
+                ", media=" + media +
+                ", mediaPlayer=" + mediaPlayer +
+                '}';
     }
 }

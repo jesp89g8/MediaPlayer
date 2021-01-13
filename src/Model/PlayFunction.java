@@ -1,6 +1,10 @@
 package Model;
 
 import DataBase.Opration.Music;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.io.File;
 
 /**
  * @ Group Jesper Raheela Zia and Fei
@@ -33,6 +37,8 @@ public class PlayFunction {
 
             playingMusic.getMediaPlayer().stop();//stop the recently music
             playingMusic = selectedMusic; // load the new select
+            System.out.println(playingMusic);
+            System.out.println(selectedMusic);
             playingMusic.getMediaPlayer().play(); // play the selected music
         }
         else{
@@ -63,10 +69,28 @@ public class PlayFunction {
         playingMusic = null;                                // delete the playing music object
     }
 
-    public String next(Music selectedMusic){
-        int id = selectedMusic.getId();
-        String path = selectedMusic.idToPath(id+1);
+    public void next(Music selectedMusic){
 
-        return path;
+        int id = selectedMusic.getId();
+
+        int nextId = selectedMusic.getId() + 1;
+       // String path = selectedMusic.idToPath(nextId);
+        Music nextMusic = new Music(nextId);
+        nextMusic.toString();
+
+        String path;
+        Media m;
+        MediaPlayer mp;
+
+        path = new File(nextMusic.getPath()).getAbsolutePath();    // get the absolute path of the music
+        m = new Media(new File(path).toURI().toString());   // initialize the media with the path
+        mp = new MediaPlayer(m);                   // attach the media to a media player
+
+        nextMusic.setMedia(m);
+        nextMusic.setMediaPlayer(mp);
+        // selectedMusic.setPath(path);
+        play(nextMusic);
+        System.out.println("the selected music is : " + selectedMusic.getMusicName());
+        System.out.println("the playing music is : " + playingMusic.getMusicName());
     }
 }

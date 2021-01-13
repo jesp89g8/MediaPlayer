@@ -33,6 +33,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 
 
+        /*
         //this is for test the add/delete playlist method
         PlayList test = new PlayList();
         test.addPlaylist("music");
@@ -49,8 +50,10 @@ public class Main extends Application {
         test2.deleteMusic(songlistID);
         test.deletePlayList("test list");
 
+         */
 
-        //launch(args);
+
+        launch(args);
     }
 
     /**
