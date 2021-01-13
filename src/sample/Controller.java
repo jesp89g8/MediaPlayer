@@ -46,6 +46,7 @@ public class Controller{
     public void initialize(){
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
         initListviews();
+        initPlaylistview();
         handleListViewSong();
     }
 
@@ -58,9 +59,16 @@ public class Controller{
         System.out.println("add all the music into the Song list view...");
         insertIntoListview("select fldMusicName from table_music",listviewSong);
 
+        /*
         System.out.println("add all the playlist into the Playlist view...");
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
 
+         */
+
+    }
+    private void initPlaylistview(){
+        System.out.println("add all the playlist into the Playlist view...");
+        insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
     }
 
     /**
@@ -101,7 +109,7 @@ public class Controller{
         newPlaylist.addPlaylist("tetet");
 
         listviewPlaylist.getItems().clear();
-        initListviews();
+        initPlaylistview();
     }
 
     public void handleDeletePlaylist(){
