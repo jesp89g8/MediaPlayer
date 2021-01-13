@@ -143,4 +143,11 @@ public class Music {
                 ", mediaPlayer=" + mediaPlayer +
                 '}';
     }
+
+    public int getMaxSongID() {
+        String maxMusicIDQuery = "select max(fldMusicID) from table_music";
+        String maxMusicID = SQL.selectSQL(maxMusicIDQuery).get(0);
+
+        return Integer.parseInt(maxMusicID);
+    }
 }

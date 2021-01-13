@@ -31,8 +31,6 @@ public class Main extends Application {
     final int RES_HEIGHT = 600;
 
     public static void main(String[] args) {
-
-
         /*
         //this is for test the add/delete playlist method
         PlayList test = new PlayList();
@@ -49,9 +47,7 @@ public class Main extends Application {
         int songlistID = test2.findID(5,"test list");
         test2.deleteMusic(songlistID);
         test.deletePlayList("test list");
-
-         */
-
+        */
 
         launch(args);
     }

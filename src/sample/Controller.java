@@ -97,7 +97,11 @@ public class Controller{
     }
 
     public void handleNewPlayList(){
+        PlayList newPlaylist = new PlayList();
+        newPlaylist.addPlaylist("tetet");
 
+        listviewPlaylist.getItems().clear();
+        initListviews();
     }
 
     public void handleDeletePlaylist(){
@@ -113,33 +117,15 @@ public class Controller{
     }
 
     public void handleNextSong(){
-        /*
-        musicOpration.stop();
-        String path = musicOpration.next(selectedMusic);
-        selectedMusic.setPath(path);
+        if((selectedMusic.getId() + 1) > selectedMusic.getMaxSongID()){
+            selectedMusic.setId(0);
+        }
 
-
-
-        selectedMusic.setId(selectedMusic.getId()+1);
-
-
-        selectedMusic = musicOpration.next(selectedMusic);
-        String path;
-        Media m;
-        MediaPlayer mp;
-
-        path = new File(selectedMusic.getPath()).getAbsolutePath();    // get the absolute path of the music
-        Media m = new Media(new File(path).toURI().toString());   // initialize the media with the path
-        MediaPlayer mp = new MediaPlayer(m);                   // attach the media to a media player
-
-        selectedMusic.setMedia(m);              // set the media of the music to the media containing the song
-        selectedMusic.setMediaPlayer(mp);  // set the media player of the music, with the media player containing the media
-
-        musicOpration.play(selectedMusic);
-         */
         musicOpration.next(selectedMusic);
         selectedMusic.setId(selectedMusic.getId() + 1);
     }
+
+
 
     /**
      * Handles user selection in the song ListView
