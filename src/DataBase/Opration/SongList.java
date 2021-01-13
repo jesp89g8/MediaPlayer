@@ -42,7 +42,8 @@ public class SongList extends PlayList{
     }
 
     public ArrayList<Integer> playListIdToSongId(int playListID){
-        String query = String.format("select fldMusicID from table_Songlist where fldPlaylistID = %d",playListID);
+        String query = String.format("select fldMusicID from table_Songlist " +
+                "where fldPlaylistID = %d",playListID);
         ArrayList<String> ids = SQL.selectSQL(query);
 
         for (String s: ids) { musicID.add(Integer.parseInt(s)); }
@@ -51,10 +52,17 @@ public class SongList extends PlayList{
     }
 
     public int findID(int id, String playlistName ){
-        String query = String.format("select fldsongListID from table_Songlist where fldMusicID = %d and fldPLaylistName = '%s'",id,playlistName);
+        int playlistID = nameToId(playlistName);
+        String query = String.format("select fldSongListID from table_Songlist " +
+                "where fldMusicID = %d and fldPLaylistID = %d",id,playlistID);
         String findId = SQL.selectSQL(query).get(0);
         int songListID = Integer.parseInt(findId);
 
+        System.out.println(
+                "the music id is : " + id + " ; " +
+                        " the playlist name is : " + playlistName + " ; " +
+                        "so the songlist id is : " + songListID);
+        System.out.println();
         return songListID;
     }
 
@@ -69,6 +77,11 @@ public class SongList extends PlayList{
         int songlistId = Integer.parseInt(maxSonglistID) + 1;
         String query = String.format("insert into table_Songlist values (%s,%s,%s)",songlistId,id,playListID);
         DB.insertSQL(query);
+
+        System.out.println("the songlist : " + songlistId +
+                " add the music : " + id +" ; " +
+                "into " + playListID );
+        System.out.println();
     }
 
     /**
@@ -78,5 +91,7 @@ public class SongList extends PlayList{
     public void deleteMusic (int songListID){
         String query = String.format("delete from table_Songlist where fldSongListID = %d",songListID);
         DB.deleteSQL(query);
+
+        System.out.println("delete the music : " + songListID);
     }
 }

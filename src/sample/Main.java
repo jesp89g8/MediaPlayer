@@ -45,9 +45,9 @@ public class Main extends Application {
         test.addPlaylist("test list");
         int playlistId = test.nameToId("test list");
         test2.addMusic(5,playlistId);
-        int songlistID = test2.findID(5,"test list"); // there is some wrong i don't have time to fix
-        System.out.println(songlistID);
+        int songlistID = test2.findID(5,"test list");
         test2.deleteMusic(songlistID);
+        test.deletePlayList("test list");
 
 
         //launch(args);

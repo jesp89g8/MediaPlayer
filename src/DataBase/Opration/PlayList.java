@@ -56,6 +56,9 @@ public class PlayList {
         int id = Integer.parseInt(maxPlaylistID) + 1;
         String query = String.format("insert into table_Playlist values (%s,'%s')",id,playListName);
         DB.insertSQL(query);
+
+        System.out.println("add the playlist : " + playListName + " ; the id is : " + id);
+        System.out.println();
     }
 
     /**
@@ -65,6 +68,10 @@ public class PlayList {
     public void deletePlayList(int playListID){
         String query = String.format("delete from table_Playlist where fldPlaylistID = %s",playListID);
         DB.deleteSQL(query);
+
+
+        System.out.println("delete the playlist, the id is : " + playListID);
+        System.out.println();
     }
 
     /**
@@ -74,5 +81,8 @@ public class PlayList {
     public void deletePlayList(String playListName){
         String query = String.format("delete from table_Playlist where fldPlaylistName = '%s'",playListName);
         DB.deleteSQL(query);
+
+        System.out.println("delete the playlist, the name is : " + playListName);
+        System.out.println();
     }
 }
