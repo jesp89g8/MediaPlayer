@@ -82,7 +82,6 @@ public class DB {
     /**
      *
      * @param sql the sql string to be executed in SQLServer
-     * @return
      */
     public static void selectSQL(String sql){
         if (terminated){

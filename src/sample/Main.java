@@ -32,7 +32,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        /*
+
         //this is for test the add/delete playlist method
         PlayList test = new PlayList();
         test.addPlaylist("music");
@@ -41,10 +41,16 @@ public class Main extends Application {
         test.deletePlayList(4);
         test.deletePlayList("all music");
 
-         */
+        SongList test2 = new SongList();
+        test.addPlaylist("test list");
+        int playlistId = test.nameToId("test list");
+        test2.addMusic(5,playlistId);
+        int songlistID = test2.findID(5,"test list"); // there is some wrong i don't have time to fix
+        System.out.println(songlistID);
+        test2.deleteMusic(songlistID);
 
 
-        launch(args);
+        //launch(args);
     }
 
     /**
