@@ -33,7 +33,6 @@ public class Music {
         this.id = id;
         this.name = idToName(this.id);
         this.path = idToPath(this.id);
-
     }
 
     public Music(int id, String name, String artist, String path){
@@ -42,6 +41,7 @@ public class Music {
         this.artist = artist;
         this.path = path;
     }
+
 
     public int getId() {
         return id;
@@ -114,9 +114,7 @@ public class Music {
     public int nameToId(String musicName) {
         String query = String.format("select fldMusicID from table_music where fldMusicName = '%s'",musicName);
         String musicID = SQL.selectSQL(query).get(0);
-
         setId(Integer.parseInt(musicID));
-
         return getId();
     }
 
@@ -132,6 +130,14 @@ public class Music {
         return getPath();
     }
 
+
+    public int getMaxSongID() {
+        String maxMusicIDQuery = "select max(fldMusicID) from table_music";
+        String maxMusicID = SQL.selectSQL(maxMusicIDQuery).get(0);
+        return Integer.parseInt(maxMusicID);
+    }
+
+
     @Override
     public String toString() {
         return "Music{" +
@@ -142,12 +148,5 @@ public class Music {
                 ", media=" + media +
                 ", mediaPlayer=" + mediaPlayer +
                 '}';
-    }
-
-    public int getMaxSongID() {
-        String maxMusicIDQuery = "select max(fldMusicID) from table_music";
-        String maxMusicID = SQL.selectSQL(maxMusicIDQuery).get(0);
-
-        return Integer.parseInt(maxMusicID);
     }
 }

@@ -75,7 +75,6 @@ public class SongList extends PlayList{
                 "the music id is : " + id + " ; " +
                         " the playlist name is : " + playlistName + " ; " +
                         "so the songlist id is : " + songListID);
-        System.out.println();
         return songListID;
     }
 
@@ -94,7 +93,6 @@ public class SongList extends PlayList{
         System.out.println("the songlist : " + songlistId +
                 " add the music : " + id +" ; " +
                 "into " + playListID );
-        System.out.println();
     }
 
     /**

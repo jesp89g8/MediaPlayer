@@ -29,19 +29,20 @@ import java.util.ArrayList;
 public class Controller{
 
     @FXML
-    private Button  btnPlay,btnPause,btnStop,btnNewPlaylist,
-                    btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist,btnNextSong;
+    private Button  btnPlay,btnPause,btnStop,
+            btnNewPlaylist, btnDeletePlaylist,
+            btnAddToPlaylist,btnDeleteFromPlaylist,
+            btnNextSong;
     @FXML
     private ComboBox<String> comboBoxSearchCriteria;
-
     @FXML
     private ListView<String> listviewSong, listviewInfo, listviewPlaylist;
     @FXML
     private TextField txtfldSelected,txtfldSearch;
 
     private Music selectedMusic;
-
     private PlayFunction musicOpration = new PlayFunction();
+    //private PlayList newPlaylist;
 
     public void initialize(){
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
@@ -50,26 +51,20 @@ public class Controller{
         handleListViewSong();
     }
 
+
     /**
      * Initializes the Song and Playlist Listview
      */
     private void initListviews() {
-        System.out.println("loading the listview...");
-
-        System.out.println("add all the music into the Song list view...");
         insertIntoListview("select fldMusicName from table_music",listviewSong);
-
-        /*
-        System.out.println("add all the playlist into the Playlist view...");
-        insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
-
-         */
-
+        System.out.println("Load all the music into the Song list view...");
     }
     private void initPlaylistview(){
-        System.out.println("add all the playlist into the Playlist view...");
+        listviewPlaylist.getItems().clear();
         insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
+        System.out.println("Load all the playlist into the Playlist view...");
     }
+
 
     /**
      * Queries the database with a select statement and inserts the output
@@ -79,11 +74,9 @@ public class Controller{
      */
     private void insertIntoListview(String query,ListView<String> listview){
         ArrayList<String> queryData = SQL.selectSQL(query);
-
-        for (String data : queryData) {
-            listview.getItems().add(data);
-        }
+        for (String data : queryData) { listview.getItems().add(data); }
     }
+
 
     /**
      * Plays the selected music
@@ -97,18 +90,17 @@ public class Controller{
      */
     public void handlePause(){
         musicOpration.pause();
-
     }
 
+    /**
+     * Stop the playing music
+     */
     public void handleStop() {
         musicOpration.stop();
     }
 
     public void handleNewPlayList(){
-        PlayList newPlaylist = new PlayList();
-        newPlaylist.addPlaylist("tetet");
-
-        listviewPlaylist.getItems().clear();
+        new PlayList().addPlaylist("tet");
         initPlaylistview();
     }
 
