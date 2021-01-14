@@ -109,7 +109,6 @@ public class Controller{
     }
 
     public void handleNewPlayList(){
-        ArrayList<String> s = SQL.selectSQL("select fldPlaylistName from table_Playlist where fldPlaylistName = 'New Playlist'");
         PlayList newPlaylist = new PlayList();
 
         int playListMaxID = newPlaylist.getMaxPlaylistID();
@@ -174,13 +173,12 @@ public class Controller{
     public void handleDeleteFromPlaylist(){
         String selectedSong = listviewInfo.getSelectionModel().getSelectedItem();
         String selectedPlayList = listviewPlaylist.getSelectionModel().getSelectedItem();
-        if(selectedSong == null && selectedPlayList == null) {
+        if(selectedSong == null || selectedPlayList == null) {
             System.out.println(" there is no playlist be selected !");
             return;
         }
 
         Music music = new Music();
-        PlayList playList = new PlayList();
         SongList songList = new SongList();
 
         int musicID = music.nameToId(selectedSong);
@@ -286,7 +284,7 @@ public class Controller{
             // query setup
             String query = String.format(
                     "select fldMusicName from table_music where %s like '%%%s%%'",  // select the music name, that matches the criteria and search string
-                    criteria,searchString   // criteria and user search string passed into the format string
+                    criteria,searchString.replace("'","''")   // criteria and user search string passed into the format string
             );
             result = SQL.selectSQL(query);  // get the output from the database
 
@@ -338,14 +336,12 @@ public class Controller{
     }
 
     public void deleteAllMusic(String playListName){
-        ArrayList<Integer> musicID = new ArrayList<>();
         ArrayList<String> musicName = handleSongListView(playListName);
         for(String names: musicName){
             int id = new Music().nameToId(names);
             int songlistId = new SongList().findID(id,playListName);
             new SongList().deleteMusic(songlistId);
         }
-
     }
 
 }

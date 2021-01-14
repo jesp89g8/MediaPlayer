@@ -38,7 +38,7 @@ public class PlayList {
      * @return playlist Id as intger
      */
     public int nameToId(String playListName){
-        String query = String.format("select fldPlaylistID from table_Playlist where fldPlaylistName = '%s'",playListName);
+        String query = String.format("select fldPlaylistID from table_Playlist where fldPlaylistName = '%s'",playListName.replace("'","''"));
         String playlistID = SQL.selectSQL(query).get(0);
         setPlayListID(Integer.parseInt(playlistID));
 
@@ -55,7 +55,7 @@ public class PlayList {
         String maxPlaylistIDQuery = String.format("select max(fldPlaylistID) from table_Playlist");
         String maxPlaylistID = SQL.selectSQL(maxPlaylistIDQuery).get(0);
         int id = Integer.parseInt(maxPlaylistID) + 1;
-        String query = String.format("insert into table_Playlist values (%s,'%s')",id,playListName);
+        String query = String.format("insert into table_Playlist values (%s,'%s')",id,playListName.replace("'","''"));
         DB.insertSQL(query);
 
         System.out.println("add the playlist : " + playListName + " ; the id is : " + id);
@@ -95,7 +95,7 @@ public class PlayList {
     }
 
     public boolean editPlayListName(String oldName,String newName){
-        String query = String.format("select fldPlaylistName from table_Playlist where fldPlaylistName = '%s'",newName);
+        String query = String.format("select fldPlaylistName from table_Playlist where fldPlaylistName = '%s'",newName.replace("'","''"));
 
         ArrayList<String> existingName = SQL.selectSQL(query);
 

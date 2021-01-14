@@ -112,7 +112,7 @@ public class Music {
      * @return the id of music
      */
     public int nameToId(String musicName) {
-        String query = String.format("select fldMusicID from table_music where fldMusicName = '%s'",musicName);
+        String query = String.format("select fldMusicID from table_music where fldMusicName = '%s'",musicName.replace("'","''"));
         String musicID = SQL.selectSQL(query).get(0);
         setId(Integer.parseInt(musicID));
         return getId();
