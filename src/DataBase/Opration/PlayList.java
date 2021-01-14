@@ -17,6 +17,23 @@ public class PlayList extends PlaylisInfoList {
     private int playListID;
     private String playListName;
 
+    public PlayList() {
+    }
+
+    public PlayList(String playListName) {
+        this.playListName = playListName;
+        this.playListID = nameToId(this.playListName);
+    }
+
+    public PlayList(int playListID) {
+        this.playListID = playListID;
+    }
+
+    public PlayList(int playListID, String playListName) {
+        this.playListID = playListID;
+        this.playListName = playListName;
+    }
+
     public int getPlayListID() { return playListID; }
 
     public void setPlayListID(int playListID) {

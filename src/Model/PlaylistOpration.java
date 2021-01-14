@@ -3,6 +3,8 @@ package Model;
 import DataBase.Opration.PlayList;
 import DataBase.Opration.PlaylisInfoList;
 
+import javax.swing.text.html.ListView;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -30,8 +32,9 @@ public class PlaylistOpration extends PlayList{
         }
         deleteAllMusic(selectedPlaylist);
         super.deletePlayList(selectedPlaylist);
-
     }
+
+
     public void deleteAllMusic(String selectedPlaylist){
         ArrayList<Integer> musicID = playListIdToSongId(nameToId(selectedPlaylist));
         for(int ids: musicID){

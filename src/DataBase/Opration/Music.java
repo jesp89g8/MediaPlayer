@@ -30,6 +30,12 @@ public class Music {
         this.path = idToPath(this.id);
     }
 
+    public Music(String name) {
+        this.name = name;
+        this.id = nameToId(this.name);
+        this.path = idToPath(this.id);
+    }
+
     public Music(int id, String name, String artist, String path){
         this.id = id;
         this.name = name;

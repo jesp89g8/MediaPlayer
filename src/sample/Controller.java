@@ -1,8 +1,7 @@
 package sample;
 
 import DataBase.DBSetter.SQL;
-import Model.PlayFunction;
-import Model.PlaylistOpration;
+import Model.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -42,15 +41,20 @@ public class Controller{
     private TextField txtfldSelected,txtfldSearch;
 
     private Music selectedMusic;
+    private PlayList selectedPlaylist;
 
-    private PlayFunction playFunction = new PlayFunction();
-    private PlaylistOpration playlistOpration = new PlaylistOpration();
+    public MusicOpration musicOpration = new MusicOpration();
+    public PlaylistOpration playlistOpration = new PlaylistOpration();
+    public PlaylistInfoOpration playlistInfoOpration = new PlaylistInfoOpration();
+
+
+
 
     public void initialize(){
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
         initListviews();
         initPlaylistview();
-        handleListViewMusic();
+        //handleListViewMusic();  //????????
 
         showPlaylist.setEditable(true);
         showPlaylist.setCellFactory(TextFieldListCell.forListView());
@@ -64,12 +68,6 @@ public class Controller{
 
         System.out.println("add all the music into the Song list view...");
         insertIntoListview("select fldMusicName from table_music", showMusic);
-
-        /*
-        System.out.println("add all the playlist into the Playlist view...");
-        insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
-
-         */
 
     }
     private void initPlaylistview(){
@@ -91,27 +89,64 @@ public class Controller{
         }
     }
 
+    public void selectMusic(ListView<String> listView){
+        selectedMusic = new SelectedOpration().selectedMusic(listView);
+        txtfldSelected.setText("Selected: " + selectedMusic.getMusicName());    // update the "selected: " text field
+        new LodingMediaPlay().lodingMediaPlay(selectedMusic);
+
+        /*
+
+        Media media;                // the media for the selected song
+        MediaPlayer mediaPlayer;    // the media player for the selected song
+
+
+        // sql query setup
+        String query = String.format(
+                "select * from table_music where fldMusicName = '%s'",    // the query statement, get path from DB
+                selectedSong.replace("'","''")  // replace apostrophes with double apostrophes to avoid errors in sql
+        );
+
+        ArrayList<String> musicData = SQL.selectSQL(query); // query the DB for the music data
+
+
+        // initialize the selected music object
+        this.selectedMusic = new Music(
+                Integer.parseInt(musicData.get(0)), // music id
+                musicData.get(1),                   // music name
+                musicData.get(2),                   // music artist
+                musicData.get(5)                    // music path
+        );
+
+
+        String path = new File(this.selectedMusic.getPath()).getAbsolutePath();    // get the absolute path of the music
+        media = new Media(new File(path).toURI().toString());   // initialize the media with the path
+        mediaPlayer = new MediaPlayer(media);                   // attach the media to a media player
+
+        this.selectedMusic.setMedia(media);              // set the media of the music to the media containing the song
+        this.selectedMusic.setMediaPlayer(mediaPlayer);  // set the media player of the music, with the media player containing the media
+         */
+    }
+
     /* After this is the handle about play functional. */
     /**
      * Plays the selected music
      */
     public void handlePlay(){
-        playFunction.play(selectedMusic);
+        musicOpration.play(selectedMusic);
     }
 
     /**
      * Pauses the playing music
      */
     public void handlePause(){
-        playFunction.pause();
-        
+        musicOpration.pause();
     }
 
     /**
      * Stop the playling music
      */
     public void handleStop() {
-        playFunction.stop();
+        musicOpration.stop();
     }
 
     /**
@@ -125,7 +160,7 @@ public class Controller{
         if((selectedMusic.getId() + 1) > selectedMusic.getMaxSongID()){
             selectedMusic.setId(0);
         }
-        playFunction.next(selectedMusic);
+        musicOpration.next(selectedMusic);
         selectedMusic.setId(selectedMusic.getId() + 1);
     }
 
@@ -167,55 +202,25 @@ public class Controller{
         }
     }
 
-    /*
-    * After this is the playlist info opration
-    */
+    /*  After this is the playlist info opration  */
 
     public void handleAddToPlaylist(){
-        String selectedSong = showMusic.getSelectionModel().getSelectedItem();
-        String selectedPlayList = showPlaylist.getSelectionModel().getSelectedItem();
-        if(selectedSong == null ) {
-            System.out.println(" There is no music be selected!! ");
-            return;
-        }else if( selectedPlayList == null){
-            System.out.println(" There is no playlist be selected!! ");
-            return;
-        }
+        //String selectedMusic = showMusic.getSelectionModel().getSelectedItem();
+        String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
 
-        Music music = new Music();
-        PlayList playList = new PlayList();
-        PlaylisInfoList playlisInfoList = new PlaylisInfoList();
-
-        int musicID = music.nameToId(selectedSong);
-        int playListID = playList.nameToId(selectedPlayList);
-
-        playlisInfoList.addMusic(musicID,playListID);
+        playlistInfoOpration.addToPlaylist(selectedMusic,selectedPlaylist);
         showInfo.getItems().clear();
         handleListViewPlaylist();
     }
 
     public void handleDeleteFromPlaylist(){
-        String selectedSong = showInfo.getSelectionModel().getSelectedItem();
-        String selectedPlayList = showPlaylist.getSelectionModel().getSelectedItem();
-        if(selectedSong == null || selectedPlayList == null) {
-            System.out.println(" there is no playlist be selected !");
-            return;
-        }
+        //String selectedMusic = showInfo.getSelectionModel().getSelectedItem();
+        String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
 
-        Music music = new Music();
-        PlaylisInfoList playlisInfoList = new PlaylisInfoList();
-
-        int musicID = music.nameToId(selectedSong);
-        int songlistID = playlisInfoList.findID(musicID,selectedPlayList);
-
-        playlisInfoList.deleteMusic(songlistID);
+        playlistInfoOpration.deleteFromPlaylist(selectedMusic,selectedPlaylist);
         showInfo.getItems().clear();
         handleListViewPlaylist();
     }
-
-
-
-
 
     /**
      * Handles user selection in the song ListView
@@ -228,42 +233,28 @@ public class Controller{
         selectMusic(showInfo);
     }
 
-    public void selectMusic(ListView<String> lv){
-        Media media;                // the media for the selected song
-        MediaPlayer mediaPlayer;    // the media player for the selected song
+    public void handleListViewPlaylist(){
+        selectedPlaylist = new SelectedOpration().selectedPlaylist(showPlaylist);
 
-
-        String selectedSong = lv.getSelectionModel().getSelectedItem();   // get the name of the selected song
-        if(selectedSong == null) {
-            System.out.println(" there is no music be selected !");
-            return;                        // if selected song name is null, return
+        /*
+        String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedPlaylist == null) {
+            System.out.println(" there is no playlist be selected !");
+            return;
         }
-        txtfldSelected.setText("Selected: " + selectedSong);    // update the "selected: " text field
+         */
 
-        // sql query setup
-        String query = String.format(
-                "select * from table_music where fldMusicName = '%s'",    // the query statement, get path from DB
-                selectedSong.replace("'","''")  // replace apostrophes with double apostrophes to avoid errors in sql
-        );
+        ArrayList<String> getitems = handleSongListView(selectedPlaylist.getPlayListName());
+        showInfo.getItems().clear();
 
-        ArrayList<String> musicData = SQL.selectSQL(query); // query the DB for the music data
+        for(String a : getitems){
+            showInfo.getItems().add(a);
+        }
 
-
-        // initialize the selected music object
-        selectedMusic = new Music(
-                Integer.parseInt(musicData.get(0)), // music id
-                musicData.get(1),                   // music name
-                musicData.get(2),                   // music artist
-                musicData.get(5)                    // music path
-        );
-
-        String path = new File(selectedMusic.getPath()).getAbsolutePath();    // get the absolute path of the music
-        media = new Media(new File(path).toURI().toString());   // initialize the media with the path
-        mediaPlayer = new MediaPlayer(media);                   // attach the media to a media player
-
-        selectedMusic.setMedia(media);              // set the media of the music to the media containing the song
-        selectedMusic.setMediaPlayer(mediaPlayer);  // set the media player of the music, with the media player containing the media
     }
+
+
+    /* After this is the search function */
 
     /**
      * Handles the search text field. The type of search is determined by
@@ -311,27 +302,12 @@ public class Controller{
         }
     }
 
-    public void handleListViewPlaylist(){
-        String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
-        if(selectedPlaylist == null) {
-            System.out.println(" there is no playlist be selected !");
-            return;
-        }
-
-        ArrayList<String> getitems = handleSongListView(selectedPlaylist);
-        showInfo.getItems().clear();
-
-        for(String a : getitems){
-            showInfo.getItems().add(a);
-        }
-    }
-
-
-    /**
-     * this is the "try to make" by fei and we can just delect it :P
-     * @param playListName
-     * @return
+    /*
+    * 还没弄...
      */
+
+
+
     public ArrayList<String> handleSongListView(String playListName){
         PlayList pl = new PlayList();
         int id = pl.nameToId(playListName);

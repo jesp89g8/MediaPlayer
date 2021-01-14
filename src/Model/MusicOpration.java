@@ -1,10 +1,6 @@
 package Model;
 
 import DataBase.Opration.Music;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
-import java.io.File;
 
 /**
  * @ Group Jesper Raheela Zia and Fei
@@ -14,7 +10,7 @@ import java.io.File;
  * @ Version 0.1
  *
  */
-public class PlayFunction extends lodingMediaPlay{
+public class MusicOpration extends LodingMediaPlay {
 
     public Music playingMusic;
 

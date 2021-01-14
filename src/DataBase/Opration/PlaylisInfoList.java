@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @ Version 0.1
  *
  */
-public class PlaylisInfoList {
+public class PlaylisInfoList extends Music{
     private int songList;
     private int playListID;
     private ArrayList<Integer> musicID = new ArrayList<>();
@@ -70,7 +70,19 @@ public class PlaylisInfoList {
         int playlistID = new PlayList().nameToId(playlistName);
         String query = String.format("select fldSongListID from table_Songlist " +
                 "where fldMusicID = %d and fldPLaylistID = %d",id,playlistID);
+
+        /*
+        Here is a bug when the findId can not get a value because the record is not exist
+        fx. selected music you choose from all music list
+            selected playlist you choose from playlist which is not have the music you were choose
+            so it shouldn't have the songlistID
+            then exception
+         */
         String findId = SQL.selectSQL(query).get(0);
+        if(findId == null){
+            System.out.println("The music " + idToName(id) + " is not in the playlist " + playlistName);
+            return 0 ;
+        }
         int songListID = Integer.parseInt(findId);
 
         System.out.println(

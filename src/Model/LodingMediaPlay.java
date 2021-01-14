@@ -3,7 +3,6 @@ package Model;
 import DataBase.Opration.Music;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import sample.Controller;
 
 import java.io.File;
 
@@ -14,7 +13,7 @@ import java.io.File;
  * @ Description
  * @ Version
  */
-public class lodingMediaPlay  {
+public class LodingMediaPlay {
     String path;
     Media media;
     MediaPlayer mediaPlayer;
