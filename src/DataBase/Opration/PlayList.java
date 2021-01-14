@@ -94,7 +94,7 @@ public class PlayList {
         return Integer.parseInt(maxMusicID);
     }
 
-    public void editPlayListName(String oldName,String newName){
+    public boolean editPlayListName(String oldName,String newName){
         String query = String.format("select fldPlaylistName from table_Playlist where fldPlaylistName = '%s'",newName);
 
         ArrayList<String> existingName = SQL.selectSQL(query);
@@ -105,6 +105,10 @@ public class PlayList {
                     newName,oldName
             );
             DB.updateSQL(query);
+            return true;
+        }
+        else{
+            return false;
         }
     }
 }

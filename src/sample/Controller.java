@@ -125,10 +125,13 @@ public class Controller{
 
         String newName = editEvent.getNewValue();
         String oldName = listviewPlaylist.getItems().get(itemIndex);
-        listviewPlaylist.getItems().set(itemIndex,newName);
 
         PlayList playList = new PlayList();
-        playList.editPlayListName(oldName,newName);
+        boolean successNameChange = playList.editPlayListName(oldName,newName);
+
+        if(successNameChange){
+            listviewPlaylist.getItems().set(itemIndex,newName);
+        }
     }
 
     public void handleDeletePlaylist(){
