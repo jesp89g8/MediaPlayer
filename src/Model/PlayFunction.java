@@ -14,7 +14,7 @@ import java.io.File;
  * @ Version 0.1
  *
  */
-public class PlayFunction {
+public class PlayFunction extends lodingMediaPlay{
 
     public Music playingMusic;
 
@@ -75,18 +75,9 @@ public class PlayFunction {
         System.out.println("Change to the next music...");
         int nextId = selectedMusic.getId() + 1;
        // String path = selectedMusic.idToPath(nextId);
+
         Music nextMusic = new Music(nextId);
-
-        String path;
-        Media m;
-        MediaPlayer mp;
-
-        path = new File(nextMusic.getPath()).getAbsolutePath();    // get the absolute path of the music
-        m = new Media(new File(path).toURI().toString());   // initialize the media with the path
-        mp = new MediaPlayer(m);                   // attach the media to a media player
-
-        nextMusic.setMedia(m);
-        nextMusic.setMediaPlayer(mp);
+        lodingMediaPlay(nextMusic);
         // selectedMusic.setPath(path);
         play(nextMusic);
     }

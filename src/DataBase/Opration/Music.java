@@ -1,13 +1,8 @@
 package DataBase.Opration;
 
-import DataBase.SQL;
-import javafx.scene.control.ListView;
+import DataBase.DBSetter.SQL;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import sample.Controller;
-
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * @ Group Jesper Raheela Zia and Fei

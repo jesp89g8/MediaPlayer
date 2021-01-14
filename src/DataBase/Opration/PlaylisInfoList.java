@@ -1,7 +1,7 @@
 package DataBase.Opration;
 
 import DataBase.DBSetter.DB;
-import DataBase.SQL;
+import DataBase.DBSetter.SQL;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @ Version 0.1
  *
  */
-public class SongList extends PlayList{
+public class PlaylisInfoList {
     private int songList;
     private int playListID;
     private ArrayList<Integer> musicID = new ArrayList<>();
@@ -58,6 +58,8 @@ public class SongList extends PlayList{
         return getMusicID();
     }
 
+
+
     /**
      * this is working for base the music id and the playlist to get the songlist id
      * @param id music id
@@ -65,7 +67,7 @@ public class SongList extends PlayList{
      * @return songlist id
      */
     public int findID(int id, String playlistName ){
-        int playlistID = nameToId(playlistName);
+        int playlistID = new PlayList().nameToId(playlistName);
         String query = String.format("select fldSongListID from table_Songlist " +
                 "where fldMusicID = %d and fldPLaylistID = %d",id,playlistID);
         String findId = SQL.selectSQL(query).get(0);

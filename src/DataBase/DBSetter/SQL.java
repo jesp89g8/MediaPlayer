@@ -1,4 +1,4 @@
-package DataBase;
+package DataBase.DBSetter;
 
 import DataBase.DBSetter.DB;
 import DataBase.Opration.Music;

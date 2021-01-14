@@ -1,18 +1,10 @@
 package sample;
 
-import DataBase.DBSetter.DBTester;
-import DataBase.Opration.PlayList;
-import DataBase.Opration.SongList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-
-import DataBase.SQL;
 
 /**
  * @ Group Jesper Raheela Zia and Fei

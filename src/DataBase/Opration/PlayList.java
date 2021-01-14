@@ -1,7 +1,7 @@
 package DataBase.Opration;
 
 import DataBase.DBSetter.DB;
-import DataBase.SQL;
+import DataBase.DBSetter.SQL;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @ Version 0.1
  *
  */
-public class PlayList {
+public class PlayList extends PlaylisInfoList {
     private int playListID;
     private String playListName;
 

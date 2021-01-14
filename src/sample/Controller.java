@@ -1,7 +1,8 @@
 package sample;
 
-import DataBase.SQL;
+import DataBase.DBSetter.SQL;
 import Model.PlayFunction;
+import Model.PlaylistOpration;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -36,22 +37,23 @@ public class Controller{
     private ComboBox<String> comboBoxSearchCriteria;
 
     @FXML
-    private ListView<String> listviewSong, listviewInfo, listviewPlaylist;
+    private ListView<String> showMusic, showInfo, showPlaylist;
     @FXML
     private TextField txtfldSelected,txtfldSearch;
 
     private Music selectedMusic;
 
-    private PlayFunction musicOperation = new PlayFunction();
+    private PlayFunction playFunction = new PlayFunction();
+    private PlaylistOpration playlistOpration = new PlaylistOpration();
 
     public void initialize(){
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
         initListviews();
         initPlaylistview();
-        handleListViewSong();
+        handleListViewMusic();
 
-        listviewPlaylist.setEditable(true);
-        listviewPlaylist.setCellFactory(TextFieldListCell.forListView());
+        showPlaylist.setEditable(true);
+        showPlaylist.setCellFactory(TextFieldListCell.forListView());
     }
 
     /**
@@ -61,7 +63,7 @@ public class Controller{
         System.out.println("loading the listview...");
 
         System.out.println("add all the music into the Song list view...");
-        insertIntoListview("select fldMusicName from table_music",listviewSong);
+        insertIntoListview("select fldMusicName from table_music", showMusic);
 
         /*
         System.out.println("add all the playlist into the Playlist view...");
@@ -72,7 +74,7 @@ public class Controller{
     }
     private void initPlaylistview(){
         System.out.println("add all the playlist into the Playlist view...");
-        insertIntoListview("select fldPlaylistName from table_Playlist",listviewPlaylist);
+        insertIntoListview("select fldPlaylistName from table_Playlist", showPlaylist);
     }
 
     /**
@@ -89,106 +91,32 @@ public class Controller{
         }
     }
 
+    /* After this is the handle about play functional. */
     /**
      * Plays the selected music
      */
     public void handlePlay(){
-        musicOperation.play(selectedMusic);
+        playFunction.play(selectedMusic);
     }
 
     /**
      * Pauses the playing music
      */
     public void handlePause(){
-        musicOperation.pause();
+        playFunction.pause();
         
     }
 
+    /**
+     * Stop the playling music
+     */
     public void handleStop() {
-        musicOperation.stop();
+        playFunction.stop();
     }
 
-    public void handleNewPlayList(){
-        PlayList newPlaylist = new PlayList();
-
-        int playListMaxID = newPlaylist.getMaxPlaylistID();
-        newPlaylist.addPlaylist("New Playlist " + (playListMaxID + 1));
-
-        listviewPlaylist.getItems().clear();
-        initPlaylistview();
-    }
-
-    public void handleListViewPlaylistEdit(Event e){
-        ListView.EditEvent<String> editEvent = (ListView.EditEvent) e;
-        int itemIndex = editEvent.getIndex();
-
-        String newName = editEvent.getNewValue();
-        String oldName = listviewPlaylist.getItems().get(itemIndex);
-
-        PlayList playList = new PlayList();
-        boolean successNameChange = playList.editPlayListName(oldName,newName);
-
-        if(successNameChange){
-            listviewPlaylist.getItems().set(itemIndex,newName);
-        }
-    }
-
-    public void handleDeletePlaylist(){
-
-        PlayList playList = new PlayList();
-
-        String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
-        if(selectedPlaylist == null) {
-            System.out.println(" there is no playlist be selected !");
-            return;
-        }
-        int index = listviewPlaylist.getSelectionModel().getSelectedIndex();
-        listviewPlaylist.getItems().remove(index);
-
-        deleteAllMusic(selectedPlaylist);
-        listviewInfo.getItems().clear();
-        playList.deletePlayList(selectedPlaylist);
-    }
-
-    public void handleAddToPlaylist(){
-        String selectedSong = listviewSong.getSelectionModel().getSelectedItem();
-        String selectedPlayList = listviewPlaylist.getSelectionModel().getSelectedItem();
-        if(selectedSong == null && selectedPlayList == null) {
-            System.out.println(" There is no playlist be selected!! ");
-            return;
-        }
-
-        Music music = new Music();
-        PlayList playList = new PlayList();
-        SongList songList = new SongList();
-
-        int musicID = music.nameToId(selectedSong);
-        int playListID = playList.nameToId(selectedPlayList);
-
-        songList.addMusic(musicID,playListID);
-        listviewInfo.getItems().clear();
-        handleListViewPlaylist();
-    }
-
-    public void handleDeleteFromPlaylist(){
-        String selectedSong = listviewInfo.getSelectionModel().getSelectedItem();
-        String selectedPlayList = listviewPlaylist.getSelectionModel().getSelectedItem();
-        if(selectedSong == null || selectedPlayList == null) {
-            System.out.println(" there is no playlist be selected !");
-            return;
-        }
-
-        Music music = new Music();
-        SongList songList = new SongList();
-
-        int musicID = music.nameToId(selectedSong);
-        int songlistID = songList.findID(musicID,selectedPlayList);
-
-        songList.deleteMusic(songlistID);
-        listviewInfo.getItems().clear();
-        handleListViewPlaylist();
-    }
-
+    /**
+     * Play the next music following the selected music.
+     */
     public void handleNextSong(){
         if(selectedMusic == null) {
             System.out.println(" there is no music be selected !");
@@ -197,27 +125,113 @@ public class Controller{
         if((selectedMusic.getId() + 1) > selectedMusic.getMaxSongID()){
             selectedMusic.setId(0);
         }
-
-        musicOperation.next(selectedMusic);
+        playFunction.next(selectedMusic);
         selectedMusic.setId(selectedMusic.getId() + 1);
     }
+
+
+    /* After this is the handle about playlist Operations */
+
+    /**
+     * Add the new playlist
+     */
+    public void handleNewPlayList(){
+        playlistOpration.newPlayList();
+        showPlaylist.getItems().clear();
+        initPlaylistview();
+    }
+
+    public void handleDeletePlaylist(){
+
+        String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
+        int index = showPlaylist.getSelectionModel().getSelectedIndex();
+
+        playlistOpration.deletePlaylist(selectedPlaylist);
+        showInfo.getItems().clear();
+        showPlaylist.getItems().remove(index);
+    }
+
+    public void handlePlaylistNameEdit(Event e){
+        ListView.EditEvent<String> editEvent = (ListView.EditEvent) e;
+        int itemIndex = editEvent.getIndex();
+
+        String newName = editEvent.getNewValue();
+        String oldName = showPlaylist.getItems().get(itemIndex);
+
+        boolean successNameChange = playlistOpration.editPlayListName(oldName,newName);
+
+        if(successNameChange){
+            System.out.println(" The playlist name has been changed... from " +
+                    oldName + " to " + newName );
+            showPlaylist.getItems().set(itemIndex,newName);
+        }
+    }
+
+    /*
+    * After this is the playlist info opration
+    */
+
+    public void handleAddToPlaylist(){
+        String selectedSong = showMusic.getSelectionModel().getSelectedItem();
+        String selectedPlayList = showPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedSong == null ) {
+            System.out.println(" There is no music be selected!! ");
+            return;
+        }else if( selectedPlayList == null){
+            System.out.println(" There is no playlist be selected!! ");
+            return;
+        }
+
+        Music music = new Music();
+        PlayList playList = new PlayList();
+        PlaylisInfoList playlisInfoList = new PlaylisInfoList();
+
+        int musicID = music.nameToId(selectedSong);
+        int playListID = playList.nameToId(selectedPlayList);
+
+        playlisInfoList.addMusic(musicID,playListID);
+        showInfo.getItems().clear();
+        handleListViewPlaylist();
+    }
+
+    public void handleDeleteFromPlaylist(){
+        String selectedSong = showInfo.getSelectionModel().getSelectedItem();
+        String selectedPlayList = showPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedSong == null || selectedPlayList == null) {
+            System.out.println(" there is no playlist be selected !");
+            return;
+        }
+
+        Music music = new Music();
+        PlaylisInfoList playlisInfoList = new PlaylisInfoList();
+
+        int musicID = music.nameToId(selectedSong);
+        int songlistID = playlisInfoList.findID(musicID,selectedPlayList);
+
+        playlisInfoList.deleteMusic(songlistID);
+        showInfo.getItems().clear();
+        handleListViewPlaylist();
+    }
+
+
 
 
 
     /**
      * Handles user selection in the song ListView
      */
-    public void handleListViewSong(){
-        selectMusic(listviewSong);
+    public void handleListViewMusic(){
+        selectMusic(showMusic);
     }
 
     public void handleListViewInfo(){
-        selectMusic(listviewInfo);
+        selectMusic(showInfo);
     }
 
     public void selectMusic(ListView<String> lv){
         Media media;                // the media for the selected song
         MediaPlayer mediaPlayer;    // the media player for the selected song
+
 
         String selectedSong = lv.getSelectionModel().getSelectedItem();   // get the name of the selected song
         if(selectedSong == null) {
@@ -288,27 +302,27 @@ public class Controller{
             );
             result = SQL.selectSQL(query);  // get the output from the database
 
-            listviewSong.getItems().clear();    // clear the song listview, as we new records will be added
+            showMusic.getItems().clear();    // clear the song listview, as we new records will be added
 
             // for each matched song
             for (String s: result) {
-                listviewSong.getItems().add(s); // add the song to the song listview
+                showMusic.getItems().add(s); // add the song to the song listview
             }
         }
     }
 
     public void handleListViewPlaylist(){
-        String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
+        String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
         if(selectedPlaylist == null) {
             System.out.println(" there is no playlist be selected !");
             return;
         }
 
         ArrayList<String> getitems = handleSongListView(selectedPlaylist);
-        listviewInfo.getItems().clear();
+        showInfo.getItems().clear();
 
         for(String a : getitems){
-            listviewInfo.getItems().add(a);
+            showInfo.getItems().add(a);
         }
     }
 
@@ -323,7 +337,7 @@ public class Controller{
         int id = pl.nameToId(playListName);
         //System.out.println(id);
 
-        SongList sl = new SongList();
+        PlaylisInfoList sl = new PlaylisInfoList();
         Music music = new Music();
 
         ArrayList<Integer> al = sl.playListIdToSongId(id);
@@ -335,13 +349,6 @@ public class Controller{
         return musicName;
     }
 
-    public void deleteAllMusic(String playListName){
-        ArrayList<String> musicName = handleSongListView(playListName);
-        for(String names: musicName){
-            int id = new Music().nameToId(names);
-            int songlistId = new SongList().findID(id,playListName);
-            new SongList().deleteMusic(songlistId);
-        }
-    }
+
 
 }
