@@ -135,18 +135,29 @@ public class Controller{
     }
 
     public void handleDeletePlaylist(){
+
         PlayList playList = new PlayList();
 
         String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedPlaylist == null) {
+            System.out.println(" there is no playlist be selected !");
+            return;
+        }
         int index = listviewPlaylist.getSelectionModel().getSelectedIndex();
         listviewPlaylist.getItems().remove(index);
 
+        deleteAllMusic(selectedPlaylist);
+        listviewInfo.getItems().clear();
         playList.deletePlayList(selectedPlaylist);
     }
 
     public void handleAddToPlaylist(){
         String selectedSong = listviewSong.getSelectionModel().getSelectedItem();
         String selectedPlayList = listviewPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedSong == null && selectedPlayList == null) {
+            System.out.println(" There is no playlist be selected!! ");
+            return;
+        }
 
         Music music = new Music();
         PlayList playList = new PlayList();
@@ -163,6 +174,10 @@ public class Controller{
     public void handleDeleteFromPlaylist(){
         String selectedSong = listviewInfo.getSelectionModel().getSelectedItem();
         String selectedPlayList = listviewPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedSong == null && selectedPlayList == null) {
+            System.out.println(" there is no playlist be selected !");
+            return;
+        }
 
         Music music = new Music();
         PlayList playList = new PlayList();
@@ -177,6 +192,10 @@ public class Controller{
     }
 
     public void handleNextSong(){
+        if(selectedMusic == null) {
+            System.out.println(" there is no music be selected !");
+            return;
+        }
         if((selectedMusic.getId() + 1) > selectedMusic.getMaxSongID()){
             selectedMusic.setId(0);
         }
@@ -203,7 +222,10 @@ public class Controller{
         MediaPlayer mediaPlayer;    // the media player for the selected song
 
         String selectedSong = lv.getSelectionModel().getSelectedItem();   // get the name of the selected song
-        if(selectedSong == null) return;                        // if selected song name is null, return
+        if(selectedSong == null) {
+            System.out.println(" there is no music be selected !");
+            return;                        // if selected song name is null, return
+        }
         txtfldSelected.setText("Selected: " + selectedSong);    // update the "selected: " text field
 
         // sql query setup
@@ -279,7 +301,10 @@ public class Controller{
 
     public void handleListViewPlaylist(){
         String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
-        if(selectedPlaylist == null) return;
+        if(selectedPlaylist == null) {
+            System.out.println(" there is no playlist be selected !");
+            return;
+        }
 
         ArrayList<String> getitems = handleSongListView(selectedPlaylist);
         listviewInfo.getItems().clear();
@@ -310,6 +335,17 @@ public class Controller{
              musicName.add(music.idToName(i));
         }
         return musicName;
+    }
+
+    public void deleteAllMusic(String playListName){
+        ArrayList<Integer> musicID = new ArrayList<>();
+        ArrayList<String> musicName = handleSongListView(playListName);
+        for(String names: musicName){
+            int id = new Music().nameToId(names);
+            int songlistId = new SongList().findID(id,playListName);
+            new SongList().deleteMusic(songlistId);
+        }
+
     }
 
 }
