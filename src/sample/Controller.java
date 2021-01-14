@@ -161,7 +161,19 @@ public class Controller{
     }
 
     public void handleDeleteFromPlaylist(){
+        String selectedSong = listviewSong.getSelectionModel().getSelectedItem();
+        String selectedPlayList = listviewPlaylist.getSelectionModel().getSelectedItem();
 
+        Music music = new Music();
+        PlayList playList = new PlayList();
+        SongList songList = new SongList();
+
+        int musicID = music.nameToId(selectedSong);
+        int songlistID = songList.findID(musicID,selectedPlayList);
+
+        songList.deleteMusic(songlistID);
+        listviewInfo.getItems().clear();
+        handleListViewPlaylist();
     }
 
     public void handleNextSong(){
