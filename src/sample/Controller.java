@@ -101,7 +101,7 @@ public class Controller{
      */
     public void handlePause(){
         musicOperation.pause();
-
+        
     }
 
     public void handleStop() {
@@ -161,7 +161,7 @@ public class Controller{
     }
 
     public void handleDeleteFromPlaylist(){
-        String selectedSong = listviewSong.getSelectionModel().getSelectedItem();
+        String selectedSong = listviewInfo.getSelectionModel().getSelectedItem();
         String selectedPlayList = listviewPlaylist.getSelectionModel().getSelectedItem();
 
         Music music = new Music();
@@ -279,6 +279,7 @@ public class Controller{
 
     public void handleListViewPlaylist(){
         String selectedPlaylist = listviewPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedPlaylist == null) return;
 
         ArrayList<String> getitems = handleSongListView(selectedPlaylist);
         listviewInfo.getItems().clear();
