@@ -34,15 +34,26 @@ public class SelectedOpration {
         }
 
         PlayList selectedPlaylist = new PlayList(selectedPlaylistName);
+
         int playlistID = selectedPlaylist.nameToId(selectedPlaylistName);
-
         selectedPlaylist.setPlayListID(playlistID);
-        ArrayList<Integer> musicIDs = new PlaylisInfoList().playListIdToSongId(playlistID);
 
-        for(Integer i : musicIDs){
-            System.out.println(i);
-        }
+        ArrayList<Integer> musicIDs = new PlaylisInfoList().playListIdToSongId(playlistID);
+        selectedPlaylist.setMusicID(musicIDs);
+
+        ArrayList<String> musicPaths = getPlayListPaths(musicIDs);
+        selectedPlaylist.initMediaPlayers(musicPaths);
 
         return selectedPlaylist;
+    }
+
+    public ArrayList<String> getPlayListPaths(ArrayList<Integer> musicIds){
+        ArrayList<String> path = new ArrayList<>();
+
+        for (Integer id: musicIds) {
+            path.add(new Music().idToPath(id));
+        }
+
+        return path;
     }
 }

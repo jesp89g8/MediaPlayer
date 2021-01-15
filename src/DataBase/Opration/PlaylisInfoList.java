@@ -2,7 +2,10 @@ package DataBase.Opration;
 
 import DataBase.DBSetter.DB;
 import DataBase.DBSetter.SQL;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +20,17 @@ public class PlaylisInfoList{
     private int songList;
     private int playListID;
     private ArrayList<Integer> musicID = new ArrayList<>();
+    private ArrayList<MediaPlayer> mediaPlayer = new ArrayList<>();
     private Music musicOperation = new Music();
+    private MediaPlayer currentPlaying;
+
+    public void setCurrentPlaying(MediaPlayer mp){
+        this.currentPlaying = mp;
+    }
+
+    public ArrayList<MediaPlayer> getMediaPlayer(){
+        return this.mediaPlayer;
+    }
 
     public int getSongList() {
         return songList;
@@ -50,8 +63,7 @@ public class PlaylisInfoList{
      * @return an ArrayList of the music id
      */
     public ArrayList<Integer> playListIdToSongId(int playListID){
-        String query = String.format("select fldMusicID from table_Songlist " +
-                "where fldPlaylistID = %d",playListID);
+        String query = String.format("select fldMusicID from table_Songlist where fldPlaylistID = %d",playListID);
         ArrayList<String> ids = SQL.selectSQL(query);
 
         for (String s: ids) { musicID.add(Integer.parseInt(s)); }
@@ -69,8 +81,10 @@ public class PlaylisInfoList{
      */
     public int findID(int id, String playlistName ){
         int playlistID = new PlayList().nameToId(playlistName);
-        String query = String.format("select fldSongListID from table_Songlist " +
-                "where fldMusicID = %d and fldPLaylistID = %d",id,playlistID);
+        String query = String.format(
+                "select fldSongListID from table_Songlist where fldMusicID = %d and fldPLaylistID = %d",
+                id,playlistID
+        );
 
         /*
         Here is a bug when the findId can not get a value because the record is not exist
@@ -121,5 +135,33 @@ public class PlaylisInfoList{
         System.out.println("delete the music : " + songListID);
     }
 
+    public void initMediaPlayers(ArrayList<String> musicPath){
+        for (String path:musicPath) {
+            path = new File(path).getAbsolutePath();    // get the absolute path of the music
+            path = new File(path).toURI().toString();
 
+            MediaPlayer mp = new MediaPlayer(new Media(path));
+            mediaPlayer.add(mp);
+        }
+
+        for (int i = 0; i < mediaPlayer.size(); i++) {
+            final MediaPlayer player = mediaPlayer.get(i);
+            final MediaPlayer nextPlayer = mediaPlayer.get((i + 1) % mediaPlayer.size());
+            player.setOnEndOfMedia(new Runnable() {
+                @Override public void run() {
+                    currentPlaying = nextPlayer;
+                    nextPlayer.play();
+                }
+            });
+        }
+
+        if(!mediaPlayer.isEmpty()){
+            currentPlaying = mediaPlayer.get(0);
+        }
+
+    }
+
+    public MediaPlayer getCurrentPlaying() {
+        return this.currentPlaying;
+    }
 }

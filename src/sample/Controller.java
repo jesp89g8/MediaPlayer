@@ -41,7 +41,7 @@ public class Controller{
 
     private Music selectedMusic;
     private PlayList selectedPlaylist;
-    private Playable playableItem;
+    private Playable selectedPlayableItem;
 
 
     public MusicOperation musicOperation = new MusicOperation();
@@ -78,9 +78,9 @@ public class Controller{
      * @param listView means which list happen the select operation.
      */
     public void selectMusic(ListView<String> listView){
-        playableItem = new SelectedOpration().selectedMusic(listView);
+        selectedPlayableItem = new SelectedOpration().selectedMusic(listView);
 
-        selectedMusic = (Music) playableItem;     //trans the selected item to Music object
+        selectedMusic = (Music) selectedPlayableItem;     //trans the selected item to Music object
         txtfldSelected.setText("Selected: " + selectedMusic.getMusicName());    // update the "selected: " text field
         new LodingMediaPlay().lodingMediaPlay(selectedMusic);       // loading the play function for ready play selected music
 
@@ -122,9 +122,9 @@ public class Controller{
      * @param listView the list of playlist //(showPlaylist)
      * @return which playlist been selected from the list of playlist //(showinfo)
      */
-    public PlayList selectPlaylist(ListView<String> listView){
-        selectedPlaylist = new SelectedOpration().selectedPlaylist(listView);
-        return selectedPlaylist;
+    public void selectPlaylist(ListView<String> listView){
+        selectedPlayableItem = new SelectedOpration().selectedPlaylist(listView);
+        selectedPlaylist = (PlayList) selectedPlayableItem;     //trans the selected item to Music object
     }
 
     /* After this is the handle about play functional. */
@@ -132,45 +132,58 @@ public class Controller{
      * Plays the selected music
      */
     public void handlePlay(){
-
-        if(playableItem instanceof Music){
-            Music m = (Music) playableItem;
+        if(selectedPlayableItem instanceof Music){
+            Music m = (Music) selectedPlayableItem;
             musicOperation.play(m);
         }
-        else if(playableItem instanceof PlayList){
-            PlayList pl = (PlayList) playableItem;
+        else if(selectedPlayableItem instanceof PlayList){
+            PlayList pl = (PlayList) selectedPlayableItem;
             playlistOpration.play(pl);
         }
-
     }
 
     /**
      * Pauses the playing music
      */
     public void handlePause(){
-        musicOperation.pause();
+        if(selectedPlayableItem instanceof Music){
+            musicOperation.pause();
+        }
+        else if(selectedPlayableItem instanceof PlayList){
+            playlistOpration.pause();
+        }
     }
 
     /**
      * Stop the playling music
      */
     public void handleStop() {
-        musicOperation.stop();
+        if(selectedPlayableItem instanceof Music){
+            musicOperation.stop();
+        }
+        else if(selectedPlayableItem instanceof PlayList){
+            playlistOpration.stop();
+        }
     }
 
     /**
      * Play the next music following the selected music.
      */
     public void handleNextSong(){
-        if(selectedMusic == null) {
-            System.out.println(" there is no music be selected !");
-            return;
+        if(selectedPlayableItem instanceof Music){
+            if(selectedMusic == null) {
+                System.out.println(" there is no music be selected !");
+                return;
+            }
+            if((selectedMusic.getId() + 1) > selectedMusic.getMaxSongID()){
+                selectedMusic.setId(0);
+            }
+            musicOperation.next(selectedMusic);
+            selectedMusic.setId(selectedMusic.getId() + 1);
         }
-        if((selectedMusic.getId() + 1) > selectedMusic.getMaxSongID()){
-            selectedMusic.setId(0);
+        else if(selectedPlayableItem instanceof PlayList){
+            playlistOpration.next();
         }
-        musicOperation.next(selectedMusic);
-        selectedMusic.setId(selectedMusic.getId() + 1);
     }
 
 
@@ -243,10 +256,7 @@ public class Controller{
     }
 
     public void handleListViewPlaylist(){
-        playableItem = selectPlaylist(showPlaylist);
-        System.out.println(playableItem.toString());
-
-        PlayList selectedPlaylist = (PlayList) playableItem;
+        selectPlaylist(showPlaylist);
 
         if(selectedPlaylist == null) {
             System.out.println(" there is no playlist be selected !");

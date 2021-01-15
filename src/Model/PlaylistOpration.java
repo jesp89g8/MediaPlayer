@@ -1,7 +1,11 @@
 package Model;
 
+import DataBase.DBSetter.DB;
+import DataBase.Opration.Music;
 import DataBase.Opration.PlayList;
 import DataBase.Opration.PlaylisInfoList;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import javax.swing.text.html.ListView;
 import java.awt.*;
@@ -17,6 +21,7 @@ import java.util.ArrayList;
  */
 public class PlaylistOpration extends PlayList{
 
+    PlayList playingPlaylist;
     /**
      * Create an empty new playlist
      */
@@ -36,14 +41,57 @@ public class PlaylistOpration extends PlayList{
 
 
     public void deleteAllMusic(String selectedPlaylist){
-        ArrayList<Integer> musicID = playListIdToSongId(nameToId(selectedPlaylist));
-        for(int ids: musicID){
-            int songlistId = new PlaylisInfoList().findID(ids,selectedPlaylist);
-            deleteMusic(songlistId);
+        int playlistID = new PlayList().nameToId(selectedPlaylist);
+
+        String query = String.format("delete from table_Songlist where fldPlaylistID = %d", playlistID);
+        DB.deleteSQL(query);
+    }
+
+    public void play(PlayList selectedPlaylist) {
+        if(selectedPlaylist == null) {
+            System.out.println("There is no music be selected.");
+        }
+        else if(playingPlaylist == null){
+            System.out.println("There is no music be playing, so play the selected music." +
+                    "The music " + selectedPlaylist.getPlayListName() + " has been selected. ");
+            // if playingMusic is null, then start play selected music
+            playingPlaylist = selectedPlaylist;
+            playingPlaylist.getCurrentPlaying().play();
+        }
+        else if(playingPlaylist != selectedPlaylist){
+            // if there is some music playing, and the user select another
+            System.out.println("selected music is : " + selectedPlaylist.getPlayListName());
+            System.out.println("playing music is : " + playingPlaylist.getPlayListName());
+
+            playingPlaylist.getCurrentPlaying().stop();//stop the recently music
+            playingPlaylist = selectedPlaylist; // load the new select
+
+            System.out.println("Now the selected music is : " + selectedPlaylist.getPlayListName());
+            System.out.println("Now the playing music is : " + playingPlaylist.getPlayListName());
+            playingPlaylist.getCurrentPlaying().play(); // play the selected music
+        }
+        else{
+            System.out.println("There is a music : " + playingPlaylist.getPlayListName() + " has been paused. " +
+                    " Now play it...");
+            playingPlaylist.getCurrentPlaying().play();   // else play the playing music has been paused
         }
     }
 
-    public void play(PlayList pl) {
+    public void pause() {
+        playingPlaylist.getCurrentPlaying().pause();
+    }
 
+    public void stop() {
+        playingPlaylist.getCurrentPlaying().stop();
+    }
+
+    public void next(){
+        ArrayList<MediaPlayer> currentMediaPlayer = playingPlaylist.getMediaPlayer();
+        int currentPlayingMediaPlayerIndex = currentMediaPlayer.indexOf(playingPlaylist.getCurrentPlaying());
+        MediaPlayer nextPlayer = currentMediaPlayer.get((currentPlayingMediaPlayerIndex + 1) % currentMediaPlayer.size());
+
+        playingPlaylist.getCurrentPlaying().stop();
+        playingPlaylist.setCurrentPlaying(nextPlayer);
+        playingPlaylist.getCurrentPlaying().play();
     }
 }
