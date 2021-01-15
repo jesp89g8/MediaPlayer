@@ -121,6 +121,8 @@ public class Controller{
      */
     public PlayList selectPlaylist(ListView<String> listView){
         selectedPlaylist = new SelectedOpration().selectedPlaylist(listView);
+
+
         return selectedPlaylist;
     }
 
@@ -231,23 +233,18 @@ public class Controller{
     }
 
     public void handleListViewPlaylist(){
-        selectPlaylist(showPlaylist);
-
-        /*
-        String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
+        PlayList selectedPlaylist = selectPlaylist(showPlaylist);
         if(selectedPlaylist == null) {
             System.out.println(" there is no playlist be selected !");
             return;
         }
 
-        ArrayList<String> getitems = handleSongListView(selectedPlaylist.getPlayListName());
+        ArrayList<String> getitems = handleSongListInfo(selectedPlaylist.getPlayListName());
         showInfo.getItems().clear();
 
         for(String a : getitems){
             showInfo.getItems().add(a);
         }
-         */
-
     }
 
 
@@ -299,10 +296,7 @@ public class Controller{
         }
     }
 
-
-
-/*
-    public ArrayList<String> handleSongListView(String playListName){
+    public ArrayList<String> handleSongListInfo(String playListName){
         PlayList pl = new PlayList();
         int id = pl.nameToId(playListName);
         //System.out.println(id);
@@ -318,9 +312,4 @@ public class Controller{
         }
         return musicName;
     }
-
- */
-
-
-
 }
