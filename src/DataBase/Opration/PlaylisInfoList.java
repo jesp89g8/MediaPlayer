@@ -13,10 +13,11 @@ import java.util.ArrayList;
  * @ Version 0.1
  *
  */
-public class PlaylisInfoList extends Music{
+public class PlaylisInfoList{
     private int songList;
     private int playListID;
     private ArrayList<Integer> musicID = new ArrayList<>();
+    private Music musicOperation = new Music();
 
     public int getSongList() {
         return songList;
@@ -80,7 +81,7 @@ public class PlaylisInfoList extends Music{
          */
         String findId = SQL.selectSQL(query).get(0);
         if(findId == null){
-            System.out.println("The music " + idToName(id) + " is not in the playlist " + playlistName);
+            System.out.println("The music " + musicOperation.idToName(id) + " is not in the playlist " + playlistName);
             return 0 ;
         }
         int songListID = Integer.parseInt(findId);

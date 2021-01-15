@@ -41,6 +41,8 @@ public class Controller{
 
     private Music selectedMusic;
     private PlayList selectedPlaylist;
+    private Playable playableItem;
+
 
     public MusicOperation musicOperation = new MusicOperation();
     public PlaylistOpration playlistOpration = new PlaylistOpration();
@@ -76,8 +78,9 @@ public class Controller{
      * @param listView means which list happen the select operation.
      */
     public void selectMusic(ListView<String> listView){
+        playableItem = new SelectedOpration().selectedMusic(listView);
 
-        selectedMusic = new SelectedOpration().selectedMusic(listView);     //trans the selected item to Music object
+        selectedMusic = (Music) playableItem;     //trans the selected item to Music object
         txtfldSelected.setText("Selected: " + selectedMusic.getMusicName());    // update the "selected: " text field
         new LodingMediaPlay().lodingMediaPlay(selectedMusic);       // loading the play function for ready play selected music
 
@@ -121,8 +124,6 @@ public class Controller{
      */
     public PlayList selectPlaylist(ListView<String> listView){
         selectedPlaylist = new SelectedOpration().selectedPlaylist(listView);
-
-
         return selectedPlaylist;
     }
 
@@ -131,7 +132,16 @@ public class Controller{
      * Plays the selected music
      */
     public void handlePlay(){
-        musicOperation.play(selectedMusic);
+
+        if(playableItem instanceof Music){
+            Music m = (Music) playableItem;
+            musicOperation.play(m);
+        }
+        else if(playableItem instanceof PlayList){
+            PlayList pl = (PlayList) playableItem;
+            playlistOpration.play(pl);
+        }
+
     }
 
     /**
@@ -233,7 +243,11 @@ public class Controller{
     }
 
     public void handleListViewPlaylist(){
-        PlayList selectedPlaylist = selectPlaylist(showPlaylist);
+        playableItem = selectPlaylist(showPlaylist);
+        System.out.println(playableItem.toString());
+
+        PlayList selectedPlaylist = (PlayList) playableItem;
+
         if(selectedPlaylist == null) {
             System.out.println(" there is no playlist be selected !");
             return;

@@ -13,9 +13,10 @@ import java.util.ArrayList;
  * @ Version 0.1
  *
  */
-public class PlayList extends PlaylisInfoList {
+public class PlayList extends PlaylisInfoList implements Playable{
     private int playListID;
     private String playListName;
+    private ArrayList<Music> playlistMusic = new ArrayList<>();
 
     public PlayList() {
     }

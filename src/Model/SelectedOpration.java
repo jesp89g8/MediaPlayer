@@ -2,7 +2,10 @@ package Model;
 
 import DataBase.Opration.Music;
 import DataBase.Opration.PlayList;
+import DataBase.Opration.PlaylisInfoList;
 import javafx.scene.control.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -29,6 +32,17 @@ public class SelectedOpration {
             System.out.println("There is not playlist be selected...");
             return new PlayList(1);
         }
-        return new PlayList(selectedPlaylistName);
+
+        PlayList selectedPlaylist = new PlayList(selectedPlaylistName);
+        int playlistID = selectedPlaylist.nameToId(selectedPlaylistName);
+
+        selectedPlaylist.setPlayListID(playlistID);
+        ArrayList<Integer> musicIDs = new PlaylisInfoList().playListIdToSongId(playlistID);
+
+        for(Integer i : musicIDs){
+            System.out.println(i);
+        }
+
+        return selectedPlaylist;
     }
 }

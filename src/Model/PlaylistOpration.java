@@ -42,4 +42,8 @@ public class PlaylistOpration extends PlayList{
             deleteMusic(songlistId);
         }
     }
+
+    public void play(PlayList pl) {
+
+    }
 }

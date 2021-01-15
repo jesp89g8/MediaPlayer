@@ -12,7 +12,7 @@ import javafx.scene.media.MediaPlayer;
  * @ Version 0.1
  *
  */
-public class Music {
+public class Music implements Playable{
     private int id;
     private String name;
     private String artist;
