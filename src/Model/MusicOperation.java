@@ -10,7 +10,7 @@ import DataBase.Opration.Music;
  * @ Version 0.1
  *
  */
-public class MusicOpration extends LodingMediaPlay {
+public class MusicOperation extends LodingMediaPlay {
 
     public Music playingMusic;
 

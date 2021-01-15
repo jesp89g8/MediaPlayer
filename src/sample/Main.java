@@ -1,6 +1,5 @@
 package sample;
 
-import Model.SelectedOpration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,8 +10,8 @@ import javafx.stage.Stage;
  * @ Group Jesper Raheela Zia and Fei
  * @ create 2021-01-05-08.39
  * @ grade CS20_EASV_SØNDERBORG
- * @ Description This is the DB-Connecter which connect the Database and get result.
- * @ Version 0.1
+ * @ Description This is the Main class which is the start of the application.
+ * @ Version 1.0
  *
  */
 
@@ -48,7 +47,7 @@ public class Main extends Application {
 
     /**
      * This is the basic part of showing the main window
-     * @param primaryStage
+     * @param primaryStage Stage the base stage of the application
      * @throws Exception
      */
     @Override

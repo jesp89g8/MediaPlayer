@@ -8,10 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
 import DataBase.Opration.*;
 
 import java.util.ArrayList;
@@ -21,8 +18,8 @@ import java.util.ArrayList;
  * @ Group Jesper Raheela Zia and Fei
  * @ create 2021-01-05-08.39
  * @ grade CS20_EASV_SØNDERBORG
- * @ Description This is the DB-Connecter which connect the Database and get result.
- * @ Version 0.1
+ * @ Description This is the controller center which is the application connect between method with GUI
+ * @ Version 0.8
  *
  */
 
@@ -40,59 +37,49 @@ public class Controller{
     @FXML
     private TextField txtfldSelected,txtfldSearch;
 
+    public InitListView initListView = new InitListView();
+
     private Music selectedMusic;
     private PlayList selectedPlaylist;
 
-    public MusicOpration musicOpration = new MusicOpration();
+    public MusicOperation musicOperation = new MusicOperation();
     public PlaylistOpration playlistOpration = new PlaylistOpration();
     public PlaylistInfoOpration playlistInfoOpration = new PlaylistInfoOpration();
 
 
-
-
+    /**
+     * This is the start of when the application implemented what should be loaded.
+     */
     public void initialize(){
-        comboBoxSearchCriteria.getItems().addAll("Title","Artist");
-        initListviews();
-        initPlaylistview();
-        //handleListViewMusic();  //????????
+        /*
+         * load and show the three list on the scene.
+         */
+        initListView.initListviews(showMusic);
+        initListView.initPlaylistview(showPlaylist);
+        //initListView.initPlaylistInfo(selectPlaylist(showPlaylist),showInfo);
 
+        /*
+         * load the search area and function
+         */
+        comboBoxSearchCriteria.getItems().addAll("Title","Artist");
+        //handleListViewMusic();  //???????? i don't see it is have some useful....
+
+        /*
+         * load the playlist edit function
+         */
         showPlaylist.setEditable(true);
         showPlaylist.setCellFactory(TextFieldListCell.forListView());
     }
 
     /**
-     * Initializes the Song and Playlist Listview
+     * This will select music when the select operation happened
+     * @param listView means which list happen the select operation.
      */
-    private void initListviews() {
-        System.out.println("loading the listview...");
-
-        System.out.println("add all the music into the Song list view...");
-        insertIntoListview("select fldMusicName from table_music", showMusic);
-
-    }
-    private void initPlaylistview(){
-        System.out.println("add all the playlist into the Playlist view...");
-        insertIntoListview("select fldPlaylistName from table_Playlist", showPlaylist);
-    }
-
-    /**
-     * Queries the database with a select statement and inserts the output
-     * into the specified listview
-     * @param query select query
-     * @param listview listview to insert into
-     */
-    private void insertIntoListview(String query,ListView<String> listview){
-        ArrayList<String> queryData = SQL.selectSQL(query);
-
-        for (String data : queryData) {
-            listview.getItems().add(data);
-        }
-    }
-
     public void selectMusic(ListView<String> listView){
-        selectedMusic = new SelectedOpration().selectedMusic(listView);
+
+        selectedMusic = new SelectedOpration().selectedMusic(listView);     //trans the selected item to Music object
         txtfldSelected.setText("Selected: " + selectedMusic.getMusicName());    // update the "selected: " text field
-        new LodingMediaPlay().lodingMediaPlay(selectedMusic);
+        new LodingMediaPlay().lodingMediaPlay(selectedMusic);       // loading the play function for ready play selected music
 
         /*
 
@@ -127,26 +114,36 @@ public class Controller{
          */
     }
 
+    /**
+     * This will select playlist when the select operation happened.
+     * @param listView the list of playlist //(showPlaylist)
+     * @return which playlist been selected from the list of playlist //(showinfo)
+     */
+    public PlayList selectPlaylist(ListView<String> listView){
+        selectedPlaylist = new SelectedOpration().selectedPlaylist(listView);
+        return selectedPlaylist;
+    }
+
     /* After this is the handle about play functional. */
     /**
      * Plays the selected music
      */
     public void handlePlay(){
-        musicOpration.play(selectedMusic);
+        musicOperation.play(selectedMusic);
     }
 
     /**
      * Pauses the playing music
      */
     public void handlePause(){
-        musicOpration.pause();
+        musicOperation.pause();
     }
 
     /**
      * Stop the playling music
      */
     public void handleStop() {
-        musicOpration.stop();
+        musicOperation.stop();
     }
 
     /**
@@ -160,7 +157,7 @@ public class Controller{
         if((selectedMusic.getId() + 1) > selectedMusic.getMaxSongID()){
             selectedMusic.setId(0);
         }
-        musicOpration.next(selectedMusic);
+        musicOperation.next(selectedMusic);
         selectedMusic.setId(selectedMusic.getId() + 1);
     }
 
@@ -173,7 +170,7 @@ public class Controller{
     public void handleNewPlayList(){
         playlistOpration.newPlayList();
         showPlaylist.getItems().clear();
-        initPlaylistview();
+        initListView.initPlaylistview(showPlaylist);
     }
 
     public void handleDeletePlaylist(){
@@ -234,7 +231,7 @@ public class Controller{
     }
 
     public void handleListViewPlaylist(){
-        selectedPlaylist = new SelectedOpration().selectedPlaylist(showPlaylist);
+        selectPlaylist(showPlaylist);
 
         /*
         String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
@@ -242,7 +239,6 @@ public class Controller{
             System.out.println(" there is no playlist be selected !");
             return;
         }
-         */
 
         ArrayList<String> getitems = handleSongListView(selectedPlaylist.getPlayListName());
         showInfo.getItems().clear();
@@ -250,6 +246,7 @@ public class Controller{
         for(String a : getitems){
             showInfo.getItems().add(a);
         }
+         */
 
     }
 
@@ -304,7 +301,7 @@ public class Controller{
 
 
 
-
+/*
     public ArrayList<String> handleSongListView(String playListName){
         PlayList pl = new PlayList();
         int id = pl.nameToId(playListName);
@@ -321,6 +318,8 @@ public class Controller{
         }
         return musicName;
     }
+
+ */
 
 
 
