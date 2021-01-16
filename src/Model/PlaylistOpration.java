@@ -49,29 +49,29 @@ public class PlaylistOpration extends PlayList{
 
     public void play(PlayList selectedPlaylist) {
         if(selectedPlaylist == null) {
-            System.out.println("There is no music be selected.");
+            System.out.println("There is no playlist be selected.");
         }
         else if(playingPlaylist == null){
-            System.out.println("There is no music be playing, so play the selected music." +
-                    "The music " + selectedPlaylist.getPlayListName() + " has been selected. ");
+            System.out.println("There is no playlist be playing, so play the selected playlist." +
+                    "The playlist " + selectedPlaylist.getPlayListName() + " has been selected. ");
             // if playingMusic is null, then start play selected music
             playingPlaylist = selectedPlaylist;
             playingPlaylist.getCurrentPlaying().play();
         }
         else if(playingPlaylist != selectedPlaylist){
             // if there is some music playing, and the user select another
-            System.out.println("selected music is : " + selectedPlaylist.getPlayListName());
-            System.out.println("playing music is : " + playingPlaylist.getPlayListName());
+            System.out.println("selected playlist is : " + selectedPlaylist.getPlayListName());
+            System.out.println("playing playlist is : " + playingPlaylist.getPlayListName());
 
             playingPlaylist.getCurrentPlaying().stop();//stop the recently music
             playingPlaylist = selectedPlaylist; // load the new select
 
-            System.out.println("Now the selected music is : " + selectedPlaylist.getPlayListName());
-            System.out.println("Now the playing music is : " + playingPlaylist.getPlayListName());
+            System.out.println("Now the selected playlist is : " + selectedPlaylist.getPlayListName());
+            System.out.println("Now the playing playlist is : " + playingPlaylist.getPlayListName());
             playingPlaylist.getCurrentPlaying().play(); // play the selected music
         }
         else{
-            System.out.println("There is a music : " + playingPlaylist.getPlayListName() + " has been paused. " +
+            System.out.println("There is a playlist : " + playingPlaylist.getPlayListName() + " has been paused. " +
                     " Now play it...");
             playingPlaylist.getCurrentPlaying().play();   // else play the playing music has been paused
         }

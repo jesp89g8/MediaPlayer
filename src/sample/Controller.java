@@ -134,10 +134,16 @@ public class Controller{
     public void handlePlay(){
         if(selectedPlayableItem instanceof Music){
             Music m = (Music) selectedPlayableItem;
+            if(selectedPlaylist != null){
+                selectedPlaylist.getCurrentPlaying().stop();
+            }
             musicOperation.play(m);
         }
         else if(selectedPlayableItem instanceof PlayList){
             PlayList pl = (PlayList) selectedPlayableItem;
+            if(selectedMusic != null){
+                selectedMusic.getMediaPlayer().stop();
+            }
             playlistOpration.play(pl);
         }
     }
@@ -199,8 +205,10 @@ public class Controller{
     }
 
     public void handleDeletePlaylist(){
-
         String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedPlaylist == null) return;
+
+
         int index = showPlaylist.getSelectionModel().getSelectedIndex();
 
         playlistOpration.deletePlaylist(selectedPlaylist);
@@ -229,6 +237,7 @@ public class Controller{
     public void handleAddToPlaylist(){
         //String selectedMusic = showMusic.getSelectionModel().getSelectedItem();
         String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedPlaylist == null) return;
 
         playlistInfoOpration.addToPlaylist(selectedMusic,selectedPlaylist);
         showInfo.getItems().clear();
@@ -238,6 +247,7 @@ public class Controller{
     public void handleDeleteFromPlaylist(){
         //String selectedMusic = showInfo.getSelectionModel().getSelectedItem();
         String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
+        if(selectedPlaylist == null) return;
 
         playlistInfoOpration.deleteFromPlaylist(selectedMusic,selectedPlaylist);
         showInfo.getItems().clear();
