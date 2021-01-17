@@ -1,6 +1,9 @@
 package Model;
 
 import DataBase.Opration.Music;
+import javafx.scene.control.ListView;
+
+import java.util.List;
 
 /**
  * @ Group Jesper Raheela Zia and Fei
@@ -69,12 +72,25 @@ public class MusicOperation extends LodingMediaPlay {
 
     public void next(Music selectedMusic){
         System.out.println("Change to the next music...");
+        ListView<String> sourceListView = playingMusic.getSourceListView();
+
+        String playingMusicName = playingMusic.getMusicName();
+        int playingMusicIndex = playingMusic.getSourceListView().getItems().indexOf(playingMusicName);
+        String nextMusicName = playingMusic.getSourceListView().getItems().get((playingMusicIndex + 1) % sourceListView.getItems().size());
+
+        Music nextMusic = new Music(nextMusicName);
+        nextMusic.setId(nextMusic.nameToId(nextMusic.getMusicName()));
+        nextMusic.setSourceListView(sourceListView);
+
+        lodingMediaPlay(nextMusic);
+        play(nextMusic);
+        /*
         int nextId = selectedMusic.getId() + 1;
        // String path = selectedMusic.idToPath(nextId);
 
         Music nextMusic = new Music(nextId);
         lodingMediaPlay(nextMusic);
         // selectedMusic.setPath(path);
-        play(nextMusic);
+        play(nextMusic);*/
     }
 }

@@ -79,42 +79,11 @@ public class Controller{
      */
     public void selectMusic(ListView<String> listView){
         selectedPlayableItem = new SelectedOpration().selectedMusic(listView);
+        if(selectedPlayableItem == null) return;
 
         selectedMusic = (Music) selectedPlayableItem;     //trans the selected item to Music object
-        txtfldSelected.setText("Selected: " + selectedMusic.getMusicName());    // update the "selected: " text field
+        txtfldSelected.setText("Selected Music: " + selectedMusic.getMusicName());    // update the "selected: " text field
         new LodingMediaPlay().lodingMediaPlay(selectedMusic);       // loading the play function for ready play selected music
-
-        /*
-
-        Media media;                // the media for the selected song
-        MediaPlayer mediaPlayer;    // the media player for the selected song
-
-
-        // sql query setup
-        String query = String.format(
-                "select * from table_music where fldMusicName = '%s'",    // the query statement, get path from DB
-                selectedSong.replace("'","''")  // replace apostrophes with double apostrophes to avoid errors in sql
-        );
-
-        ArrayList<String> musicData = SQL.selectSQL(query); // query the DB for the music data
-
-
-        // initialize the selected music object
-        this.selectedMusic = new Music(
-                Integer.parseInt(musicData.get(0)), // music id
-                musicData.get(1),                   // music name
-                musicData.get(2),                   // music artist
-                musicData.get(5)                    // music path
-        );
-
-
-        String path = new File(this.selectedMusic.getPath()).getAbsolutePath();    // get the absolute path of the music
-        media = new Media(new File(path).toURI().toString());   // initialize the media with the path
-        mediaPlayer = new MediaPlayer(media);                   // attach the media to a media player
-
-        this.selectedMusic.setMedia(media);              // set the media of the music to the media containing the song
-        this.selectedMusic.setMediaPlayer(mediaPlayer);  // set the media player of the music, with the media player containing the media
-         */
     }
 
     /**
@@ -124,7 +93,9 @@ public class Controller{
      */
     public void selectPlaylist(ListView<String> listView){
         selectedPlayableItem = new SelectedOpration().selectedPlaylist(listView);
+        if(selectedPlayableItem == null) return;
         selectedPlaylist = (PlayList) selectedPlayableItem;     //trans the selected item to Music object
+        txtfldSelected.setText("Selected Playlist: " + selectedPlaylist.getPlayListName());
     }
 
     /* After this is the handle about play functional. */
@@ -143,6 +114,9 @@ public class Controller{
             PlayList pl = (PlayList) selectedPlayableItem;
             if(selectedMusic != null){
                 selectedMusic.getMediaPlayer().stop();
+            }
+            if(musicOperation.playingMusic != null){
+                musicOperation.playingMusic.getMediaPlayer().stop();
             }
             playlistOpration.play(pl);
         }
@@ -181,11 +155,8 @@ public class Controller{
                 System.out.println(" there is no music be selected !");
                 return;
             }
-            if((selectedMusic.getId() + 1) > selectedMusic.getMaxSongID()){
-                selectedMusic.setId(0);
-            }
+
             musicOperation.next(selectedMusic);
-            selectedMusic.setId(selectedMusic.getId() + 1);
         }
         else if(selectedPlayableItem instanceof PlayList){
             playlistOpration.next();
@@ -267,6 +238,7 @@ public class Controller{
 
     public void handleListViewPlaylist(){
         selectPlaylist(showPlaylist);
+
 
         if(selectedPlaylist == null) {
             System.out.println(" there is no playlist be selected !");

@@ -1,6 +1,7 @@
 package DataBase.Opration;
 
 import DataBase.DBSetter.SQL;
+import javafx.scene.control.ListView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -19,6 +20,7 @@ public class Music implements Playable{
     private String path;
     private Media media;
     private MediaPlayer mediaPlayer;
+    private ListView<String> sourceListView;
 
 
     public Music() {
@@ -149,5 +151,13 @@ public class Music implements Playable{
                 ", media=" + media +
                 ", mediaPlayer=" + mediaPlayer +
                 '}';
+    }
+
+    public void setSourceListView(ListView<String> listView) {
+        this.sourceListView = listView;
+    }
+
+    public ListView<String> getSourceListView() {
+        return sourceListView;
     }
 }
