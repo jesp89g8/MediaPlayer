@@ -2,6 +2,7 @@ package Model;
 
 import DataBase.Opration.Music;
 import javafx.scene.control.ListView;
+import sample.Controller;
 
 import java.util.List;
 
@@ -70,8 +71,9 @@ public class MusicOperation extends LodingMediaPlay {
         playingMusic = null;                                // delete the playing music object
     }
 
-    public void next(Music selectedMusic){
+    public void next(){
         System.out.println("Change to the next music...");
+        if(playingMusic == null) return;
         ListView<String> sourceListView = playingMusic.getSourceListView();
 
         String playingMusicName = playingMusic.getMusicName();

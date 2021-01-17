@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import DataBase.Opration.*;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class Controller{
     @FXML
     private ListView<String> showMusic, showInfo, showPlaylist;
     @FXML
-    private TextField txtfldSelected,txtfldSearch;
+    private TextField txtfldSelected,txtfldSearch,txtfldPlaying;
 
     public InitListView initListView = new InitListView();
 
@@ -108,6 +109,14 @@ public class Controller{
             if(selectedPlaylist != null){
                 selectedPlaylist.getCurrentPlaying().stop();
             }
+            if( musicOperation.playingMusic != null &&
+                musicOperation.playingMusic.getMediaPlayer().getStatus() == MediaPlayer.Status.PAUSED
+            ){
+                musicOperation.playingMusic.getMediaPlayer().play();
+                return;
+            }
+
+            txtfldPlaying.setText("Playing: " + m.getMusicName());
             musicOperation.play(m);
         }
         else if(selectedPlayableItem instanceof PlayList){
@@ -118,6 +127,8 @@ public class Controller{
             if(musicOperation.playingMusic != null){
                 musicOperation.playingMusic.getMediaPlayer().stop();
             }
+
+            txtfldPlaying.setText("Playing: " + pl.getPlayListName());
             playlistOpration.play(pl);
         }
     }
@@ -139,9 +150,11 @@ public class Controller{
      */
     public void handleStop() {
         if(selectedPlayableItem instanceof Music){
+            txtfldPlaying.setText("Playing: No music");
             musicOperation.stop();
         }
         else if(selectedPlayableItem instanceof PlayList){
+            txtfldPlaying.setText("Playing: No music");
             playlistOpration.stop();
         }
     }
@@ -155,8 +168,8 @@ public class Controller{
                 System.out.println(" there is no music be selected !");
                 return;
             }
-
-            musicOperation.next(selectedMusic);
+            musicOperation.next();
+            txtfldPlaying.setText("Playing: " + musicOperation.playingMusic.getMusicName());
         }
         else if(selectedPlayableItem instanceof PlayList){
             playlistOpration.next();
