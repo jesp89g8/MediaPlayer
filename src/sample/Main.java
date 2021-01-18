@@ -1,5 +1,6 @@
 package sample;
 
+import DataBase.Opration.Music;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,25 +24,11 @@ public class Main extends Application {
     final int RES_HEIGHT = 600;
 
     public static void main(String[] args) {
-        /*
-        //this is for test the add/delete playlist method
-        PlayList test = new PlayList();
-        test.addPlaylist("music");
-        test.addPlaylist("all music");
+        //launch(args);
 
-        test.deletePlayList(4);
-        test.deletePlayList("all music");
+        Music m = new Music(2);
+        System.out.println(m.toString());
 
-        SongList test2 = new SongList();
-        test.addPlaylist("test list");
-        int playlistId = test.nameToId("test list");
-        test2.addMusic(5,playlistId);
-        int songlistID = test2.findID(5,"test list");
-        test2.deleteMusic(songlistID);
-        test.deletePlayList("test list");
-        */
-
-        launch(args);
     }
 
     /**
@@ -56,5 +43,8 @@ public class Main extends Application {
         primaryStage.setTitle(TITLE);
         primaryStage.setScene(new Scene(root, RES_WIDTH, RES_HEIGHT));
         primaryStage.show();
+        System.out.println("The scene have been launch...");
+
+
     }
 }
