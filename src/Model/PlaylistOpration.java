@@ -3,6 +3,7 @@ package Model;
 import DataBase.DBSetter.DB;
 import DataBase.Opration.Music;
 import DataBase.Opration.PlayList;
+import DataBase.Opration.Playable;
 import DataBase.Opration.PlaylisInfoList;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -22,6 +23,12 @@ import java.util.ArrayList;
 public class PlaylistOpration extends PlayList{
 
     PlayList playingPlaylist;
+
+    public PlayList getPlayingPlaylist(){
+        return this.playingPlaylist;
+    }
+
+
     /**
      * Create an empty new playlist
      */
@@ -86,6 +93,7 @@ public class PlaylistOpration extends PlayList{
     }
 
     public void next(){
+        if(playingPlaylist == null) return;
         ArrayList<MediaPlayer> currentMediaPlayer = playingPlaylist.getMediaPlayer();
         int currentPlayingMediaPlayerIndex = currentMediaPlayer.indexOf(playingPlaylist.getCurrentPlaying());
         MediaPlayer nextPlayer = currentMediaPlayer.get((currentPlayingMediaPlayerIndex + 1) % currentMediaPlayer.size());

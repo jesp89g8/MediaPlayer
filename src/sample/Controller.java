@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import DataBase.Opration.*;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
@@ -99,6 +100,19 @@ public class Controller{
         txtfldSelected.setText("Selected Playlist: " + selectedPlaylist.getPlayListName());
     }
 
+    public void handlePlaylistMouseExited(){
+        int editedIndex = showPlaylist.getEditingIndex();
+        if(editedIndex != -1){
+            showPlaylist.getSelectionModel().clearSelection();
+            showPlaylist.getSelectionModel().select(editedIndex);
+        }
+        showPlaylist.setEditable(false);
+    }
+
+    public void handlePlaylistMouseEntered(){
+
+    }
+
     /* After this is the handle about play functional. */
     /**
      * Plays the selected music
@@ -149,13 +163,20 @@ public class Controller{
      * Stop the playling music
      */
     public void handleStop() {
-        if(selectedPlayableItem instanceof Music){
-            txtfldPlaying.setText("Playing: No music");
-            musicOperation.stop();
+        if(playlistOpration.getPlayingPlaylist() != null){
+            MediaPlayer mp = playlistOpration.getPlayingPlaylist().getCurrentPlaying();
+            if(mp.getStatus() == MediaPlayer.Status.PLAYING){
+                txtfldPlaying.setText("Playing: No music");
+                mp.stop();
+            }
         }
-        else if(selectedPlayableItem instanceof PlayList){
-            txtfldPlaying.setText("Playing: No music");
-            playlistOpration.stop();
+
+        if(musicOperation.playingMusic != null && musicOperation.playingMusic.getMediaPlayer() != null){
+            MediaPlayer mp = musicOperation.playingMusic.getMediaPlayer();
+            if(mp.getStatus() == MediaPlayer.Status.PLAYING){
+                txtfldPlaying.setText("Playing: No music");
+                mp.stop();
+            }
         }
     }
 
@@ -164,6 +185,7 @@ public class Controller{
      */
     public void handleNextSong(){
         if(selectedPlayableItem instanceof Music){
+            if(musicOperation.playingMusic == null) return;
             if(selectedMusic == null) {
                 System.out.println(" there is no music be selected !");
                 return;
@@ -252,7 +274,6 @@ public class Controller{
     public void handleListViewPlaylist(){
         selectPlaylist(showPlaylist);
 
-
         if(selectedPlaylist == null) {
             System.out.println(" there is no playlist be selected !");
             return;
@@ -264,6 +285,7 @@ public class Controller{
         for(String a : getitems){
             showInfo.getItems().add(a);
         }
+        showPlaylist.setEditable(true);
     }
 
 
