@@ -24,10 +24,8 @@ public class Main extends Application {
     final int RES_HEIGHT = 600;
 
     public static void main(String[] args) {
-        //launch(args);
+        launch(args);
 
-        Music m = new Music(2);
-        System.out.println(m.toString());
 
     }
 
