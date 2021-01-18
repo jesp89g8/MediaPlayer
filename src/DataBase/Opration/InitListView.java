@@ -28,14 +28,6 @@ public class InitListView {
         System.out.println("add all the playlist into the Playlist view...");
     }
 
-    public void initPlaylistInfo(PlayList selectedPlaylist,ListView<String> listView){
-        int playlistId = selectedPlaylist.getPlayListID();
-        ArrayList<Integer> musicID = new PlaylisInfoList().playListIdToSongId(playlistId);
-
-        String queryGetName = String.format("select fldMusicName from table_music where fldMusicID = %d",musicID);
-
-        insertIntoListview(queryGetName,listView);
-    }
     /**
      * Queries the database with a select statement and inserts the output
      * into the specified listview

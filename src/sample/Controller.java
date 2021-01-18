@@ -60,7 +60,6 @@ public class Controller{
          */
         initListView.initListviews(showMusic);
         initListView.initPlaylistview(showPlaylist);
-        //initListView.initPlaylistInfo(selectPlaylist(showPlaylist),showInfo);
 
         /*
          * load the search area and function
