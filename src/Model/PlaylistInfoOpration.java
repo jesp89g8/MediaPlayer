@@ -2,7 +2,7 @@ package Model;
 
 import DataBase.Opration.Music;
 import DataBase.Opration.PlayList;
-import DataBase.Opration.PlaylisInfoList;
+import DataBase.Opration.PlaylistInfoList;
 
 
 /**
@@ -12,7 +12,7 @@ import DataBase.Opration.PlaylisInfoList;
  * @ Description
  * @ Version
  */
-public class PlaylistInfoOpration extends PlaylisInfoList {
+public class PlaylistInfoOpration extends PlaylistInfoList {
 
     public void addToPlaylist(Music  selectedMusic, String selectedPlaylist){
         if(selectedMusic == null || selectedPlaylist == null) {

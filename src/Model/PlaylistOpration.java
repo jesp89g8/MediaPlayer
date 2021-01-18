@@ -1,15 +1,9 @@
 package Model;
 
 import DataBase.DBSetter.DB;
-import DataBase.Opration.Music;
 import DataBase.Opration.PlayList;
-import DataBase.Opration.Playable;
-import DataBase.Opration.PlaylisInfoList;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import javax.swing.text.html.ListView;
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +22,9 @@ public class PlaylistOpration extends PlayList{
         return this.playingPlaylist;
     }
 
+    public void setPlayingPlaylist(PlayList playingPlaylist) {
+        this.playingPlaylist = playingPlaylist;
+    }
 
     /**
      * Create an empty new playlist
@@ -85,6 +82,7 @@ public class PlaylistOpration extends PlayList{
     }
 
     public void pause() {
+        if(playingPlaylist == null) return;
         playingPlaylist.getCurrentPlaying().pause();
     }
 

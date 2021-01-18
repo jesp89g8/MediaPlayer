@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @ Version 0.1
  *
  */
-public class PlayList extends PlaylisInfoList implements Playable{
+public class PlayList extends PlaylistInfoList implements Playable{
     private int playListID;
     private String playListName;
 

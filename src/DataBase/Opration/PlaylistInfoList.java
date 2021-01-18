@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @ Version 0.1
  *
  */
-public class PlaylisInfoList{
+public class PlaylistInfoList {
     private int songList;
     private int playListID;
     private ArrayList<Integer> musicID = new ArrayList<>();
@@ -93,7 +93,12 @@ public class PlaylisInfoList{
             so it shouldn't have the songlistID
             then exception
          */
-        String findId = SQL.selectSQL(query).get(0);
+        ArrayList<String> musicId = SQL.selectSQL(query);
+        if(musicId.isEmpty()){
+            return 0;
+        }
+        String findId = musicId.get(0);
+
         if(findId == null){
             System.out.println("The music " + musicOperation.idToName(id) + " is not in the playlist " + playlistName);
             return 0 ;

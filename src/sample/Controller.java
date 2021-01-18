@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import DataBase.Opration.*;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class Controller{
 
 
     public MusicOperation musicOperation = new MusicOperation();
-    public PlaylistOpration playlistOpration = new PlaylistOpration();
+    public PlaylistOpration playlistOperation = new PlaylistOpration();
     public PlaylistInfoOpration playlistInfoOpration = new PlaylistInfoOpration();
 
 
@@ -142,7 +141,7 @@ public class Controller{
             }
 
             txtfldPlaying.setText("Playing: " + pl.getPlayListName());
-            playlistOpration.play(pl);
+            playlistOperation.play(pl);
         }
     }
 
@@ -154,7 +153,7 @@ public class Controller{
             musicOperation.pause();
         }
         else if(selectedPlayableItem instanceof PlayList){
-            playlistOpration.pause();
+            playlistOperation.pause();
         }
     }
 
@@ -162,19 +161,21 @@ public class Controller{
      * Stop the playling music
      */
     public void handleStop() {
-        if(playlistOpration.getPlayingPlaylist() != null){
-            MediaPlayer mp = playlistOpration.getPlayingPlaylist().getCurrentPlaying();
-            if(mp.getStatus() == MediaPlayer.Status.PLAYING){
+        if(playlistOperation.getPlayingPlaylist() != null){
+            MediaPlayer mp = playlistOperation.getPlayingPlaylist().getCurrentPlaying();
+            if(mp.getStatus() == MediaPlayer.Status.PLAYING || mp.getStatus() == MediaPlayer.Status.PAUSED){
                 txtfldPlaying.setText("Playing: No music");
                 mp.stop();
+                playlistOperation.setPlayingPlaylist(null);
             }
         }
 
         if(musicOperation.playingMusic != null && musicOperation.playingMusic.getMediaPlayer() != null){
             MediaPlayer mp = musicOperation.playingMusic.getMediaPlayer();
-            if(mp.getStatus() == MediaPlayer.Status.PLAYING){
+            if(mp.getStatus() == MediaPlayer.Status.PLAYING || mp.getStatus() == MediaPlayer.Status.PAUSED){
                 txtfldPlaying.setText("Playing: No music");
                 mp.stop();
+                musicOperation.playingMusic = null;
             }
         }
     }
@@ -193,7 +194,7 @@ public class Controller{
             txtfldPlaying.setText("Playing: " + musicOperation.playingMusic.getMusicName());
         }
         else if(selectedPlayableItem instanceof PlayList){
-            playlistOpration.next();
+            playlistOperation.next();
         }
     }
 
@@ -204,7 +205,7 @@ public class Controller{
      * Add the new playlist
      */
     public void handleNewPlayList(){
-        playlistOpration.newPlayList();
+        playlistOperation.newPlayList();
         showPlaylist.getItems().clear();
         initListView.initPlaylistview(showPlaylist);
     }
@@ -216,7 +217,7 @@ public class Controller{
 
         int index = showPlaylist.getSelectionModel().getSelectedIndex();
 
-        playlistOpration.deletePlaylist(selectedPlaylist);
+        playlistOperation.deletePlaylist(selectedPlaylist);
         showInfo.getItems().clear();
         showPlaylist.getItems().remove(index);
     }
@@ -228,7 +229,7 @@ public class Controller{
         String newName = editEvent.getNewValue();
         String oldName = showPlaylist.getItems().get(itemIndex);
 
-        boolean successNameChange = playlistOpration.editPlayListName(oldName,newName);
+        boolean successNameChange = playlistOperation.editPlayListName(oldName,newName);
 
         if(successNameChange){
             System.out.println(" The playlist name has been changed... from " +
@@ -341,7 +342,7 @@ public class Controller{
         int id = pl.nameToId(playListName);
         //System.out.println(id);
 
-        PlaylisInfoList sl = new PlaylisInfoList();
+        PlaylistInfoList sl = new PlaylistInfoList();
         Music music = new Music();
 
         ArrayList<Integer> al = sl.playListIdToSongId(id);

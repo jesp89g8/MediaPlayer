@@ -2,7 +2,7 @@ package Model;
 
 import DataBase.Opration.Music;
 import DataBase.Opration.PlayList;
-import DataBase.Opration.PlaylisInfoList;
+import DataBase.Opration.PlaylistInfoList;
 import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class SelectedOpration {
         int playlistID = selectedPlaylist.nameToId(selectedPlaylistName);
         selectedPlaylist.setPlayListID(playlistID);
 
-        ArrayList<Integer> musicIDs = new PlaylisInfoList().playListIdToSongId(playlistID);
+        ArrayList<Integer> musicIDs = new PlaylistInfoList().playListIdToSongId(playlistID);
         selectedPlaylist.setMusicID(musicIDs);
 
         ArrayList<String> musicPaths = getPlayListPaths(musicIDs);
