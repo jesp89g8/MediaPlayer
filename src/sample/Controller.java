@@ -26,10 +26,6 @@ import java.util.ArrayList;
 
 
 public class Controller{
-
-    @FXML
-    private Button  btnPlay,btnPause,btnStop,btnNewPlaylist,
-                    btnDeletePlaylist,btnAddToPlaylist,btnDeleteFromPlaylist,btnNextSong;
     @FXML
     private ComboBox<String> comboBoxSearchCriteria;
 
@@ -46,8 +42,8 @@ public class Controller{
 
 
     public MusicOperation musicOperation = new MusicOperation();
-    public PlaylistOpration playlistOperation = new PlaylistOpration();
-    public PlaylistInfoOpration playlistInfoOpration = new PlaylistInfoOpration();
+    public PlaylistOperation playlistOperation = new PlaylistOperation();
+    public PlaylistInfoOperation playlistInfoOperation = new PlaylistInfoOperation();
 
 
     /**
@@ -64,7 +60,6 @@ public class Controller{
          * load the search area and function
          */
         comboBoxSearchCriteria.getItems().addAll("Title","Artist");
-        //handleListViewMusic();  //???????? i don't see it is have some useful....
 
         /*
          * Load the playlist edit function
@@ -78,12 +73,12 @@ public class Controller{
      * @param listView means which list happen the select operation.
      */
     public void selectMusic(ListView<String> listView){
-        selectedPlayableItem = new SelectedOpration().selectedMusic(listView);
+        selectedPlayableItem = new SelectedOperation().selectedMusic(listView);
         if(selectedPlayableItem == null) return;
 
         selectedMusic = (Music) selectedPlayableItem;     //trans the selected item to Music object
         txtfldSelected.setText("Selected Music: " + selectedMusic.getMusicName());    // update the "selected: " text field
-        new LodingMediaPlay().lodingMediaPlay(selectedMusic);       // loading the play function for ready play selected music
+        new LoadingMediaPlay().lodingMediaPlay(selectedMusic);       // loading the play function for ready play selected music
     }
 
     /**
@@ -92,7 +87,7 @@ public class Controller{
      * @return which playlist been selected from the list of playlist //(showinfo)
      */
     public void selectPlaylist(ListView<String> listView){
-        selectedPlayableItem = new SelectedOpration().selectedPlaylist(listView);
+        selectedPlayableItem = new SelectedOperation().selectedPlaylist(listView);
         if(selectedPlayableItem == null) return;
         selectedPlaylist = (PlayList) selectedPlayableItem;     //trans the selected item to Music object
         txtfldSelected.setText("Selected Playlist: " + selectedPlaylist.getPlayListName());
@@ -105,10 +100,6 @@ public class Controller{
             showPlaylist.getSelectionModel().select(editedIndex);
         }
         showPlaylist.setEditable(false);
-    }
-
-    public void handlePlaylistMouseEntered(){
-
     }
 
     /* After this is the handle about play functional. */
@@ -245,7 +236,7 @@ public class Controller{
         String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
         if(selectedPlaylist == null) return;
 
-        playlistInfoOpration.addToPlaylist(selectedMusic,selectedPlaylist);
+        playlistInfoOperation.addToPlaylist(selectedMusic,selectedPlaylist);
         showInfo.getItems().clear();
         handleListViewPlaylist();
     }
@@ -255,7 +246,7 @@ public class Controller{
         String selectedPlaylist = showPlaylist.getSelectionModel().getSelectedItem();
         if(selectedPlaylist == null) return;
 
-        playlistInfoOpration.deleteFromPlaylist(selectedMusic,selectedPlaylist);
+        playlistInfoOperation.deleteFromPlaylist(selectedMusic,selectedPlaylist);
         showInfo.getItems().clear();
         handleListViewPlaylist();
     }

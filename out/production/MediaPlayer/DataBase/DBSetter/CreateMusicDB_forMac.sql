@@ -1,6 +1,13 @@
+/*Notice I use the DateGrip on mac for this script. but i need to implement this each part */
+/*So please execute between "go" query....*/
+
+
 CREATE DATABASE database_MusicLibrary;
+go
 
 use database_MusicLibrary;
+go
+
 
 create table table_music
 (

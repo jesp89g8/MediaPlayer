@@ -13,7 +13,7 @@ import java.io.File;
  * @ Description
  * @ Version
  */
-public class LodingMediaPlay {
+public class LoadingMediaPlay {
     String path;
     Media media;
     MediaPlayer mediaPlayer;

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @ Version 0.1
  *
  */
-public class PlaylistOpration extends PlayList{
+public class PlaylistOperation extends PlayList{
 
     PlayList playingPlaylist;
 

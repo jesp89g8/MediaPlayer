@@ -2,19 +2,19 @@ package Model;
 
 import DataBase.Opration.Music;
 import javafx.scene.control.ListView;
-import sample.Controller;
-
-import java.util.List;
 
 /**
  * @ Group Jesper Raheela Zia and Fei
  * @ create 2021-01-05-08.39
  * @ grade CS20_EASV_SØNDERBORG
- * @ Description This is the DB-Connecter which connect the Database and get result.
+ * @ Description
+ * This class provides the functions to play a music. These methods
+ * should have been implemented in the Music class, but since the Playable
+ * interface was created at a late time, this would have cost a lot of work
+ * and time.
  * @ Version 0.1
- *
  */
-public class MusicOperation extends LodingMediaPlay {
+public class MusicOperation extends LoadingMediaPlay {
 
     public Music playingMusic;
 
@@ -86,13 +86,5 @@ public class MusicOperation extends LodingMediaPlay {
 
         lodingMediaPlay(nextMusic);
         play(nextMusic);
-        /*
-        int nextId = selectedMusic.getId() + 1;
-       // String path = selectedMusic.idToPath(nextId);
-
-        Music nextMusic = new Music(nextId);
-        lodingMediaPlay(nextMusic);
-        // selectedMusic.setPath(path);
-        play(nextMusic);*/
     }
 }

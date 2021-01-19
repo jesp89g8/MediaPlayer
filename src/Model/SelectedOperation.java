@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @ Description
  * @ Version
  */
-public class SelectedOpration {
+public class SelectedOperation {
 
     public Music selectedMusic(ListView<String> listView){
         String selectedMusicName = listView.getSelectionModel().getSelectedItem();

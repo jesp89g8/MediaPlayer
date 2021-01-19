@@ -12,7 +12,7 @@ import DataBase.Opration.PlaylistInfoList;
  * @ Description
  * @ Version
  */
-public class PlaylistInfoOpration extends PlaylistInfoList {
+public class PlaylistInfoOperation extends PlaylistInfoList {
 
     public void addToPlaylist(Music  selectedMusic, String selectedPlaylist){
         if(selectedMusic == null || selectedPlaylist == null) {
