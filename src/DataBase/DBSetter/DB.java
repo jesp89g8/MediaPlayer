@@ -14,12 +14,6 @@ import java.util.Properties;
 
 /**
  * @author tha
- * @ Group Jesper Raheela Zia and Fei
- * @ Override by Fei Jesper Raheela Zia
- * @ create 2021-01-05-08.39
- * @ grade CS20_EASV_SØNDERBORG
- * @ Description This is the DB-Connecter which connect the Database and get result.
- * @ Version 0.1
  *
  */
 public class DB {

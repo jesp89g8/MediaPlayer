@@ -7,24 +7,21 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 /**
- * @ author Fei Gu
- * @ create 2021-01-14-13.34
- * @ grade CS20_EASV_SØNDERBORG
- * @ Description
- * @ Version
+ * This class holds the methods to load a selected music with a
+ * media player.
+ * @author Fei Gu
  */
 public class LoadingMediaPlay {
-    String path;
-    Media media;
-    MediaPlayer mediaPlayer;
+    String path;                // path for the music
+    Media media;                // media using the path
+    MediaPlayer mediaPlayer;    // media player using the media
 
-    public void lodingMediaPlay(Music selectedMusic){
-        path = new File(selectedMusic.getPath()).getAbsolutePath();    // get the absolute path of the music
-        media = new Media(new File(path).toURI().toString());   // initialize the media with the path
-        mediaPlayer = new MediaPlayer(media);                   // attach the media to a media player
+    public void loadingMediaPlay(Music selectedMusic){
+        path = new File(selectedMusic.getPath()).getAbsolutePath();     // get the absolute path of the music
+        media = new Media(new File(path).toURI().toString());           // initialize the media with the path
+        mediaPlayer = new MediaPlayer(media);                           // attach the media to a media player
 
-        selectedMusic.setMedia(media);
-        selectedMusic.setMediaPlayer(mediaPlayer);
-
+        selectedMusic.setMedia(media);              // set the selected musics media
+        selectedMusic.setMediaPlayer(mediaPlayer);  // set the selected musics media player
     }
 }

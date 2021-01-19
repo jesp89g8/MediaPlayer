@@ -6,15 +6,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 /**
- * @ Group Jesper Raheela Zia and Fei
- * @ create 2021-01-05-08.39
- * @ grade CS20_EASV_SØNDERBORG
- * @ Description This is the music class, which holds the database properties, and
+ * This is the music class, which holds the database properties, and
  * provides functionality to creating and initializing a music object.
  * It also implements the Playable interface, since this class should have access
  * to a play(), stop(), pause() and next() function
- * @ Version 0.1
- *
+ * @author Jesper Raheela Zia and Fei
  */
 public class Music implements Playable{
     private int id;

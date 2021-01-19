@@ -7,21 +7,29 @@ import javafx.scene.media.MediaPlayer;
 import java.util.ArrayList;
 
 /**
- * @ Group Jesper Raheela Zia and Fei
- * @ create 2021-01-05-08.39
- * @ grade CS20_EASV_SØNDERBORG
- * @ Description This is the playlist opration class which is oprate the playlist by add, delete, modify
- * @ Version 0.1
- *
+ * This playlist class "implements" the functionality a playable item should
+ * have "using" the Playable interface. Since the interface Playable was added
+ * quite late in the project span, it would therefore cost a lot of extra
+ * work and time to restructure the controller.java to be compatible with
+ * with the interface.
+ * The class is used also used for creating and deleting playlists.
+ * @author Jesper Raheela Zia and Fei
  */
 public class PlaylistOperation extends PlayList{
+    PlayList playingPlaylist;   // current playing playlist
 
-    PlayList playingPlaylist;
-
+    /**
+     * Gets the current playing playlist
+     * @return playing playlist
+     */
     public PlayList getPlayingPlaylist(){
         return this.playingPlaylist;
     }
 
+    /**
+     * Set the current playing playlist
+     * @param playingPlaylist the playlist to set to
+     */
     public void setPlayingPlaylist(PlayList playingPlaylist) {
         this.playingPlaylist = playingPlaylist;
     }
@@ -34,16 +42,23 @@ public class PlaylistOperation extends PlayList{
         addPlaylist("New Playlist " + (playListMaxID + 1));
     }
 
+    /**
+     * Deletes an existing playlist.
+     * @param selectedPlaylist selected playlist to delete
+     */
     public void deletePlaylist(String selectedPlaylist){
         if(selectedPlaylist == null) {
             System.out.println(" there is no playlist be selected !");
             return;
         }
-        deleteAllMusic(selectedPlaylist);
-        super.deletePlayList(selectedPlaylist);
+        deleteAllMusic(selectedPlaylist);       // delete all music from the playlist and playlist data from database
+        super.deletePlayList(selectedPlaylist); // delete the playlist
     }
 
-
+    /**
+     * Delete all music from the songlist table from Database
+     * @param selectedPlaylist  selected playlist
+     */
     public void deleteAllMusic(String selectedPlaylist){
         int playlistID = new PlayList().nameToId(selectedPlaylist);
 
@@ -51,6 +66,10 @@ public class PlaylistOperation extends PlayList{
         DB.deleteSQL(query);
     }
 
+    /**
+     * The play method, used to start playing the playlist
+     * @param selectedPlaylist  the playlist to start
+     */
     public void play(PlayList selectedPlaylist) {
         if(selectedPlaylist == null) {
             System.out.println("There is no playlist be selected.");
@@ -81,23 +100,40 @@ public class PlaylistOperation extends PlayList{
         }
     }
 
+    /**
+     * Pause the currently playing playlist
+     */
     public void pause() {
         if(playingPlaylist == null) return;
         playingPlaylist.getCurrentPlaying().pause();
     }
 
+    /**
+     * Stop the currently playing playlist
+     */
     public void stop() {
         playingPlaylist.getCurrentPlaying().stop();
     }
 
+    /**
+     * Start next song in the playlist
+     */
     public void next(){
+        // return if playing playlist is null
         if(playingPlaylist == null) return;
+
+        // get the current playing media player ArrayList
         ArrayList<MediaPlayer> currentMediaPlayer = playingPlaylist.getMediaPlayer();
+
+        // get the current playing media player index in the media player ArrayList
         int currentPlayingMediaPlayerIndex = currentMediaPlayer.indexOf(playingPlaylist.getCurrentPlaying());
+
+        // get the next media player in the media player ArrayList by adding 1 to current playing media player index
         MediaPlayer nextPlayer = currentMediaPlayer.get((currentPlayingMediaPlayerIndex + 1) % currentMediaPlayer.size());
 
-        playingPlaylist.getCurrentPlaying().stop();
-        playingPlaylist.setCurrentPlaying(nextPlayer);
-        playingPlaylist.getCurrentPlaying().play();
+
+        playingPlaylist.getCurrentPlaying().stop();     // stop the current playing media player
+        playingPlaylist.setCurrentPlaying(nextPlayer);  // set current player to next media player
+        playingPlaylist.getCurrentPlaying().play();     // start the new media player
     }
 }
