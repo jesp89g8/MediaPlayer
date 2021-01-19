@@ -13,6 +13,7 @@ create table table_music
     fldOffer     varchar(10),
     fldPath      varchar(200),
     fldLanguage  varchar(30)
+
 )
 
 create table table_Playlist

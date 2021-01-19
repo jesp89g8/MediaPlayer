@@ -55,10 +55,10 @@ public class Controller{
      */
     public void initialize(){
         /*
-         * load and show the three list on the scene.
+         * Load and show the two list on the scene.
          */
-        initListView.initListviews(showMusic);
-        initListView.initPlaylistview(showPlaylist);
+        initListView.initListviews(showMusic); // show the music list
+        initListView.initPlaylistview(showPlaylist);  // show the play list
 
         /*
          * load the search area and function
@@ -67,7 +67,7 @@ public class Controller{
         //handleListViewMusic();  //???????? i don't see it is have some useful....
 
         /*
-         * load the playlist edit function
+         * Load the playlist edit function
          */
         showPlaylist.setEditable(true);
         showPlaylist.setCellFactory(TextFieldListCell.forListView());
@@ -158,7 +158,7 @@ public class Controller{
     }
 
     /**
-     * Stop the playling music
+     * Stop the playing music
      */
     public void handleStop() {
         if(playlistOperation.getPlayingPlaylist() != null){
@@ -238,7 +238,7 @@ public class Controller{
         }
     }
 
-    /*  After this is the playlist info opration  */
+    /*  After this is the playlist info operation  */
 
     public void handleAddToPlaylist(){
         //String selectedMusic = showMusic.getSelectionModel().getSelectedItem();
@@ -308,7 +308,7 @@ public class Controller{
     }
 
     /**
-     * Handles the event from the search textfield and queries the database
+     * Handles the event from the search text field and queries the database
      * with a specified criteria. Updates the listviewSong with the songs
      * matching the search criteria.
      * @param e the event passed to the search
@@ -319,7 +319,7 @@ public class Controller{
         ArrayList<String> result;       // arraylist containing the result of songs from the search
 
         if(kEvent.getCode() == KeyCode.ENTER){              // if the user pressed enter
-            String searchString = txtfldSearch.getText();   // get the user search string from the search textfield
+            String searchString = txtfldSearch.getText();   // get the user search string from the search text field
 
             // query setup
             String query = String.format(
