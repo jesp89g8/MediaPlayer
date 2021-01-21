@@ -19,6 +19,10 @@ Ziaullah Hassan
 
 
 
+***Github link***
+
+> https://github.com/jesp89g8/MediaPlayer.git
+
 
 
 
@@ -82,7 +86,7 @@ The Desktop application with a GUI - The whole project is developed in IntelliJ 
 
 
 
-The functionality of the app
+#### The functionality of the app
 
   With our media player application, the user is able to 
 
@@ -95,6 +99,18 @@ The functionality of the app
 - search for songs by title or by artist.
 
 - edit/delete a playlist.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -205,6 +221,8 @@ If you wish to delete a song from your playlist, then click on the song you wish
 
 You can at any time delete a playlist by simply clicking on the playlist you wish to delete and then click on “Delete Playlist”
 
+
+
 #### Playing a song and a playlist
 
 ![img](vbRIVZ3TxBy3UbtuUsMx3apZO4XK24knIl59BeJwuku0dJVy_pft8Mrw3t5B8RueiT2SvU52JanF4YD5OczaQ6QqjlSaLLk2vAYTONSmUrcMP0gvthgTxsfvc16qZ7nvs6CsEWKR.png)
@@ -214,6 +232,20 @@ At any time, you can select a song from the song list or a playlist from the pla
 
 
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ##   Database description
 
@@ -271,6 +303,20 @@ This table contains these fields:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Implementation Details
 
 The project as a whole went well, since we were able to fulfill all of the requirements in the problem statement. During the span of the project, we were met with some difficulties with the setup of the database and github. Luckily those problems were solved early on, but it still cost us some time that could have been used somewhere else. 
@@ -311,6 +357,28 @@ This method accepts an implemented Runnable interface function object, which wil
 The Media Player currentPlaying will be assigned the next Media Player in the playlist, which is attached to the next song. Then the play function will be invoked on the nextPlayer, playing the music.
 
 The last and quite annoying problem was the amount of null pointer exceptions which occured in the code, when fiddling around with the buttons in the GUI. These exceptions were taken care of, by performing more checks for objects, which could be null.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Source Control
 
@@ -354,13 +422,12 @@ Maybe because the project is not necessary to compare with the history record. W
 
  
 
+
+
 ​       
 
  
 
 ## Github link
 
- 
-
 https://github.com/jesp89g8/MediaPlayer.git
-
