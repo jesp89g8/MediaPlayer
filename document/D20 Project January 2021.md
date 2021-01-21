@@ -98,6 +98,11 @@ The functionality of the app
 
 
 
+
+
+
+
+
 ## The Database
 
 The application is able to play and store music files in the formats .mp3.
@@ -106,15 +111,7 @@ All songs are placed physically in the media-folder inside the project.
 
 
 
-### The Songs Table
 
-This table contains these fields:
-
-- The file path to the media folder – inspect the controller code how the path is used to load the file into the MediaPlayer object.
-
-- The artist name.
-
-- The title of the song.
 
 ### Database Setup
 
@@ -255,6 +252,24 @@ The entities Music and SongList have 1 to Many relation, while between Songlist 
 A playlist is identified by a unique name i.e. in our case Chinese songs, Indian songs and English songs PlayList. These contain a sequence of songs in a specific order.
 
 All playlists saved in the database.
+
+
+
+#### The Music Table
+
+This table contains these fields:
+
+- The file path to the media folder – inspect the controller code how the path is used to load the file into the MediaPlayer object.
+
+- The artist name.
+
+- The title of the song.
+
+
+
+
+
+
 
 ## Implementation Details
 
