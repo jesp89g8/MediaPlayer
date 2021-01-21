@@ -11,14 +11,54 @@ My-music-player.
 
 
 
+**Written by** :
+Jesper Nielsen
+Fei Gu
+Raheela Tasneem
+Ziaullah Hassan
 
-Write by :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 [TOC]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30,7 +70,13 @@ We showed our process plan with the help of Data flow diagrams. We made Entity r
 
 
 
-## Requirement:
+
+
+
+
+
+
+## Requirement
 
 The Desktop application with a GUI - The whole project is developed in IntelliJ as a JavaFX project. - The GUI designer is SceneBuilder (via the .fxml file in the project). - The database used is SQL Server (also using the class DB.java)
 
@@ -60,7 +106,7 @@ All songs are placed physically in the media-folder inside the project.
 
 
 
-#### The Songs Table
+### The Songs Table
 
 This table contains these fields:
 
@@ -70,7 +116,7 @@ This table contains these fields:
 
 - The title of the song.
 
-#### Database Setup
+### Database Setup
 
 Setting up the database is a crucial requisite before the program can function properly. This quick guide will show how to set up the database using a generated script from our database. Make sure that the database name “database_MusicLibrary” is not currently in use.
 
@@ -102,13 +148,13 @@ There should be no errors, tested on windows
 
 
 
-#### User guide
+### User guide
 
 ![img](8H4spNiAVo0L8F7Qe22VQ3QqQUafraXlPbXTLbZb1o6z23lDPSLqdGAzhV1fnQv55N-igXx6aE0gKqIoIC4j54x44F3gLgRlAJP9Dw6WnCTubPY3MlfLgcImExOn-916Hq1_ikLb.png)
 
 The program visualizes a list of the current songs available for play in the Song Listview (left), an Info Listview (middle), which describes the selected playlist, and a Playlist Listview, which shows the available playlists.
 
-Showing playlist information
+#### Showing playlist information
 
 ![img](Pc0pSK42VUw2uz52IXbBWZPc8DDl863X5nkQhZZSHvqD7YpPAsh6Z4ATiIjpDusxxugaTRMEAHHQ0fAVkw6yyfoG6I04so_NNDTbJRFoZZmNVGa3mKGTY58vYSQBVGjxIyQc-bKS.png)
 
@@ -116,31 +162,31 @@ The picture above shows how the program displays the songs of a playlist in the 
 
 At the top there is a search bar, which can search the database for available songs. Currently the implemented search criterias are, search by title and artist. 
 
-Search for a specific song
+#### Search for a specific song
 
 ![img](zSttDrPqVRNrLuglVqyIuM2Hk6Cp6oRV6KOxI29xkU7_mDg2Lx4QNzSm2ceVW-J-ciarkiksxX2LG3p_BREsoP-lUpsUcVoIQigRan1B7gA_o8pIZ28eT0ijVaTHa1dxC6L1MEkn.png)
 
 The picture above shows a search for a song name with the search string “wind”.
 
-Search songs made by an artist
+#### Search songs made by an artist
 
 ![img](AYzvVLFYwFPnxje0U4VstdSJBoCncUWybfVzI8Ijhhk8A74nS8Xeldh4UGuODliWOJCUMlNR14pfHZm-MP3g9yXnOqgKzw4ITDz9_FiP5ojk-F3lKQ6hkcUVIMfLuqQJcRUpIZH_.png)
 
 The picture above shows a search by an artist, with the search string “khan”. The result is a list of the songs by this artist.
 
-Create a new playlist
+#### Create a new playlist
 
 ![img](R7MrEAPerkHMk4Fvnxbid1QipqW7TyXV-KoKCT7EdOPC1WvH1UNq72hM9ctfnkFKBoGCfEE0Kii-nMgj99OoI1df05LNJb-wbdhEGTRToWQ0NCz3of79atV2Wp6amiO0zaFjpXIQ.png)
 
 In the picture above, click the new playlist button, and a new playlist should appear in the playlist listview.
 
-Edit a playlist name
+#### Edit a playlist name
 
 ![img](6KVouYh6fYBUyLlvZ0Ne4NQOsFy5uKcV98IlBAvE6C7uOws7TC2ZoohYCHcXCvBdQIFIPMvYBX19ReLvbb2l7LqgqO4ZMmWEqp3f3L-7t1MrWcTGiEW6xSLeYVPo2HOZLAxr_RIo.png)
 
 Double click the name of the playlist, if you wish to change the name of it.
 
-Add music to playlist
+#### Add music to playlist
 
 ![img](c_oXoq3_qp-T3WYIoFYenEqt5tix69cxgmtb5klV5yZ26OEadHOz4BEn4T735OaEJKbJleAkM8h77ux-DhDq24Egt262EM7AhueURsnbCBHCJOPyP2DtggpKtwp3UR3Wb-GW-k9c.png)
 
@@ -148,7 +194,7 @@ Click the playlist you wish to add music to. Then click on the desired song in t
 
  
 
-Delete music from a playlist
+#### Delete music from a playlist
 
 ![img](Wvhej-KhA2CBu15JJ_xuGiNdzLl_FVfDbejUUqKbEYpbH0w8zqHM_tPA5fXwbjvvHsDaBWxNS6_DlllsY_IEhgUdAC9S8BxVSRGWFdtxotieEwHQrH55CLCzEepD5Pv-ANC-CLvo.png)
 
@@ -156,13 +202,13 @@ If you wish to delete a song from your playlist, then click on the song you wish
 
  
 
-Delete a playlist
+#### Delete a playlist
 
 ![img](nAzX2-FqIBnFnr_dIm6IOHep6l86pnMA90RVKyRT3ZY-X5-D5m8lFFXu_usn3XIgwm0ci2ZmR9LsEgkNUQxomDlJLNpAhX4x68gk_wzaY-4J-OjBMx5IFrhp-uXWuwQ0sF8ESCUq.png)
 
 You can at any time delete a playlist by simply clicking on the playlist you wish to delete and then click on “Delete Playlist”
 
-Playing a song and a playlist
+#### Playing a song and a playlist
 
 ![img](vbRIVZ3TxBy3UbtuUsMx3apZO4XK24knIl59BeJwuku0dJVy_pft8Mrw3t5B8RueiT2SvU52JanF4YD5OczaQ6QqjlSaLLk2vAYTONSmUrcMP0gvthgTxsfvc16qZ7nvs6CsEWKR.png)
 
@@ -180,31 +226,31 @@ At any time, you can select a song from the song list or a playlist from the pla
 
 ### The components and features of an ER diagram.
 
-Entity We have entities Music, SongList and PlayList here
+**Entity** We have entities Music, SongList and PlayList here
 
-Attributes
+**Attributes**
 
 There are seven fields mentioned in the tableMusic, but we use in our program MusicID, Music Name Artist and Path. Other attributes like Language, Type are just if you want to make further functionality in the app. In tableSongList we have SongListID, MusicID and PlayListID and in tablePlayList we have PlayListID.
 
-Entity keys: Refers to an attribute that uniquely defines an entity in an entity set.
+**Entity keys**: Refers to an attribute that uniquely defines an entity in an entity set.
 
-Primary key (PK): We have a candidate key that was chosen by the database designer to uniquely identify the entity set. For tableMusic we have fldMusicId as PK.
+**Primary key (PK)**: We have a candidate key that was chosen by the database designer to uniquely identify the entity set. For tableMusic we have fldMusicId as PK.
 
 For tableSongList we have fldSongListId as PK and for tablePlayList we have fldPlayListId as PK.
 
-Foreign key: We use FK that is used to identify the relationship between entities.
+**Foreign key**: We use FK that is used to identify the relationship between entities.
 
 In tableSongList we have fldMusicId as FK1 to have relation with table table Music and we have fldPlayListId as FK2 to have relation with tablePlayList
 
-Relationship
+#### Relationship
 
 We have entities Music, SongList and PlayList that act upon each other or are associated with each other. One Music or a song could have more Playlists while a Playlist can contain many songs.
 
-Cardinality
+#### Cardinality
 
 The entities Music and SongList have 1 to Many relation, while between Songlist and PlayList have Many to 1 cardinality
 
-The Playlist as Tables
+#### The Playlist as Tables
 
 A playlist is identified by a unique name i.e. in our case Chinese songs, Indian songs and English songs PlayList. These contain a sequence of songs in a specific order.
 
